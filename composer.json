@@ -1,0 +1,34 @@
+{
+  "name": "factorio-item-browser/api-client",
+  "description": "The API client of the Factorio Item Browser.",
+  "homepage": "https://www.factorio-item-browser.com/",
+  "type": "project",
+  "keywords": ["Factorio Item Browser", "FIB", "api", "client", "BluePsyduck"],
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "BluePsyduck",
+      "email": "bluepsyduck@gmx.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "FactorioItemBrowser\\Api\\Client\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FactorioItemBrowserTest\\Api\\Client\\": "tests/src/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit --colors=always --coverage-html=tests/log"
+  }
+}
