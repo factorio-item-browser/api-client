@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -88,5 +89,33 @@ class ItemTest extends TestCase
         $item = new Item();
         $item->setType('abc');
         $this->assertEquals('abc', $item->getTranslationType());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     */
+    public function testWriteAndReadData()
+    {
+        $item = new Item();
+        $item->setType('abc')
+             ->setName('def')
+             ->setLabel('ghi')
+             ->setDescription('jkl')
+             ->setAmount(13.37);
+
+        $expectedData = [
+            'type' => 'abc',
+            'name' => 'def',
+            'label' => 'ghi',
+            'description' => 'jkl',
+            'amount' => 13.37
+        ];
+
+        $data = $item->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newItem = new Item();
+        $this->assertEquals($newItem, $newItem->readData(new DataContainer($data)));
+        $this->assertEquals($newItem, $item);
     }
 }

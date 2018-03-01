@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +31,7 @@ class ModTest extends TestCase
         $this->assertEquals(false, $mod->getIsEnabled());
         $this->assertEquals('mod', $mod->getTranslationType());
     }
-    
+
     /**
      * Tests setting and getting the name.
      */
@@ -98,5 +99,35 @@ class ModTest extends TestCase
     {
         $mod = new Mod();
         $this->assertEquals('mod', $mod->getTranslationType());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     */
+    public function testWriteAndReadData()
+    {
+        $mod = new Mod();
+        $mod->setName('abc')
+            ->setLabel('def')
+            ->setDescription('ghi')
+            ->setAuthor('jkl')
+            ->setVersion('4.2.0')
+            ->setIsEnabled(true);
+
+        $expectedData = [
+            'name' => 'abc',
+            'label' => 'def',
+            'description' => 'ghi',
+            'author' => 'jkl',
+            'version' => '4.2.0',
+            'isEnabled' => true
+        ];
+
+        $data = $mod->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newMod = new Mod();
+        $this->assertEquals($newMod, $newMod->readData(new DataContainer($data)));
+        $this->assertEquals($newMod, $mod);
     }
 }

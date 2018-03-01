@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
+
 /**
  * The entity representing a recipe.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Recipe implements TranslatedEntityInterface
+class Recipe implements EntityInterface, TranslatedEntityInterface
 {
     /**
      * The type of the recipe.
@@ -227,5 +229,49 @@ class Recipe implements TranslatedEntityInterface
     public function getTranslationType(): string
     {
         return 'recipe';
+    }
+
+    /**
+     * Writes the entity data to an array.
+     * @return array
+     */
+    public function writeData(): array
+    {
+        return [
+            'type' => $this->type,
+            'name' => $this->name,
+            'label' => $this->label,
+            'description' => $this->description,
+            'ingredients' => array_map(function (Item $ingredient): array {
+                return $ingredient->writeData();
+            }, $this->ingredients),
+            'products' => array_map(function (Item $product): array {
+                return $product->writeData();
+            }, $this->products),
+            'craftingTime' => $this->craftingTime
+        ];
+    }
+
+    /**
+     * Reads the entity data.
+     * @param DataContainer $data
+     * @return $this
+     */
+    public function readData(DataContainer $data)
+    {
+        $this->type = $data->getString('type');
+        $this->name = $data->getString('name');
+        $this->label = $data->getString('label');
+        $this->description = $data->getString('description');
+        $this->ingredients = [];
+        foreach ($data->getObjectArray('ingredients') as $ingredientData) {
+            $this->ingredients[] = (new Item())->readData($ingredientData);
+        }
+        $this->products = [];
+        foreach ($data->getObjectArray('products') as $productData) {
+            $this->products[] = (new Item())->readData($productData);
+        }
+        $this->craftingTime = $data->getFloat('craftingTime');
+        return $this;
     }
 }
