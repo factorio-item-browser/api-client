@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
+
 /**
  * The entity representing the meta data of the responses.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Meta
+class Meta implements EntityInterface
 {
     /**
      * The status code of the response.
@@ -101,5 +103,36 @@ class Meta
     public function getMessages(): array
     {
         return $this->messages;
+    }
+
+    /**
+     * Writes the entity data to an array.
+     * @return array
+     */
+    public function writeData(): array
+    {
+        return [
+            'statusCode' => $this->statusCode,
+            'executionTime' => $this->executionTime,
+            'messages' => array_map(function (Message $message): array {
+                return $message->writeData();
+            }, $this->messages)
+        ];
+    }
+
+    /**
+     * Reads the entity data.
+     * @param DataContainer $data
+     * @return $this
+     */
+    public function readData(DataContainer $data)
+    {
+        $this->statusCode = $data->getInteger('statusCode');
+        $this->executionTime = $data->getFloat('executionTime');
+        $this->messages = [];
+        foreach ($data->getObjectArray('messages') as $messageData) {
+            $this->messages[] = (new Message())->readData($messageData);
+        }
+        return $this;
     }
 }

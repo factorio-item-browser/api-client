@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Constant\EntityGroup;
 
 /**
@@ -12,7 +13,7 @@ use FactorioItemBrowser\Api\Client\Constant\EntityGroup;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class EntityWithRecipes implements TranslatedEntityInterface
+class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
 {
     /**
      * The group of the entity.
@@ -190,5 +191,42 @@ class EntityWithRecipes implements TranslatedEntityInterface
     public function getTranslationType(): string
     {
         return ($this->group === EntityGroup::ITEM) ? $this->type : $this->group;
+    }
+
+    /**
+     * Writes the entity data to an array.
+     * @return array
+     */
+    public function writeData(): array
+    {
+        return [
+            'group' => $this->group,
+            'type' => $this->type,
+            'name' => $this->name,
+            'label' => $this->label,
+            'description' => $this->description,
+            'recipes' => array_map(function (Recipe $recipe): array {
+                return $recipe->writeData();
+            }, $this->recipes)
+        ];
+    }
+
+    /**
+     * Reads the entity data.
+     * @param DataContainer $data
+     * @return $this
+     */
+    public function readData(DataContainer $data)
+    {
+        $this->group = $data->getString('group');
+        $this->type = $data->getString('type');
+        $this->name = $data->getString('name');
+        $this->label = $data->getString('label');
+        $this->description = $data->getString('description');
+        $this->recipes = [];
+        foreach ($data->getObjectArray('recipes') as $recipeData) {
+            $this->recipes[] = (new Recipe())->readData($recipeData);
+        }
+        return $this;
     }
 }

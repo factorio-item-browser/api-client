@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\EntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
@@ -129,5 +130,60 @@ class EntityWithRecipesTest extends TestCase
         $entity->setGroup($group)
                ->setType($type);
         $this->assertEquals($expectedResult, $entity->getTranslationType());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     */
+    public function testWriteAndReadData()
+    {
+        $recipe1 = new Recipe();
+        $recipe1->setType('r1');
+        $recipe2 = new Recipe();
+        $recipe2->setType('r2');
+
+        $entity = new EntityWithRecipes();
+        $entity->setGroup('abc')
+               ->setType('def')
+               ->setName('ghi')
+               ->setLabel('jkl')
+               ->setDescription('mno')
+               ->addRecipe($recipe1)
+               ->addRecipe($recipe2);
+
+        $expectedData = [
+            'group' => 'abc',
+            'type' => 'def',
+            'name' => 'ghi',
+            'label' => 'jkl',
+            'description' => 'mno',
+            'recipes' => [
+                [
+                    'type' => 'r1',
+                    'name' => '',
+                    'label' => '',
+                    'description' => '',
+                    'ingredients' => [],
+                    'products' => [],
+                    'craftingTime' => 0.
+                ],
+                [
+                    'type' => 'r2',
+                    'name' => '',
+                    'label' => '',
+                    'description' => '',
+                    'ingredients' => [],
+                    'products' => [],
+                    'craftingTime' => 0.
+                ],
+            ]
+        ];
+
+        $data = $entity->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newEntity = new EntityWithRecipes();
+        $this->assertEquals($newEntity, $newEntity->readData(new DataContainer($data)));
+        $this->assertEquals($newEntity, $entity);
     }
 }

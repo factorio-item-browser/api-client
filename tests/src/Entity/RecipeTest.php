@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use PHPUnit\Framework\TestCase;
@@ -122,7 +123,7 @@ class RecipeTest extends TestCase
         $this->assertEquals($recipe, $recipe->setCraftingTime(13.37));
         $this->assertEquals(13.37, $recipe->getCraftingTime());
     }
-    
+
     /**
      * Tests getting the translation type.
      */
@@ -130,5 +131,54 @@ class RecipeTest extends TestCase
     {
         $recipe = new Recipe();
         $this->assertEquals('recipe', $recipe->getTranslationType());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     */
+    public function testWriteAndReadData()
+    {
+        $item1 = new Item();
+        $item1->setType('i1');
+        $item2 = new Item();
+        $item2->setType('i2');
+        $item3 = new Item();
+        $item3->setType('i3');
+        $item4 = new Item();
+        $item4->setType('i4');
+
+        $recipe = new Recipe();
+        $recipe->setType('abc')
+               ->setName('def')
+               ->setLabel('ghi')
+               ->setDescription('jkl')
+               ->addIngredient($item1)
+               ->addIngredient($item2)
+               ->addProduct($item3)
+               ->addProduct($item4)
+               ->setCraftingTime(13.37);
+
+        $expectedData = [
+            'type' => 'abc',
+            'name' => 'def',
+            'label' => 'ghi',
+            'description' => 'jkl',
+            'ingredients' => [
+                ['type' => 'i1', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0],
+                ['type' => 'i2', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0]
+            ],
+            'products' => [
+                ['type' => 'i3', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0],
+                ['type' => 'i4', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0]
+            ],
+            'craftingTime' => 13.37
+        ];
+
+        $data = $recipe->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newRecipe = new Recipe();
+        $this->assertEquals($newRecipe, $newRecipe->readData(new DataContainer($data)));
+        $this->assertEquals($newRecipe, $recipe);
     }
 }

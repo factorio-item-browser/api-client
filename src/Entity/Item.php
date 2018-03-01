@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
+
 /**
  * The entity representing an actual item or fluid.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Item implements TranslatedEntityInterface
+class Item implements EntityInterface, TranslatedEntityInterface
 {
     /**
      * The type of the item.
@@ -149,5 +151,35 @@ class Item implements TranslatedEntityInterface
     public function getTranslationType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * Writes the entity data to an array.
+     * @return array
+     */
+    public function writeData(): array
+    {
+        return [
+            'type' => $this->type,
+            'name' => $this->name,
+            'label' => $this->label,
+            'description' => $this->description,
+            'amount' => $this->amount
+        ];
+    }
+
+    /**
+     * Reads the entity data.
+     * @param DataContainer $data
+     * @return $this
+     */
+    public function readData(DataContainer $data)
+    {
+        $this->type = $data->getString('type');
+        $this->name = $data->getString('name');
+        $this->label = $data->getString('label');
+        $this->description = $data->getString('description');
+        $this->amount = $data->getFloat('amount');
+        return $this;
     }
 }

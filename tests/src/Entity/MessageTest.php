@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Message;
 use PHPUnit\Framework\TestCase;
 
@@ -44,5 +45,27 @@ class MessageTest extends TestCase
         $message = new Message();
         $this->assertEquals($message, $message->setMessage('abc'));
         $this->assertEquals('abc', $message->getMessage());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     */
+    public function testWriteAndReadData()
+    {
+        $message = new Message();
+        $message->setType('abc')
+                ->setMessage('def');
+
+        $expectedData = [
+            'type' => 'abc',
+            'message' => 'def'
+        ];
+
+        $data = $message->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newMessage = new Message();
+        $this->assertEquals($newMessage, $newMessage->readData(new DataContainer($data)));
+        $this->assertEquals($newMessage, $message);
     }
 }
