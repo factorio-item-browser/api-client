@@ -15,16 +15,16 @@ use BluePsyduck\Common\Data\DataContainer;
 class Recipe implements EntityInterface, TranslatedEntityInterface
 {
     /**
-     * The type of the recipe.
-     * @var string
-     */
-    protected $type = '';
-
-    /**
      * The name of the recipe.
      * @var string
      */
     protected $name = '';
+
+    /**
+     * The mode of the recipe.
+     * @var string
+     */
+    protected $mode = '';
 
     /**
      * The translated label of the recipe.
@@ -57,23 +57,12 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     protected $craftingTime = 0.;
 
     /**
-     * Sets the type of the recipe.
-     * @param string $type
-     * @return $this Implementing fluent interface.
-     */
-    public function setType(string $type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * Returns the type of the recipe.
+     * Returns the type of the entity.
      * @return string
      */
     public function getType(): string
     {
-        return $this->type;
+        return 'recipe';
     }
 
     /**
@@ -94,6 +83,26 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * Sets the mode of the recipe.
+     * @param string $mode
+     * @return $this Implementing fluent interface.
+     */
+    public function setMode(string $mode)
+    {
+        $this->mode = $mode;
+        return $this;
+    }
+
+    /**
+     * Returns the mode of the recipe.
+     * @return string
+     */
+    public function getMode(): string
+    {
+        return $this->mode;
     }
 
     /**
@@ -223,22 +232,13 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     }
 
     /**
-     * Returns the translation type of the entity.
-     * @return string
-     */
-    public function getTranslationType(): string
-    {
-        return 'recipe';
-    }
-
-    /**
      * Writes the entity data to an array.
      * @return array
      */
     public function writeData(): array
     {
         return [
-            'type' => $this->type,
+            'mode' => $this->mode,
             'name' => $this->name,
             'label' => $this->label,
             'description' => $this->description,
@@ -259,7 +259,7 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
      */
     public function readData(DataContainer $data)
     {
-        $this->type = $data->getString('type');
+        $this->mode = $data->getString('mode');
         $this->name = $data->getString('name');
         $this->label = $data->getString('label');
         $this->description = $data->getString('description');

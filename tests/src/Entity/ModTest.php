@@ -23,13 +23,22 @@ class ModTest extends TestCase
     public function testConstruct()
     {
         $mod = new Mod();
+        $this->assertEquals('mod', $mod->getType());
         $this->assertEquals('', $mod->getName());
         $this->assertEquals('', $mod->getLabel());
         $this->assertEquals('', $mod->getDescription());
         $this->assertEquals('', $mod->getAuthor());
         $this->assertEquals('', $mod->getVersion());
         $this->assertEquals(false, $mod->getIsEnabled());
-        $this->assertEquals('mod', $mod->getTranslationType());
+    }
+
+    /**
+     * Tests getting the type.
+     */
+    public function testGetType()
+    {
+        $mod = new Mod();
+        $this->assertEquals('mod', $mod->getType());
     }
 
     /**
@@ -90,15 +99,6 @@ class ModTest extends TestCase
         $mod = new Mod();
         $this->assertEquals($mod, $mod->setIsEnabled(true));
         $this->assertEquals(true, $mod->getIsEnabled());
-    }
-
-    /**
-     * Tests getting the translation type.
-     */
-    public function testGetTranslationType()
-    {
-        $mod = new Mod();
-        $this->assertEquals('mod', $mod->getTranslationType());
     }
 
     /**

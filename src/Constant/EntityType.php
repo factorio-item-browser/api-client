@@ -5,20 +5,25 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Constant;
 
 /**
- * The types of the items.
+ * The groups of the entities.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemType
+class EntityType
 {
     /**
      * The item is an actual item you can hold in the hand. Theoretically.
      */
-    const ITEM = EntityType::ITEM;
+    const ITEM = 'item';
 
     /**
      * The item is actually a fluid. Or a gas.
      */
-    const FLUID = EntityType::FLUID;
+    const FLUID = 'fluid';
+
+    /**
+     * The entity is a recipe. It shows how to craft something into something else.
+     */
+    const RECIPE = 'recipe';
 }

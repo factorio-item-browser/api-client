@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Constant;
 
 /**
- * The groups of the entities.
+ * The modes of the recipes.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class EntityGroup
+class RecipeMode
 {
     /**
-     * The entity is an item.
+     * The recipe is used in normal mode, or if no expensive version exists.
      */
-    const ITEM = 'item';
+    const NORMAL = 'normal';
 
     /**
-     * The entity is a recipe.
+     * The recipe is used in expensive mode.
      */
-    const RECIPE = 'recipe';
+    const EXPENSIVE = 'expensive';
 }
