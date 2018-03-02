@@ -145,15 +145,6 @@ class Item implements EntityInterface, TranslatedEntityInterface
     }
 
     /**
-     * Returns the translation type of the entity.
-     * @return string
-     */
-    public function getTranslationType(): string
-    {
-        return $this->type;
-    }
-
-    /**
      * Writes the entity data to an array.
      * @return array
      */

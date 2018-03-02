@@ -13,10 +13,10 @@ namespace FactorioItemBrowser\Api\Client\Entity;
 interface TranslatedEntityInterface
 {
     /**
-     * Returns the translation type of the entity.
+     * Returns the type of the entity.
      * @return string
      */
-    public function getTranslationType(): string;
+    public function getType(): string;
 
     /**
      * Returns the name of the entity.

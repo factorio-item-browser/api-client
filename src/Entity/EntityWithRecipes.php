@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Constant\EntityGroup;
 
 /**
  * The class representing a generic entity containing recipes.
@@ -15,12 +14,6 @@ use FactorioItemBrowser\Api\Client\Constant\EntityGroup;
  */
 class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
 {
-    /**
-     * The group of the entity.
-     * @var string
-     */
-    protected $group = '';
-
     /**
      * The type of the entity.
      * @var string
@@ -50,26 +43,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
      * @var array|Recipe[]
      */
     protected $recipes = [];
-
-    /**
-     * Sets the group of the entity.
-     * @param string $group
-     * @return $this Implementing fluent interface.
-     */
-    public function setGroup(string $group)
-    {
-        $this->group = $group;
-        return $this;
-    }
-
-    /**
-     * Returns the group of the entity.
-     * @return string
-     */
-    public function getGroup(): string
-    {
-        return $this->group;
-    }
 
     /**
      * Sets the type of the entity.
@@ -185,22 +158,12 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
     }
 
     /**
-     * Returns the translation type of the entity.
-     * @return string
-     */
-    public function getTranslationType(): string
-    {
-        return ($this->group === EntityGroup::ITEM) ? $this->type : $this->group;
-    }
-
-    /**
      * Writes the entity data to an array.
      * @return array
      */
     public function writeData(): array
     {
         return [
-            'group' => $this->group,
             'type' => $this->type,
             'name' => $this->name,
             'label' => $this->label,
@@ -218,7 +181,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
      */
     public function readData(DataContainer $data)
     {
-        $this->group = $data->getString('group');
         $this->type = $data->getString('type');
         $this->name = $data->getString('name');
         $this->label = $data->getString('label');

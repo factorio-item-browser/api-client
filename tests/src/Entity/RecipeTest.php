@@ -24,24 +24,23 @@ class RecipeTest extends TestCase
     public function testConstruct()
     {
         $recipe = new Recipe();
-        $this->assertEquals('', $recipe->getType());
+        $this->assertEquals('recipe', $recipe->getType());
         $this->assertEquals('', $recipe->getName());
+        $this->assertEquals('', $recipe->getMode());
         $this->assertEquals('', $recipe->getLabel());
         $this->assertEquals('', $recipe->getDescription());
         $this->assertEquals([], $recipe->getIngredients());
         $this->assertEquals([], $recipe->getProducts());
         $this->assertEquals(0., $recipe->getCraftingTime());
-        $this->assertEquals('recipe', $recipe->getTranslationType());
     }
 
     /**
-     * Tests setting and getting the type.
+     * Tests getting the type.
      */
-    public function testSetAndGetType()
+    public function testGetType()
     {
         $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setType('abc'));
-        $this->assertEquals('abc', $recipe->getType());
+        $this->assertEquals('recipe', $recipe->getType());
     }
 
     /**
@@ -52,6 +51,16 @@ class RecipeTest extends TestCase
         $recipe = new Recipe();
         $this->assertEquals($recipe, $recipe->setName('abc'));
         $this->assertEquals('abc', $recipe->getName());
+    }
+
+    /**
+     * Tests setting and getting the mode.
+     */
+    public function testSetAndGetMode()
+    {
+        $recipe = new Recipe();
+        $this->assertEquals($recipe, $recipe->setMode('abc'));
+        $this->assertEquals('abc', $recipe->getMode());
     }
 
     /**
@@ -125,15 +134,6 @@ class RecipeTest extends TestCase
     }
 
     /**
-     * Tests getting the translation type.
-     */
-    public function testGetTranslationType()
-    {
-        $recipe = new Recipe();
-        $this->assertEquals('recipe', $recipe->getTranslationType());
-    }
-
-    /**
      * Tests writing and reading the data.
      */
     public function testWriteAndReadData()
@@ -148,8 +148,8 @@ class RecipeTest extends TestCase
         $item4->setType('i4');
 
         $recipe = new Recipe();
-        $recipe->setType('abc')
-               ->setName('def')
+        $recipe->setName('abc')
+               ->setMode('def')
                ->setLabel('ghi')
                ->setDescription('jkl')
                ->addIngredient($item1)
@@ -159,8 +159,8 @@ class RecipeTest extends TestCase
                ->setCraftingTime(13.37);
 
         $expectedData = [
-            'type' => 'abc',
-            'name' => 'def',
+            'name' => 'abc',
+            'mode' => 'def',
             'label' => 'ghi',
             'description' => 'jkl',
             'ingredients' => [

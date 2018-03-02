@@ -28,7 +28,6 @@ class ItemTest extends TestCase
         $this->assertEquals('', $item->getLabel());
         $this->assertEquals('', $item->getDescription());
         $this->assertEquals(0., $item->getAmount());
-        $this->assertEquals('', $item->getTranslationType());
     }
 
     /**
@@ -79,16 +78,6 @@ class ItemTest extends TestCase
         $item = new Item();
         $this->assertEquals($item, $item->setAmount(13.37));
         $this->assertEquals(13.37, $item->getAmount());
-    }
-
-    /**
-     * Tests getting the translation type.
-     */
-    public function testGetTranslationType()
-    {
-        $item = new Item();
-        $item->setType('abc');
-        $this->assertEquals('abc', $item->getTranslationType());
     }
 
     /**

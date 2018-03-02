@@ -51,6 +51,15 @@ class Mod implements EntityInterface, TranslatedEntityInterface
     protected $isEnabled = false;
 
     /**
+     * Returns the type of the entity.
+     * @return string
+     */
+    public function getType(): string
+    {
+        return 'mod';
+    }
+
+    /**
      * Sets the name of the mod.
      * @param string $name
      * @return $this Implementing fluent interface.
@@ -168,15 +177,6 @@ class Mod implements EntityInterface, TranslatedEntityInterface
     public function getIsEnabled(): bool
     {
         return $this->isEnabled;
-    }
-
-    /**
-     * Returns the translation type of the entity.
-     * @return string
-     */
-    public function getTranslationType(): string
-    {
-        return 'mod';
     }
 
     /**

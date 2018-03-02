@@ -25,23 +25,11 @@ class EntityWithRecipesTest extends TestCase
     public function testConstruct()
     {
         $entity = new EntityWithRecipes();
-        $this->assertEquals('', $entity->getGroup());
         $this->assertEquals('', $entity->getType());
         $this->assertEquals('', $entity->getName());
         $this->assertEquals('', $entity->getLabel());
         $this->assertEquals('', $entity->getDescription());
         $this->assertEquals([], $entity->getRecipes());
-        $this->assertEquals('', $entity->getTranslationType());
-    }
-
-    /**
-     * Tests setting and getting the group.
-     */
-    public function testSetAndGetGroup()
-    {
-        $entity = new EntityWithRecipes();
-        $this->assertEquals($entity, $entity->setGroup('abc'));
-        $this->assertEquals('abc', $entity->getGroup());
     }
 
     /**
@@ -90,11 +78,11 @@ class EntityWithRecipesTest extends TestCase
     public function testSetAddAndGetRecipes()
     {
         $recipe1 = new Recipe();
-        $recipe1->setType('abc');
+        $recipe1->setMode('abc');
         $recipe2 = new Recipe();
-        $recipe2->setType('def');
+        $recipe2->setMode('def');
         $recipe3 = new Recipe();
-        $recipe3->setType('ghi');
+        $recipe3->setMode('ghi');
 
         $entity = new EntityWithRecipes();
         $this->assertEquals($entity, $entity->setRecipes([$recipe1, new Item(), $recipe2]));
@@ -105,61 +93,31 @@ class EntityWithRecipesTest extends TestCase
     }
 
     /**
-     * Provides the data for the getTranslationType() test.
-     */
-    public function provideGetTranslationType(): array
-    {
-        return [
-            ['item', 'item', 'item'],
-            ['item', 'fluid', 'fluid'],
-            ['recipe', 'normal', 'recipe'],
-            ['recipe', 'expensive', 'recipe'],
-        ];
-    }
-
-    /**
-     * Tests getting the translation type.
-     * @param string $group
-     * @param string $type
-     * @param string $expectedResult
-     * @dataProvider provideGetTranslationType
-     */
-    public function testGetTranslationType(string $group, string $type, string $expectedResult)
-    {
-        $entity = new EntityWithRecipes();
-        $entity->setGroup($group)
-               ->setType($type);
-        $this->assertEquals($expectedResult, $entity->getTranslationType());
-    }
-
-    /**
      * Tests writing and reading the data.
      */
     public function testWriteAndReadData()
     {
         $recipe1 = new Recipe();
-        $recipe1->setType('r1');
+        $recipe1->setMode('r1');
         $recipe2 = new Recipe();
-        $recipe2->setType('r2');
+        $recipe2->setMode('r2');
 
         $entity = new EntityWithRecipes();
-        $entity->setGroup('abc')
-               ->setType('def')
-               ->setName('ghi')
-               ->setLabel('jkl')
-               ->setDescription('mno')
+        $entity->setType('abc')
+               ->setName('def')
+               ->setLabel('ghi')
+               ->setDescription('jkl')
                ->addRecipe($recipe1)
                ->addRecipe($recipe2);
 
         $expectedData = [
-            'group' => 'abc',
-            'type' => 'def',
-            'name' => 'ghi',
-            'label' => 'jkl',
-            'description' => 'mno',
+            'type' => 'abc',
+            'name' => 'def',
+            'label' => 'ghi',
+            'description' => 'jkl',
             'recipes' => [
                 [
-                    'type' => 'r1',
+                    'mode' => 'r1',
                     'name' => '',
                     'label' => '',
                     'description' => '',
@@ -168,7 +126,7 @@ class EntityWithRecipesTest extends TestCase
                     'craftingTime' => 0.
                 ],
                 [
-                    'type' => 'r2',
+                    'mode' => 'r2',
                     'name' => '',
                     'label' => '',
                     'description' => '',
