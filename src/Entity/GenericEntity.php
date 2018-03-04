@@ -7,12 +7,12 @@ namespace FactorioItemBrowser\Api\Client\Entity;
 use BluePsyduck\Common\Data\DataContainer;
 
 /**
- * The class representing a generic entity containing recipes.
+ * The class representing a generic entity holding basic information.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
+class GenericEntity implements EntityInterface, TranslatedEntityInterface
 {
     /**
      * The type of the entity.
@@ -37,12 +37,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
      * @var string
      */
     protected $description = '';
-
-    /**
-     * The recipes of the entity.
-     * @var array|Recipe[]
-     */
-    protected $recipes = [];
 
     /**
      * Sets the type of the entity.
@@ -125,39 +119,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
     }
 
     /**
-     * Sets the recipes of the entity.
-     * @param array|Recipe[] $recipes
-     * @return $this Implementing fluent interface.
-     */
-    public function setRecipes(array $recipes)
-    {
-        $this->recipes = array_values(array_filter($recipes, function ($recipe): bool {
-            return $recipe instanceof Recipe;
-        }));
-        return $this;
-    }
-
-    /**
-     * Adds a recipe to the entity.
-     * @param Recipe $recipe
-     * @return $this
-     */
-    public function addRecipe(Recipe $recipe)
-    {
-        $this->recipes[] = $recipe;
-        return $this;
-    }
-
-    /**
-     * Returns the recipes of the entity.
-     * @return array|Recipe[]
-     */
-    public function getRecipes(): array
-    {
-        return $this->recipes;
-    }
-
-    /**
      * Writes the entity data to an array.
      * @return array
      */
@@ -168,9 +129,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
             'name' => $this->name,
             'label' => $this->label,
             'description' => $this->description,
-            'recipes' => array_map(function (Recipe $recipe): array {
-                return $recipe->writeData();
-            }, $this->recipes)
         ];
     }
 
@@ -185,10 +143,6 @@ class EntityWithRecipes implements EntityInterface, TranslatedEntityInterface
         $this->name = $data->getString('name');
         $this->label = $data->getString('label');
         $this->description = $data->getString('description');
-        $this->recipes = [];
-        foreach ($data->getObjectArray('recipes') as $recipeData) {
-            $this->recipes[] = (new Recipe())->readData($recipeData);
-        }
         return $this;
     }
 }
