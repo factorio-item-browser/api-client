@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Entity\Message;
 use FactorioItemBrowser\Api\Client\Entity\Meta;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +25,7 @@ class MetaTest extends TestCase
         $meta = new Meta();
         $this->assertEquals(0, $meta->getStatusCode());
         $this->assertEquals(0., $meta->getExecutionTime());
-        $this->assertEquals([], $meta->getMessages());
+        $this->assertEquals('', $meta->getErrorMessage());
     }
 
     /**
@@ -50,48 +49,30 @@ class MetaTest extends TestCase
     }
 
     /**
-     * Tests setting, adding and getting the messages.
+     * Tests setting and getting the error message.
      */
-    public function testSetAddAndGetMessages()
+    public function testSetAndGetErrorMessage()
     {
-        $message1 = new Message();
-        $message1->setType('abc');
-        $message2 = new Message();
-        $message2->setType('def');
-        $message3 = new Message();
-        $message3->setType('ghi');
-
         $meta = new Meta();
-        $this->assertEquals($meta, $meta->setMessages([$message1, new Meta(), $message2]));
-        $this->assertEquals([$message1, $message2], $meta->getMessages());
-
-        $this->assertEquals($meta, $meta->addMessage($message3));
-        $this->assertEquals([$message1, $message2, $message3], $meta->getMessages());
+        $this->assertEquals($meta, $meta->setErrorMessage('abc'));
+        $this->assertEquals('abc', $meta->getErrorMessage());
     }
+
 
     /**
      * Tests writing and reading the data.
      */
     public function testWriteAndReadData()
     {
-        $message1 = new Message();
-        $message1->setType('abc');
-        $message2 = new Message();
-        $message2->setType('def');
-
         $meta = new Meta();
         $meta->setStatusCode(123)
              ->setExecutionTime(13.37)
-             ->addMessage($message1)
-             ->addMessage($message2);
+             ->setErrorMessage('abc');
 
         $expectedData = [
             'statusCode' => 123,
             'executionTime' => 13.37,
-            'messages' => [
-                ['type' => 'abc', 'message' => ''],
-                ['type' => 'def', 'message' => ''],
-            ]
+            'errorMessage' => 'abc'
         ];
 
         $data = $meta->writeData();
