@@ -27,10 +27,10 @@ class Meta implements EntityInterface
     protected $executionTime = 0.;
 
     /**
-     * The messages of the response.
-     * @var array|Message[]
+     * The error message in case one occurred.
+     * @var string
      */
-    protected $messages = [];
+    protected $errorMessage = '';
 
     /**
      * Sets the status code of the response.
@@ -73,36 +73,23 @@ class Meta implements EntityInterface
     }
 
     /**
-     * Sets the messages of the response.
-     * @param array|Message[] $messages
+     * Sets the error message in case one occurred.
+     * @param string $errorMessage
      * @return $this Implementing fluent interface.
      */
-    public function setMessages(array $messages)
+    public function setErrorMessage(string $errorMessage)
     {
-        $this->messages = array_values(array_filter($messages, function ($message): bool {
-            return $message instanceof Message;
-        }));
+        $this->errorMessage = $errorMessage;
         return $this;
     }
 
     /**
-     * Adds a message to the meta entity.
-     * @param Message $message
-     * @return $this
+     * Returns the error message in case one occurred.
+     * @return string
      */
-    public function addMessage(Message $message)
+    public function getErrorMessage(): string
     {
-        $this->messages[] = $message;
-        return $this;
-    }
-
-    /**
-     * Returns the messages of the response.
-     * @return array|Message[]
-     */
-    public function getMessages(): array
-    {
-        return $this->messages;
+        return $this->errorMessage;
     }
 
     /**
@@ -114,9 +101,7 @@ class Meta implements EntityInterface
         return [
             'statusCode' => $this->statusCode,
             'executionTime' => $this->executionTime,
-            'messages' => array_map(function (Message $message): array {
-                return $message->writeData();
-            }, $this->messages)
+            'errorMessage' => $this->errorMessage,
         ];
     }
 
@@ -129,10 +114,7 @@ class Meta implements EntityInterface
     {
         $this->statusCode = $data->getInteger('statusCode');
         $this->executionTime = $data->getFloat('executionTime');
-        $this->messages = [];
-        foreach ($data->getObjectArray('messages') as $messageData) {
-            $this->messages[] = (new Message())->readData($messageData);
-        }
+        $this->errorMessage = $data->getString('errorMessage');
         return $this;
     }
 }
