@@ -238,8 +238,8 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     public function writeData(): array
     {
         return [
-            'mode' => $this->mode,
             'name' => $this->name,
+            'mode' => $this->mode,
             'label' => $this->label,
             'description' => $this->description,
             'ingredients' => array_map(function (Item $ingredient): array {
@@ -259,8 +259,8 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
      */
     public function readData(DataContainer $data)
     {
-        $this->mode = $data->getString('mode');
         $this->name = $data->getString('name');
+        $this->mode = $data->getString('mode');
         $this->label = $data->getString('label');
         $this->description = $data->getString('description');
         $this->ingredients = [];

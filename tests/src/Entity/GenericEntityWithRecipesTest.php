@@ -77,8 +77,8 @@ class GenericEntityWithRecipesTest extends TestCase
             'description' => 'jkl',
             'recipes' => [
                 [
-                    'mode' => 'r1',
                     'name' => '',
+                    'mode' => 'r1',
                     'label' => '',
                     'description' => '',
                     'ingredients' => [],
@@ -86,8 +86,8 @@ class GenericEntityWithRecipesTest extends TestCase
                     'craftingTime' => 0.
                 ],
                 [
-                    'mode' => 'r2',
                     'name' => '',
+                    'mode' => 'r2',
                     'label' => '',
                     'description' => '',
                     'ingredients' => [],
