@@ -21,6 +21,12 @@ class GenericEntityWithRecipes extends GenericEntity
     protected $recipes = [];
 
     /**
+     * The total number of recipes available for this entity.
+     * @var int
+     */
+    protected $totalNumberOfRecipes = 0;
+
+    /**
      * Sets the recipes of the entity.
      * @param array|Recipe[] $recipes
      * @return $this Implementing fluent interface.
@@ -54,6 +60,26 @@ class GenericEntityWithRecipes extends GenericEntity
     }
 
     /**
+     * Sets the total number of recipes available for this entity.
+     * @param int $totalNumberOfRecipes
+     * @return $this
+     */
+    public function setTotalNumberOfRecipes(int $totalNumberOfRecipes)
+    {
+        $this->totalNumberOfRecipes = $totalNumberOfRecipes;
+        return $this;
+    }
+
+    /**
+     * Returns the total number of recipes available for this entity.
+     * @return int
+     */
+    public function getTotalNumberOfRecipes(): int
+    {
+        return $this->totalNumberOfRecipes;
+    }
+
+    /**
      * Writes the entity data to an array.
      * @return array
      */
@@ -63,6 +89,7 @@ class GenericEntityWithRecipes extends GenericEntity
         $data['recipes'] = array_map(function (Recipe $recipe): array {
             return $recipe->writeData();
         }, $this->recipes);
+        $data['totalNumberOfRecipes'] = $this->totalNumberOfRecipes;
         return $data;
     }
 
@@ -78,6 +105,7 @@ class GenericEntityWithRecipes extends GenericEntity
         foreach ($data->getObjectArray('recipes') as $recipeData) {
             $this->recipes[] = (new Recipe())->readData($recipeData);
         }
+        $this->totalNumberOfRecipes = $data->getInteger('totalNumberOfRecipes');
         return $this;
     }
 }

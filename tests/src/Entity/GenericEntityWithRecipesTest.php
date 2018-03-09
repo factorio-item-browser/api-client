@@ -30,6 +30,7 @@ class GenericEntityWithRecipesTest extends TestCase
         $this->assertEquals('', $entity->getLabel());
         $this->assertEquals('', $entity->getDescription());
         $this->assertEquals([], $entity->getRecipes());
+        $this->assertEquals(0, $entity->getTotalNumberOfRecipes());
     }
 
     /**
@@ -53,6 +54,16 @@ class GenericEntityWithRecipesTest extends TestCase
     }
 
     /**
+     * Tests setting and getting the total number of recipes.
+     */
+    public function testSetAndGetTotalNumberOfRecipes()
+    {
+        $entity = new GenericEntityWithRecipes();
+        $this->assertEquals($entity, $entity->setTotalNumberOfRecipes(42));
+        $this->assertEquals(42, $entity->getTotalNumberOfRecipes());
+    }
+
+    /**
      * Tests writing and reading the data.
      */
     public function testWriteAndReadData()
@@ -63,12 +74,14 @@ class GenericEntityWithRecipesTest extends TestCase
         $recipe2->setMode('r2');
 
         $entity = new GenericEntityWithRecipes();
-        $entity->setType('abc')
+        $entity
+            ->setType('abc')
             ->setName('def')
             ->setLabel('ghi')
             ->setDescription('jkl')
             ->addRecipe($recipe1)
-            ->addRecipe($recipe2);
+            ->addRecipe($recipe2)
+            ->setTotalNumberOfRecipes(42);
 
         $expectedData = [
             'type' => 'abc',
@@ -94,7 +107,8 @@ class GenericEntityWithRecipesTest extends TestCase
                     'products' => [],
                     'craftingTime' => 0.
                 ],
-            ]
+            ],
+            'totalNumberOfRecipes' => 42
         ];
 
         $data = $entity->writeData();
