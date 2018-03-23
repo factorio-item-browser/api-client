@@ -27,7 +27,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "FactorioItemBrowserTest\\Api\\Client\\": "tests/src/"
+      "FactorioItemBrowserTest\\Api\\Client\\": "tests/src/",
+      "FactorioItemBrowserTestAsset\\Api\\Client\\": "tests/asset/"
     }
   },
   "scripts": {
