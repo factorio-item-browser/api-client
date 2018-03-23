@@ -30,6 +30,7 @@ class TestPendingResponse extends PendingResponse
     public function __construct(array $responseData = [])
     {
         parent::__construct(new Client(new Options()), new Request());
+        $this->responseData = $responseData;
     }
 
 
