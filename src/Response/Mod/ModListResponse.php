@@ -30,7 +30,7 @@ class ModListResponse extends AbstractResponse
      */
     public function getMods(): array
     {
-        $this->checkResponse();
+        $this->checkPendingResponse();
         return $this->mods;
     }
 

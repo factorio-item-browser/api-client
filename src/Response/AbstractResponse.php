@@ -44,7 +44,7 @@ abstract class AbstractResponse
      */
     public function getMeta(): Meta
     {
-        $this->checkResponse();
+        $this->checkPendingResponse();
         return $this->meta;
     }
 
@@ -53,7 +53,7 @@ abstract class AbstractResponse
      * @return $this
      * @throws ApiClientException
      */
-    protected function checkResponse()
+    protected function checkPendingResponse()
     {
         if (!is_null($this->pendingResponse)) {
             $responseData = $this->pendingResponse->fetchResponse();
