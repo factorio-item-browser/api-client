@@ -58,11 +58,16 @@ class Client
     /**
      * Initializes the client.
      * @param Options $options
+     * @param MultiCurlManager|null $multiCurlManager
      */
-    public function __construct(Options $options)
+    public function __construct(Options $options, MultiCurlManager $multiCurlManager = null)
     {
         $this->options = $options;
-        $this->multiCurlManager = new MultiCurlManager();
+        if ($multiCurlManager instanceof MultiCurlManager) {
+            $this->multiCurlManager = $multiCurlManager;
+        } else {
+            $this->multiCurlManager = new MultiCurlManager();
+        }
     }
 
     /**
