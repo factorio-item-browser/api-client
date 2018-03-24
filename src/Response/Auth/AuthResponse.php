@@ -27,7 +27,7 @@ class AuthResponse extends AbstractResponse
      */
     public function getAuthorizationToken(): string
     {
-        $this->checkResponse();
+        $this->checkPendingResponse();
         return $this->authorizationToken;
     }
 

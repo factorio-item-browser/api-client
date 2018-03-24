@@ -23,7 +23,7 @@ class AbstractResponseTest extends TestCase
      * Tests mapping and getting the meta data.
      * @covers ::__construct
      * @covers ::getMeta
-     * @covers ::checkResponse
+     * @covers ::checkPendingResponse
      * @covers ::mapResponse
      */
     public function testGetMeta()
