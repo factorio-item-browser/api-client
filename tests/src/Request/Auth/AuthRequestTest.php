@@ -38,9 +38,9 @@ class AuthRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new AuthRequest();
-        $request->setAgent('abc')
-                ->setAccessKey('def')
-                ->setEnabledModNames(['ghi', 'jkl']);
+        $this->assertEquals($request, $request->setAgent('abc'));
+        $this->assertEquals($request, $request->setAccessKey('def'));
+        $this->assertEquals($request, $request->setEnabledModNames(['ghi', 'jkl']));
 
         $expectedData = [
             'agent' => 'abc',

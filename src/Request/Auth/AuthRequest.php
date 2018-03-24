@@ -60,10 +60,12 @@ class AuthRequest implements RequestInterface
     /**
      * Sets the internal names of the mods to enable.
      * @param array|string[] $enabledModNames
+     * @return $this
      */
     public function setEnabledModNames(array $enabledModNames)
     {
         $this->enabledModNames = $enabledModNames;
+        return $this;
     }
 
     /**
