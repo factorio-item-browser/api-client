@@ -113,6 +113,16 @@ class Client
     }
 
     /**
+     * Clears the authorization token. This will trigger the auth request when a new request is send.
+     * @return $this
+     */
+    public function clearAuthorizationToken()
+    {
+        $this->authorizationToken = '';
+        return $this;
+    }
+
+    /**
      * Sends the specified request to the API server.
      * @param RequestInterface $request
      * @return AbstractResponse
