@@ -13,12 +13,15 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Exception\ApiClientException
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Exception\ApiClientException
  */
 class ApiClientExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @covers ::__construct
+     * @covers ::getRequest
+     * @covers ::getResponse
      */
     public function testConstruct()
     {

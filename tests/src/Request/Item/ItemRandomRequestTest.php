@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest
  */
 class ItemRandomRequestTest extends TestCase
 {

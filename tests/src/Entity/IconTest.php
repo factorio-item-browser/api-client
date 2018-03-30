@@ -14,12 +14,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Entity\Icon
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Entity\Icon
  */
 class IconTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @coversNothing
      */
     public function testConstruct()
     {
@@ -30,6 +31,9 @@ class IconTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
+     * @covers ::setEntities
+     * @covers ::addEntity
+     * @covers ::getEntities
      */
     public function testSetAddAndGetIconEntities()
     {
@@ -49,7 +53,21 @@ class IconTest extends TestCase
     }
 
     /**
+     * Tests setting and getting the content.
+     * @covers ::setContent
+     * @covers ::getContent
+     */
+    public function testSetAndGetContent()
+    {
+        $item = new Icon();
+        $this->assertEquals($item, $item->setContent('abc'));
+        $this->assertEquals('abc', $item->getContent());
+    }
+
+    /**
      * Tests writing and reading the data.
+     * @covers ::writeData
+     * @covers ::readData
      */
     public function testWriteAndReadData()
     {

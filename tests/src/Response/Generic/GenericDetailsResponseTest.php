@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse
  */
 class GenericDetailsResponseTest extends TestCase
 {
