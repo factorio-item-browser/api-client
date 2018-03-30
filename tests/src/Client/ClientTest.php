@@ -54,14 +54,18 @@ class ClientTest extends TestCase
      * Tests setting and getting the authorization token.
      * @covers ::setAuthorizationToken
      * @covers ::getAuthorizationToken
+     * @covers ::clearAuthorizationToken
      */
-    public function testSetAndGetAuthorizationToken()
+    public function testSetGetClearAuthorizationToken()
     {
         $authorizationToken = 'abc';
 
         $client = new Client(new Options());
         $this->assertEquals($client, $client->setAuthorizationToken($authorizationToken));
         $this->assertEquals($authorizationToken, $client->getAuthorizationToken());
+
+        $this->assertEquals($client, $client->clearAuthorizationToken());
+        $this->assertEquals('', $client->getAuthorizationToken());
     }
 
     /**
