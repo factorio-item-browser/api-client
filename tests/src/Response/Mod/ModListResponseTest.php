@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse
  */
 class ModListResponseTest extends TestCase
 {

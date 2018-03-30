@@ -15,12 +15,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes
  */
 class GenericEntityWithRecipesTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @coversNothing
      */
     public function testConstruct()
     {
@@ -35,6 +36,9 @@ class GenericEntityWithRecipesTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
+     * @covers ::setRecipes
+     * @covers ::addRecipe
+     * @covers ::getRecipes
      */
     public function testSetAddAndGetRecipes()
     {
@@ -55,6 +59,8 @@ class GenericEntityWithRecipesTest extends TestCase
 
     /**
      * Tests setting and getting the total number of recipes.
+     * @covers ::setTotalNumberOfRecipes
+     * @covers ::getTotalNumberOfRecipes
      */
     public function testSetAndGetTotalNumberOfRecipes()
     {
@@ -65,6 +71,8 @@ class GenericEntityWithRecipesTest extends TestCase
 
     /**
      * Tests writing and reading the data.
+     * @covers ::writeData
+     * @covers ::readData
      */
     public function testWriteAndReadData()
     {

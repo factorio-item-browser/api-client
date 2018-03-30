@@ -13,12 +13,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Entity\GenericEntity
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Entity\GenericEntity
  */
 class GenericEntityTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @coversNothing
      */
     public function testConstruct()
     {
@@ -31,6 +32,8 @@ class GenericEntityTest extends TestCase
 
     /**
      * Tests setting and getting the type.
+     * @covers ::setType
+     * @covers ::getType
      */
     public function testSetAndGetType()
     {
@@ -41,6 +44,8 @@ class GenericEntityTest extends TestCase
 
     /**
      * Tests setting and getting the name.
+     * @covers ::setName
+     * @covers ::getName
      */
     public function testSetAndGetName()
     {
@@ -51,6 +56,8 @@ class GenericEntityTest extends TestCase
 
     /**
      * Tests setting and getting the label.
+     * @covers ::setLabel
+     * @covers ::getLabel
      */
     public function testSetAndGetLabel()
     {
@@ -61,6 +68,8 @@ class GenericEntityTest extends TestCase
 
     /**
      * Tests setting and getting the description.
+     * @covers ::setDescription
+     * @covers ::getDescription
      */
     public function testSetAndGetDescription()
     {
@@ -71,6 +80,8 @@ class GenericEntityTest extends TestCase
 
     /**
      * Tests writing and reading the data.
+     * @covers ::writeData
+     * @covers ::readData
      */
     public function testWriteAndReadData()
     {

@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Client\Client
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Client\Client
  */
 class ClientTest extends TestCase
 {

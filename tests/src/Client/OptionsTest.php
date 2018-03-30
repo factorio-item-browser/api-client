@@ -10,12 +10,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Client\Options
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Client\Options
  */
 class OptionsTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @coversNothing
      */
     public function testConstruct()
     {
@@ -28,6 +29,8 @@ class OptionsTest extends TestCase
 
     /**
      * Tests setting and getting the API URL.
+     * @covers ::setApiUrl
+     * @covers ::getApiUrl
      */
     public function testSetAndGetApiUrl()
     {
@@ -39,6 +42,8 @@ class OptionsTest extends TestCase
 
     /**
      * Tests setting and getting the agent.
+     * @covers ::setAgent
+     * @covers ::getAgent
      */
     public function testSetAndGetAgent()
     {
@@ -49,6 +54,8 @@ class OptionsTest extends TestCase
 
     /**
      * Tests setting and getting the access key.
+     * @covers ::setAccessKey
+     * @covers ::getAccessKey
      */
     public function testSetAndGetAccessKey()
     {
@@ -59,6 +66,8 @@ class OptionsTest extends TestCase
 
     /**
      * Tests setting and getting the timeout.
+     * @covers ::setTimeout
+     * @covers ::getTimeout
      */
     public function testSetAndGetTimeout()
     {

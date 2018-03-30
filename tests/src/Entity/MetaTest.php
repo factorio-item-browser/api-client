@@ -13,12 +13,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Entity\Meta
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Entity\Meta
  */
 class MetaTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @coversNothing
      */
     public function testConstruct()
     {
@@ -30,6 +31,8 @@ class MetaTest extends TestCase
 
     /**
      * Tests setting and getting the status code.
+     * @covers ::setStatusCode
+     * @covers ::getStatusCode
      */
     public function testSetAndGetStatusCode()
     {
@@ -40,6 +43,8 @@ class MetaTest extends TestCase
 
     /**
      * Tests setting and getting the execution time.
+     * @covers ::setExecutionTime
+     * @covers ::getExecutionTime
      */
     public function testSetAndGetExecutionTime()
     {
@@ -50,6 +55,8 @@ class MetaTest extends TestCase
 
     /**
      * Tests setting and getting the error message.
+     * @covers ::setErrorMessage
+     * @covers ::getErrorMessage
      */
     public function testSetAndGetErrorMessage()
     {
@@ -61,6 +68,8 @@ class MetaTest extends TestCase
 
     /**
      * Tests writing and reading the data.
+     * @covers ::writeData
+     * @covers ::readData
      */
     public function testWriteAndReadData()
     {

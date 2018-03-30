@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest
  */
 class ItemProductRequestTest extends TestCase
 {
