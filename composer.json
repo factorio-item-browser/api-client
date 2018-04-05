@@ -1,8 +1,8 @@
 {
   "name": "factorio-item-browser/api-client",
   "description": "The API client of the Factorio Item Browser.",
-  "homepage": "https://www.factorio-item-browser.com/",
-  "type": "project",
+  "homepage": "https://github.com/factorio-item-browser/api-client",
+  "type": "library",
   "keywords": ["Factorio Item Browser", "FIB", "api", "client", "BluePsyduck"],
   "license": "GPL-3.0-or-later",
   "authors": [
@@ -11,7 +11,6 @@
       "email": "bluepsyduck@gmx.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "php": "^7.0",
     "bluepsyduck/common": "^1.0",
