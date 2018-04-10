@@ -46,18 +46,6 @@ class RecipeTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the name.
-     * @covers ::setName
-     * @covers ::getName
-     */
-    public function testSetAndGetName()
-    {
-        $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setName('abc'));
-        $this->assertEquals('abc', $recipe->getName());
-    }
-
-    /**
      * Tests setting and getting the mode.
      * @covers ::setMode
      * @covers ::getMode
@@ -67,30 +55,6 @@ class RecipeTest extends TestCase
         $recipe = new Recipe();
         $this->assertEquals($recipe, $recipe->setMode('abc'));
         $this->assertEquals('abc', $recipe->getMode());
-    }
-
-    /**
-     * Tests setting and getting the label.
-     * @covers ::setLabel
-     * @covers ::getLabel
-     */
-    public function testSetAndGetLabel()
-    {
-        $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setLabel('abc'));
-        $this->assertEquals('abc', $recipe->getLabel());
-    }
-
-    /**
-     * Tests setting and getting the description.
-     * @covers ::setDescription
-     * @covers ::getDescription
-     */
-    public function testSetAndGetDescription()
-    {
-        $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setDescription('abc'));
-        $this->assertEquals('abc', $recipe->getDescription());
     }
 
     /**

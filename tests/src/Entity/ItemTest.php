@@ -32,54 +32,6 @@ class ItemTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the type.
-     * @covers ::setType
-     * @covers ::getType
-     */
-    public function testSetAndGetType()
-    {
-        $item = new Item();
-        $this->assertEquals($item, $item->setType('abc'));
-        $this->assertEquals('abc', $item->getType());
-    }
-
-    /**
-     * Tests setting and getting the name.
-     * @covers ::setName
-     * @covers ::getName
-     */
-    public function testSetAndGetName()
-    {
-        $item = new Item();
-        $this->assertEquals($item, $item->setName('abc'));
-        $this->assertEquals('abc', $item->getName());
-    }
-
-    /**
-     * Tests setting and getting the label.
-     * @covers ::setLabel
-     * @covers ::getLabel
-     */
-    public function testSetAndGetLabel()
-    {
-        $item = new Item();
-        $this->assertEquals($item, $item->setLabel('abc'));
-        $this->assertEquals('abc', $item->getLabel());
-    }
-
-    /**
-     * Tests setting and getting the description.
-     * @covers ::setDescription
-     * @covers ::getDescription
-     */
-    public function testSetAndGetDescription()
-    {
-        $item = new Item();
-        $this->assertEquals($item, $item->setDescription('abc'));
-        $this->assertEquals('abc', $item->getDescription());
-    }
-
-    /**
      * Tests setting and getting the amount.
      * @covers ::setAmount
      * @covers ::getAmount

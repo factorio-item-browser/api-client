@@ -44,42 +44,6 @@ class ModTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the name.
-     * @covers ::setName
-     * @covers ::getName
-     */
-    public function testSetAndGetName()
-    {
-        $mod = new Mod();
-        $this->assertEquals($mod, $mod->setName('abc'));
-        $this->assertEquals('abc', $mod->getName());
-    }
-
-    /**
-     * Tests setting and getting the label.
-     * @covers ::setLabel
-     * @covers ::getLabel
-     */
-    public function testSetAndGetLabel()
-    {
-        $mod = new Mod();
-        $this->assertEquals($mod, $mod->setLabel('abc'));
-        $this->assertEquals('abc', $mod->getLabel());
-    }
-
-    /**
-     * Tests setting and getting the description.
-     * @covers ::setDescription
-     * @covers ::getDescription
-     */
-    public function testSetAndGetDescription()
-    {
-        $mod = new Mod();
-        $this->assertEquals($mod, $mod->setDescription('abc'));
-        $this->assertEquals('abc', $mod->getDescription());
-    }
-
-    /**
      * Tests setting and getting the author.
      * @covers ::setAuthor
      * @covers ::getAuthor
