@@ -12,31 +12,13 @@ use BluePsyduck\Common\Data\DataContainer;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Recipe implements EntityInterface, TranslatedEntityInterface
+class Recipe extends GenericEntity
 {
-    /**
-     * The name of the recipe.
-     * @var string
-     */
-    protected $name = '';
-
     /**
      * The mode of the recipe.
      * @var string
      */
     protected $mode = '';
-
-    /**
-     * The translated label of the recipe.
-     * @var string
-     */
-    protected $label = '';
-
-    /**
-     * The translated description of the recipe.
-     * @var string
-     */
-    protected $description = '';
 
     /**
      * The ingredients of the recipe.
@@ -66,26 +48,6 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     }
 
     /**
-     * Sets the name of the recipe.
-     * @param string $name
-     * @return $this Implementing fluent interface.
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * Returns the name of the recipe.
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * Sets the mode of the recipe.
      * @param string $mode
      * @return $this Implementing fluent interface.
@@ -103,46 +65,6 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
     public function getMode(): string
     {
         return $this->mode;
-    }
-
-    /**
-     * Sets the translated label of the recipe.
-     * @param string $label
-     * @return $this Implementing fluent interface.
-     */
-    public function setLabel(string $label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    /**
-     * Returns the translated label of the recipe.
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    /**
-     * Sets the translated description of the recipe.
-     * @param string $description
-     * @return $this Implementing fluent interface.
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    /**
-     * Returns the translated description of the recipe.
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
     }
 
     /**
@@ -237,11 +159,8 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
      */
     public function writeData(): array
     {
-        return [
-            'name' => $this->name,
+        $data = array_merge(parent::writeData(), [
             'mode' => $this->mode,
-            'label' => $this->label,
-            'description' => $this->description,
             'ingredients' => array_map(function (Item $ingredient): array {
                 return $ingredient->writeData();
             }, $this->ingredients),
@@ -249,7 +168,9 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
                 return $product->writeData();
             }, $this->products),
             'craftingTime' => $this->craftingTime
-        ];
+        ]);
+        unset($data['type']);
+        return $data;
     }
 
     /**
@@ -259,10 +180,8 @@ class Recipe implements EntityInterface, TranslatedEntityInterface
      */
     public function readData(DataContainer $data)
     {
-        $this->name = $data->getString('name');
+        parent::readData($data);
         $this->mode = $data->getString('mode');
-        $this->label = $data->getString('label');
-        $this->description = $data->getString('description');
         $this->ingredients = [];
         foreach ($data->getObjectArray('ingredients') as $ingredientData) {
             $this->ingredients[] = (new Item())->readData($ingredientData);

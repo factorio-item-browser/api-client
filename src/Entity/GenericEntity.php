@@ -12,7 +12,7 @@ use BluePsyduck\Common\Data\DataContainer;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class GenericEntity implements EntityInterface, TranslatedEntityInterface
+class GenericEntity implements EntityInterface
 {
     /**
      * The type of the entity.
