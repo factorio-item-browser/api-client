@@ -20,11 +20,11 @@ use PHPUnit\Framework\TestCase;
 class GenericDetailsResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the authorization token.
+     * Tests mapping and getting entities.
      * @covers ::getEntities
      * @covers ::mapResponse
      */
-    public function testGetAuthorizationToken()
+    public function testGetEntities()
     {
         $responseData = [
             'entities' => [

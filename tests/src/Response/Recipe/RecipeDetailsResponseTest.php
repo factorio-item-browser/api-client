@@ -20,11 +20,11 @@ use PHPUnit\Framework\TestCase;
 class RecipeDetailsResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the authorization token.
+     * Tests mapping and getting the recipes.
      * @covers ::getRecipes
      * @covers ::mapResponse
      */
-    public function testGetAuthorizationToken()
+    public function testGetRecipes()
     {
         $responseData = [
             'recipes' => [
