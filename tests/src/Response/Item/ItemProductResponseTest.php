@@ -21,34 +21,58 @@ use PHPUnit\Framework\TestCase;
 class ItemProductResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the authorization token.
+     * Tests mapping and getting the item.
      * @covers ::getItem
-     * @covers ::getGroupedRecipes
-     * @covers ::getTotalNumberOfResults
      * @covers ::mapResponse
      */
-    public function testGetAuthorizationToken()
+    public function testGetItem()
     {
         $responseData = [
             'item' => [
                 'name' => 'abc'
-            ],
+            ]
+        ];
+        $item = new Item();
+        $item->setName('abc');
+
+        $response = new ItemProductResponse(new TestPendingResponse($responseData));
+        $this->assertEquals($item, $response->getItem());
+    }
+
+    /**
+     * Tests mapping and getting the grouped recipes.
+     * @covers ::getGroupedRecipes
+     * @covers ::mapResponse
+     */
+    public function testGetGroupedRecipes()
+    {
+        $responseData = [
             'groupedRecipes' => [
                 ['name' => 'def'],
                 ['name' => 'ghi']
             ],
-            'totalNumberOfResults' => 42
         ];
-        $item = new Item();
-        $item->setName('abc');
         $recipe1 = new GenericEntityWithRecipes();
         $recipe1->setName('def');
         $recipe2 = new GenericEntityWithRecipes();
         $recipe2->setName('ghi');
 
         $response = new ItemProductResponse(new TestPendingResponse($responseData));
-        $this->assertEquals($item, $response->getItem());
         $this->assertEquals([$recipe1, $recipe2], $response->getGroupedRecipes());
+    }
+
+    /**
+     * Tests mapping and getting the total number of results.
+     * @covers ::getTotalNumberOfResults
+     * @covers ::mapResponse
+     */
+    public function testGetTotalNumberOfResults()
+    {
+        $responseData = [
+            'totalNumberOfResults' => 42
+        ];
+
+        $response = new ItemProductResponse(new TestPendingResponse($responseData));
         $this->assertEquals(42, $response->getTotalNumberOfResults());
     }
 

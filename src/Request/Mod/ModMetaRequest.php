@@ -17,7 +17,6 @@ use FactorioItemBrowser\Api\Client\Response\PendingResponse;
  */
 class ModMetaRequest implements RequestInterface
 {
-
     /**
      * Returns the path of the request, relative to the API URL.
      * @return string

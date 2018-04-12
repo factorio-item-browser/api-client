@@ -20,11 +20,11 @@ use PHPUnit\Framework\TestCase;
 class GenericIconResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the authorization token.
+     * Tests mapping and getting the icons.
      * @covers ::getIcons
      * @covers ::mapResponse
      */
-    public function testGetAuthorizationToken()
+    public function testGetIcons()
     {
         $responseData = [
             'icons' => [
