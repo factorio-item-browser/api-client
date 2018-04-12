@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Added missing search query request.
+
 ### Changed
 
 - Classes `Item`, `Recipe` and `Mod` now extend the `GenericEntity`.
