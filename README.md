@@ -1,5 +1,7 @@
 # Factorio Item Browser - API Client
 
+[![Latest Stable Version](https://poser.pugx.org/factorio-item-browser/api-client/v/stable)](https://packagist.org/packages/factorio-item-browser/api-client) [![License](https://poser.pugx.org/factorio-item-browser/api-client/license)](https://packagist.org/packages/factorio-item-browser/api-client) [![Build Status](https://travis-ci.org/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.org/factorio-item-browser/api-client) [![codecov](https://codecov.io/gh/factorio-item-browser/api-client/branch/master/graph/badge.svg)](https://codecov.io/gh/factorio-item-browser/api-client)
+
 This library implements a PHP client to the API of the Factorio Item Browser to access the data of the browser.
 
 The documentation of the API can be found at https://www.factorio-item-browser.com/api/docs
