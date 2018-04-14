@@ -19,13 +19,13 @@ class GenericDetailsResponse extends AbstractResponse
 {
     /**
      * The entity details.
-     * @var array|GenericEntity
+     * @var array|GenericEntity[]
      */
     protected $entities;
 
     /**
      * Returns the entity details.
-     * @return array|GenericEntity
+     * @return array|GenericEntity[]
      * @throws ApiClientException
      */
     public function getEntities(): array

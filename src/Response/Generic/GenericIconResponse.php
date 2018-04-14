@@ -19,16 +19,16 @@ class GenericIconResponse extends AbstractResponse
 {
     /**
      * The icons of the entities.
-     * @var array|Icon
+     * @var array|Icon[]
      */
     protected $icons;
 
     /**
      * Returns the icons of the entities.
-     * @return array|Icon
+     * @return array|Icon[]
      * @throws ApiClientException
      */
-    public function getIcons()
+    public function getIcons(): array
     {
         $this->checkPendingResponse();
         return $this->icons;
