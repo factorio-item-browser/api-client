@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "38c6634fd4c9cab91b61b98033d08d3a",
+    "content-hash": "3e2de23c793f3ea6bc6ce012b60522ed",
     "packages": [
         {
             "name": "bluepsyduck/common",
