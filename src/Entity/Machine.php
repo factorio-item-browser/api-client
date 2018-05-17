@@ -25,7 +25,7 @@ class Machine extends GenericEntity
      * The number of ingredient slots available in the machine.
      * @var int
      */
-    protected $numberOfIngredientSlots = 1;
+    protected $numberOfIngredientSlots = 0;
 
     /**
      * The number of module slots available in the machine.
