@@ -28,7 +28,7 @@ class MachineTest extends TestCase
         $this->assertEquals('', $machine->getName());
         $this->assertEquals('', $machine->getLabel());
         $this->assertEquals('', $machine->getDescription());
-        $this->assertEquals(1., $machine->getCraftingSpeed());
+        $this->assertEquals(0., $machine->getCraftingSpeed());
         $this->assertEquals(0, $machine->getNumberOfIngredientSlots());
         $this->assertEquals(0, $machine->getNumberOfModuleSlots());
         $this->assertEquals(0, $machine->getEnergyUsage());
