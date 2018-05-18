@@ -19,7 +19,7 @@ class Machine extends GenericEntity
      * The crafting speed of the machine.
      * @var float
      */
-    protected $craftingSpeed = 1.;
+    protected $craftingSpeed = 0.;
 
     /**
      * The number of ingredient slots available in the machine.
