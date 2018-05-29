@@ -22,10 +22,22 @@ class Machine extends GenericEntity
     protected $craftingSpeed = 0.;
 
     /**
-     * The number of ingredient slots available in the machine.
+     * The number of item slots available in the machine.
      * @var int
      */
-    protected $numberOfIngredientSlots = 0;
+    protected $numberOfItemSlots = 0;
+
+    /**
+     * The number of fluid input slots available in the machine.
+     * @var int
+     */
+    protected $numberOfFluidInputSlots = 0;
+
+    /**
+     * The number of fluid output slots available in the machine.
+     * @var int
+     */
+    protected $numberOfFluidOutputSlots = 0;
 
     /**
      * The number of module slots available in the machine.
@@ -69,23 +81,63 @@ class Machine extends GenericEntity
     }
 
     /**
-     * Sets the number of ingredient slots available in the machine.
-     * @param int $numberOfIngredientSlots
+     * Sets the number of item slots available in the machine, or -1 if unlimited.
+     * @param int $numberOfItemSlots
      * @return $this
      */
-    public function setNumberOfIngredientSlots(int $numberOfIngredientSlots)
+    public function setNumberOfItemSlots(int $numberOfItemSlots)
     {
-        $this->numberOfIngredientSlots = $numberOfIngredientSlots;
+        $this->numberOfItemSlots = $numberOfItemSlots;
         return $this;
     }
 
     /**
-     * Returns the number of ingredient slots available in the machine.
+     * Returns the number of item slots available in the machine, or -1 if unlimited.
      * @return int
      */
-    public function getNumberOfIngredientSlots(): int
+    public function getNumberOfItemSlots(): int
     {
-        return $this->numberOfIngredientSlots;
+        return $this->numberOfItemSlots;
+    }
+
+    /**
+     * Sets the number of fluid input slots available in the machine.
+     * @param int $numberOfFluidInputSlots
+     * @return $this
+     */
+    public function setNumberOfFluidInputSlots(int $numberOfFluidInputSlots)
+    {
+        $this->numberOfFluidInputSlots = $numberOfFluidInputSlots;
+        return $this;
+    }
+
+    /**
+     * Returns the number of fluid input slots available in the machine.
+     * @return int
+     */
+    public function getNumberOfFluidInputSlots(): int
+    {
+        return $this->numberOfFluidInputSlots;
+    }
+
+    /**
+     * Sets the number of fluid output slots available in the machine.
+     * @param int $numberOfFluidOutputSlots
+     * @return $this
+     */
+    public function setNumberOfFluidOutputSlots(int $numberOfFluidOutputSlots)
+    {
+        $this->numberOfFluidOutputSlots = $numberOfFluidOutputSlots;
+        return $this;
+    }
+
+    /**
+     * Returns the number of fluid output slots available in the machine.
+     * @return int
+     */
+    public function getNumberOfFluidOutputSlots(): int
+    {
+        return $this->numberOfFluidOutputSlots;
     }
 
     /**
@@ -136,7 +188,9 @@ class Machine extends GenericEntity
     {
         $data = array_merge(parent::writeData(), [
             'craftingSpeed' => $this->craftingSpeed,
-            'numberOfIngredientSlots' => $this->numberOfIngredientSlots,
+            'numberOfItemSlots' => $this->numberOfItemSlots,
+            'numberOfFluidInputSlots' => $this->numberOfFluidInputSlots,
+            'numberOfFluidOutputSlots' => $this->numberOfFluidOutputSlots,
             'numberOfModuleSlots' => $this->numberOfModuleSlots,
             'energyUsage' => $this->energyUsage
         ]);
@@ -153,7 +207,9 @@ class Machine extends GenericEntity
     {
         parent::readData($data);
         $this->craftingSpeed = $data->getFloat('craftingSpeed');
-        $this->numberOfIngredientSlots = $data->getInteger('numberOfIngredientSlots');
+        $this->numberOfItemSlots = $data->getInteger('numberOfItemSlots');
+        $this->numberOfFluidInputSlots = $data->getInteger('numberOfFluidInputSlots');
+        $this->numberOfFluidOutputSlots = $data->getInteger('numberOfFluidOutputSlots');
         $this->numberOfModuleSlots = $data->getInteger('numberOfModuleSlots');
         $this->energyUsage = $data->getInteger('energyUsage');
         return $this;
