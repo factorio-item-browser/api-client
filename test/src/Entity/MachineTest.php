@@ -29,7 +29,9 @@ class MachineTest extends TestCase
         $this->assertEquals('', $machine->getLabel());
         $this->assertEquals('', $machine->getDescription());
         $this->assertEquals(0., $machine->getCraftingSpeed());
-        $this->assertEquals(0, $machine->getNumberOfIngredientSlots());
+        $this->assertEquals(0, $machine->getNumberOfItemSlots());
+        $this->assertEquals(0, $machine->getNumberOfFluidInputSlots());
+        $this->assertEquals(0, $machine->getNumberOfFluidOutputSlots());
         $this->assertEquals(0, $machine->getNumberOfModuleSlots());
         $this->assertEquals(0, $machine->getEnergyUsage());
     }
@@ -57,15 +59,39 @@ class MachineTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the number of ingredient slots.
-     * @covers ::setNumberOfIngredientSlots
-     * @covers ::getNumberOfIngredientSlots
+     * Tests setting and getting the number of item slots.
+     * @covers ::setNumberOfItemSlots
+     * @covers ::getNumberOfItemSlots
      */
-    public function testSetAndGetNumberOfIngredientSlots()
+    public function testSetAndGetNumberOfItemSlots()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setNumberOfIngredientSlots(42));
-        $this->assertEquals(42, $machine->getNumberOfIngredientSlots());
+        $this->assertEquals($machine, $machine->setNumberOfItemSlots(42));
+        $this->assertEquals(42, $machine->getNumberOfItemSlots());
+    }
+
+    /**
+     * Tests setting and getting the number of fluid input slots.
+     * @covers ::setNumberOfFluidInputSlots
+     * @covers ::getNumberOfFluidInputSlots
+     */
+    public function testSetAndGetNumberOfFluidInputSlots()
+    {
+        $machine = new Machine();
+        $this->assertEquals($machine, $machine->setNumberOfFluidInputSlots(42));
+        $this->assertEquals(42, $machine->getNumberOfFluidInputSlots());
+    }
+
+    /**
+     * Tests setting and getting the number of fluid output slots.
+     * @covers ::setNumberOfFluidOutputSlots
+     * @covers ::getNumberOfFluidOutputSlots
+     */
+    public function testSetAndGetNumberOfFluidOutputSlots()
+    {
+        $machine = new Machine();
+        $this->assertEquals($machine, $machine->setNumberOfFluidOutputSlots(42));
+        $this->assertEquals(42, $machine->getNumberOfFluidOutputSlots());
     }
 
     /**
@@ -104,8 +130,10 @@ class MachineTest extends TestCase
                 ->setLabel('def')
                 ->setDescription('ghi')
                 ->setCraftingSpeed(13.37)
-                ->setNumberOfIngredientSlots(42)
-                ->setNumberOfModuleSlots(21)
+                ->setNumberOfItemSlots(42)
+                ->setNumberOfFluidInputSlots(21)
+                ->setNumberOfFluidOutputSlots(13)
+                ->setNumberOfModuleSlots(37)
                 ->setEnergyUsage(1337);
 
         $expectedData = [
@@ -113,8 +141,10 @@ class MachineTest extends TestCase
             'label' => 'def',
             'description' => 'ghi',
             'craftingSpeed' => 13.37,
-            'numberOfIngredientSlots' => 42,
-            'numberOfModuleSlots' => 21,
+            'numberOfItemSlots' => 42,
+            'numberOfFluidInputSlots' => 21,
+            'numberOfFluidOutputSlots' => 13,
+            'numberOfModuleSlots' => 37,
             'energyUsage' => 1337
         ];
 
