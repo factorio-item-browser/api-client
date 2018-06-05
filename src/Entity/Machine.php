@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Constant\EnergyUsageUnit;
 use FactorioItemBrowser\Api\Client\Constant\EntityType;
 
 /**
@@ -46,10 +47,16 @@ class Machine extends GenericEntity
     protected $numberOfModuleSlots = 0;
 
     /**
-     * The energy usage of the machine, in watt.
-     * @var int
+     * The energy usage of the machine.
+     * @var float
      */
-    protected $energyUsage = 0;
+    protected $energyUsage = 0.;
+
+    /**
+     * The unit of the energy usage.
+     * @var string
+     */
+    protected $energyUsageUnit = EnergyUsageUnit::WATT;
 
     /**
      * Returns the type of the entity.
@@ -161,23 +168,43 @@ class Machine extends GenericEntity
     }
 
     /**
-     * Sets the energy usage of the machine, in watt.
-     * @param int $energyUsage
+     * Sets the energy usage of the machine
+     * @param float $energyUsage
      * @return $this
      */
-    public function setEnergyUsage(int $energyUsage)
+    public function setEnergyUsage(float $energyUsage)
     {
         $this->energyUsage = $energyUsage;
         return $this;
     }
 
     /**
-     * Returns the energy usage of the machine, in watt.
-     * @return int
+     * Returns the energy usage of the machine.
+     * @return float
      */
-    public function getEnergyUsage(): int
+    public function getEnergyUsage(): float
     {
         return $this->energyUsage;
+    }
+
+    /**
+     * Sets the unit of the energy usage.
+     * @param string $energyUsageUnit
+     * @return $this
+     */
+    public function setEnergyUsageUnit(string $energyUsageUnit)
+    {
+        $this->energyUsageUnit = $energyUsageUnit;
+        return $this;
+    }
+
+    /**
+     * Returns the unit of the energy usage.
+     * @return string
+     */
+    public function getEnergyUsageUnit(): string
+    {
+        return $this->energyUsageUnit;
     }
 
     /**
@@ -192,7 +219,8 @@ class Machine extends GenericEntity
             'numberOfFluidInputSlots' => $this->numberOfFluidInputSlots,
             'numberOfFluidOutputSlots' => $this->numberOfFluidOutputSlots,
             'numberOfModuleSlots' => $this->numberOfModuleSlots,
-            'energyUsage' => $this->energyUsage
+            'energyUsage' => $this->energyUsage,
+            'energyUsageUnit' => $this->energyUsageUnit
         ]);
         unset($data['type']);
         return $data;
@@ -211,7 +239,8 @@ class Machine extends GenericEntity
         $this->numberOfFluidInputSlots = $data->getInteger('numberOfFluidInputSlots');
         $this->numberOfFluidOutputSlots = $data->getInteger('numberOfFluidOutputSlots');
         $this->numberOfModuleSlots = $data->getInteger('numberOfModuleSlots');
-        $this->energyUsage = $data->getInteger('energyUsage');
+        $this->energyUsage = $data->getFloat('energyUsage');
+        $this->energyUsageUnit = $data->getString('energyUsageUnit');
         return $this;
     }
 }
