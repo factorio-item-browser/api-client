@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Constant\EnergyUsageUnit;
 use FactorioItemBrowser\Api\Client\Entity\Machine;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +34,8 @@ class MachineTest extends TestCase
         $this->assertEquals(0, $machine->getNumberOfFluidInputSlots());
         $this->assertEquals(0, $machine->getNumberOfFluidOutputSlots());
         $this->assertEquals(0, $machine->getNumberOfModuleSlots());
-        $this->assertEquals(0, $machine->getEnergyUsage());
+        $this->assertEquals(0., $machine->getEnergyUsage());
+        $this->assertEquals(EnergyUsageUnit::WATT, $machine->getEnergyUsageUnit());
     }
 
     /**
@@ -114,8 +116,20 @@ class MachineTest extends TestCase
     public function testSetAndGetEnergyUsage()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setEnergyUsage(1337));
-        $this->assertEquals(1337, $machine->getEnergyUsage());
+        $this->assertEquals($machine, $machine->setEnergyUsage(13.37));
+        $this->assertEquals(13.37, $machine->getEnergyUsage());
+    }
+
+    /**
+     * Tests setting and getting the energyUsageUnit.
+     * @covers ::setEnergyUsageUnit
+     * @covers ::getEnergyUsageUnit
+     */
+    public function testSetAndGetEnergyUsageUnit()
+    {
+        $machine = new Machine();
+        $this->assertEquals($machine, $machine->setEnergyUsageUnit('abc'));
+        $this->assertEquals('abc', $machine->getEnergyUsageUnit());
     }
 
     /**
@@ -134,7 +148,8 @@ class MachineTest extends TestCase
                 ->setNumberOfFluidInputSlots(21)
                 ->setNumberOfFluidOutputSlots(13)
                 ->setNumberOfModuleSlots(37)
-                ->setEnergyUsage(1337);
+                ->setEnergyUsage(73.31)
+                ->setEnergyUsageUnit('jkl');
 
         $expectedData = [
             'name' => 'abc',
@@ -145,7 +160,8 @@ class MachineTest extends TestCase
             'numberOfFluidInputSlots' => 21,
             'numberOfFluidOutputSlots' => 13,
             'numberOfModuleSlots' => 37,
-            'energyUsage' => 1337
+            'energyUsage' => 73.31,
+            'energyUsageUnit' => 'jkl'
         ];
 
         $data = $machine->writeData();

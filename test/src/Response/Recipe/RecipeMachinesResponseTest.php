@@ -33,9 +33,11 @@ class RecipeMachinesResponseTest extends TestCase
             ]
         ];
         $machine1 = new Machine();
-        $machine1->setName('abc');
+        $machine1->setName('abc')
+                 ->setEnergyUsageUnit('');
         $machine2 = new Machine();
-        $machine2->setName('def');
+        $machine2->setName('def')
+                 ->setEnergyUsageUnit('');
 
         $response = new RecipeMachinesResponse(new TestPendingResponse($responseData));
         $this->assertEquals([$machine1, $machine2], $response->getMachines());
