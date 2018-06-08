@@ -40,8 +40,7 @@ class ApiClientException extends Exception
         string $request = '',
         string $response = '',
         Exception $previous = null
-    )
-    {
+    ) {
         parent::__construct($message, $code, $previous);
         $this->request = $request;
         $this->response = $response;
