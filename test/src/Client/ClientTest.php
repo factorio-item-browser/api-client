@@ -212,8 +212,7 @@ class ClientTest extends TestCase
         string $expectedException,
         string $expectedExceptionMessage,
         array $expectedResult
-    )
-    {
+    ) {
         /* @var MultiCurlManager|MockObject $multiCurlManager */
         $multiCurlManager = $this->getMockBuilder(MultiCurlManager::class)
                                  ->setMethods(['waitForSingleRequest'])
