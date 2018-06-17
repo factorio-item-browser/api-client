@@ -57,7 +57,6 @@ class RecipeMachinesResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->machines = [];
         foreach ($responseData->getObjectArray('machines') as $machineData) {
             $this->machines[] = (new Machine())->readData($machineData);

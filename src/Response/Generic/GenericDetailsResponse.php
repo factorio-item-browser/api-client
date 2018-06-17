@@ -41,7 +41,6 @@ class GenericDetailsResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->entities = [];
         foreach ($responseData->getObjectArray('entities') as $entityData) {
             $this->entities[] = (new GenericEntity())->readData($entityData);

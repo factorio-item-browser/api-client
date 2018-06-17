@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Response;
 
-use FactorioItemBrowser\Api\Client\Entity\Meta;
+use BluePsyduck\Common\Data\DataContainer;
+use BluePsyduck\Common\Test\ReflectionTrait;
 use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
 use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -19,28 +20,28 @@ use PHPUnit\Framework\TestCase;
  */
 class AbstractResponseTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * Tests mapping and getting the meta data.
+     * Tests checking the pending response.
      * @covers ::__construct
-     * @covers ::getMeta
      * @covers ::checkPendingResponse
-     * @covers ::mapResponse
      */
-    public function testGetMeta()
+    public function testCheckPendingResponse()
     {
         $responseData = [
-            'meta' => [
-                'executionTime' => 13.37
-            ]
+            'foo' => 'bar'
         ];
-        $expectedMeta = new Meta();
-        $expectedMeta->setExecutionTime(13.37);
 
         /* @var AbstractResponse|MockObject $response */
         $response = $this->getMockBuilder(AbstractResponse::class)
+                         ->setMethods(['mapResponse'])
                          ->setConstructorArgs([new TestPendingResponse($responseData)])
                          ->getMockForAbstractClass();
+        $response->expects($this->once())
+                 ->method('mapResponse')
+                 ->with(new DataContainer($responseData));
 
-        $this->assertEquals($expectedMeta, $response->getMeta());
+        $this->assertEquals($response, $this->invokeMethod($response, 'checkPendingResponse'));
     }
 }
