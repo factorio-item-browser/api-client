@@ -76,7 +76,6 @@ class ItemIngredientResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->item = (new Item())->readData($responseData->getObject('item'));
         $this->totalNumberOfResults = $responseData->getInteger('totalNumberOfResults');
 

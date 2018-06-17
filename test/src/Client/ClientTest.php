@@ -185,7 +185,7 @@ class ClientTest extends TestCase
         $request5 = new Request();
         $request5->getResponse()->setStatusCode(400)
                                 ->setErrorCode(CURLE_OK)
-                                ->setContent('{"abc":"def"}');
+                                ->setContent('{"error":{"message":"def"}}');
 
         return [
             [$request1, '', '', ['abc' => 'def']],

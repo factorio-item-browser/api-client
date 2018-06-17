@@ -54,7 +54,6 @@ class ModMetaResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->numberOfAvailableMods = $responseData->getInteger('numberOfAvailableMods');
         $this->numberOfEnabledMods = $responseData->getInteger('numberOfEnabledMods');
         return $this;
