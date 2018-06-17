@@ -8,7 +8,6 @@ use BluePsyduck\Common\Data\DataContainer;
 use BluePsyduck\MultiCurl\Constant\RequestMethod;
 use BluePsyduck\MultiCurl\Entity\Request;
 use BluePsyduck\MultiCurl\MultiCurlManager;
-use FactorioItemBrowser\Api\Client\Entity\Meta;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Exception\ExceptionFactory;
 use FactorioItemBrowser\Api\Client\Request\Auth\AuthRequest;
@@ -212,11 +211,10 @@ class Client
             );
         }
 
-        if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 600) {
-            $meta = (new Meta())->readData((new DataContainer($decodedResponse))->getObject('meta'));
+        if (isset($decodedResponse['error'])) {
             throw ExceptionFactory::create(
                 $response->getStatusCode(),
-                $meta->getErrorMessage(),
+                (new DataContainer($decodedResponse))->getString('message'),
                 $request->getRequestData(),
                 $response->getContent()
             );

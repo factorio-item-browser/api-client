@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Response\Generic;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
-use FactorioItemBrowser\Api\Client\Entity\Meta;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
 use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
@@ -39,23 +38,5 @@ class GenericDetailsResponseTest extends TestCase
 
         $response = new GenericDetailsResponse(new TestPendingResponse($responseData));
         $this->assertEquals([$entity1, $entity2], $response->getEntities());
-    }
-
-    /**
-     * Tests mapping and getting the meta data.
-     * @coversNothing
-     */
-    public function testGetMeta()
-    {
-        $responseData = [
-            'meta' => [
-                'executionTime' => 13.37
-            ]
-        ];
-        $expectedMeta = new Meta();
-        $expectedMeta->setExecutionTime(13.37);
-
-        $response = new GenericDetailsResponse(new TestPendingResponse($responseData));
-        $this->assertEquals($expectedMeta, $response->getMeta());
     }
 }

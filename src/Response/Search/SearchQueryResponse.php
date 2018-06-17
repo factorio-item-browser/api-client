@@ -55,7 +55,6 @@ class SearchQueryResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->results = [];
         foreach ($responseData->getObjectArray('results') as $resultData) {
             $this->results[] = (new GenericEntityWithRecipes())->readData($resultData);

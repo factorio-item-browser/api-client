@@ -41,7 +41,6 @@ class GenericIconResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->icons = [];
         foreach ($responseData->getObjectArray('icons') as $iconData) {
             $this->icons[] = (new Icon())->readData($iconData);

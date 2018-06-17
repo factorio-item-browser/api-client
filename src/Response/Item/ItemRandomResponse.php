@@ -41,7 +41,6 @@ class ItemRandomResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->items = [];
         foreach ($responseData->getObjectArray('items') as $itemData) {
             $this->items[] = (new GenericEntityWithRecipes())->readData($itemData);

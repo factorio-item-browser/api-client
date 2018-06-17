@@ -41,7 +41,6 @@ class RecipeDetailsResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->recipes = [];
         foreach ($responseData->getObjectArray('recipes') as $recipeData) {
             $this->recipes[] = (new Recipe())->readData($recipeData);

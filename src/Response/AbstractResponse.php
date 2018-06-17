@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response;
 
 use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Entity\Meta;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 
 /**
@@ -23,29 +22,12 @@ abstract class AbstractResponse
     protected $pendingResponse = null;
 
     /**
-     * The meta information of the response.
-     * @var Meta
-     */
-    protected $meta;
-
-    /**
      * Initializes the response.
      * @param PendingResponse $pendingResponse
      */
     public function __construct(PendingResponse $pendingResponse)
     {
         $this->pendingResponse = $pendingResponse;
-    }
-
-    /**
-     * Returns the meta information of the response.
-     * @return Meta
-     * @throws ApiClientException
-     */
-    public function getMeta(): Meta
-    {
-        $this->checkPendingResponse();
-        return $this->meta;
     }
 
     /**
@@ -68,9 +50,5 @@ abstract class AbstractResponse
      * @param DataContainer $responseData
      * @return $this
      */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->meta = (new Meta())->readData($responseData->getObject('meta'));
-        return $this;
-    }
+    abstract protected function mapResponse(DataContainer $responseData);
 }

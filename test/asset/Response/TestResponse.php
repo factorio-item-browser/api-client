@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestAsset\Api\Client\Response;
 
+use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
 use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
@@ -15,6 +16,16 @@ use FactorioItemBrowser\Api\Client\Response\PendingResponse;
  */
 class TestResponse extends AbstractResponse
 {
+    /**
+     * Maps the response data.
+     * @param DataContainer $responseData
+     * @return $this
+     */
+    protected function mapResponse(DataContainer $responseData)
+    {
+        return $this;
+    }
+
     /**
      * The pending response instance.
      * @return PendingResponse|null

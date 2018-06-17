@@ -38,7 +38,6 @@ class AuthResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->authorizationToken = $responseData->getString('authorizationToken');
         return $this;
     }
