@@ -6,7 +6,6 @@ namespace FactorioItemBrowser\Api\Client\Response\Item;
 
 use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
 
@@ -20,53 +19,19 @@ class ItemProductResponse extends AbstractResponse
 {
     /**
      * The details of the requested item.
-     * @var Item
+     * @var GenericEntityWithRecipes
      */
     protected $item;
 
     /**
-     * The recipes having the item as product, grouped by name.
-     * @var array|GenericEntityWithRecipes[]
-     */
-    protected $groupedRecipes;
-
-    /**
-     * The total number of available results.
-     * @var int
-     */
-    protected $totalNumberOfResults;
-
-    /**
      * Returns the details of the requested item.
-     * @return Item
+     * @return GenericEntityWithRecipes
      * @throws ApiClientException
      */
-    public function getItem(): Item
+    public function getItem(): GenericEntityWithRecipes
     {
         $this->checkPendingResponse();
         return $this->item;
-    }
-
-    /**
-     * Returns the recipes having the item as product, grouped by name.
-     * @return array|GenericEntityWithRecipes[]
-     * @throws ApiClientException
-     */
-    public function getGroupedRecipes(): array
-    {
-        $this->checkPendingResponse();
-        return $this->groupedRecipes;
-    }
-
-    /**
-     * Returns the total number of available results.
-     * @return int
-     * @throws ApiClientException
-     */
-    public function getTotalNumberOfResults(): int
-    {
-        $this->checkPendingResponse();
-        return $this->totalNumberOfResults;
     }
 
     /**
@@ -76,13 +41,7 @@ class ItemProductResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        $this->item = (new Item())->readData($responseData->getObject('item'));
-        $this->totalNumberOfResults = $responseData->getInteger('totalNumberOfResults');
-
-        $this->groupedRecipes = [];
-        foreach ($responseData->getObjectArray('groupedRecipes') as $groupedRecipeData) {
-            $this->groupedRecipes[] = (new GenericEntityWithRecipes())->readData($groupedRecipeData);
-        }
+        $this->item = (new GenericEntityWithRecipes())->readData($responseData->getObject('item'));
         return $this;
     }
 }

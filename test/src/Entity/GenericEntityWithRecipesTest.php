@@ -7,7 +7,7 @@ namespace FactorioItemBrowserTest\Api\Client\Entity;
 use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\Item;
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -42,11 +42,11 @@ class GenericEntityWithRecipesTest extends TestCase
      */
     public function testSetAddAndGetRecipes()
     {
-        $recipe1 = new Recipe();
+        $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->setMode('abc');
-        $recipe2 = new Recipe();
+        $recipe2 = new RecipeWithExpensiveVersion();
         $recipe2->setMode('def');
-        $recipe3 = new Recipe();
+        $recipe3 = new RecipeWithExpensiveVersion();
         $recipe3->setMode('ghi');
 
         $entity = new GenericEntityWithRecipes();
@@ -76,9 +76,9 @@ class GenericEntityWithRecipesTest extends TestCase
      */
     public function testWriteAndReadData()
     {
-        $recipe1 = new Recipe();
+        $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->setMode('r1');
-        $recipe2 = new Recipe();
+        $recipe2 = new RecipeWithExpensiveVersion();
         $recipe2->setMode('r2');
 
         $entity = new GenericEntityWithRecipes();
