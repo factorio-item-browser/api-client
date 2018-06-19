@@ -25,10 +25,10 @@ class ItemRandomResponse extends AbstractResponse
 
     /**
      * Returns the random items.
-     * @return array|GenericEntityWithRecipes
+     * @return array|GenericEntityWithRecipes[]
      * @throws ApiClientException
      */
-    public function getItems()
+    public function getItems(): array
     {
         $this->checkPendingResponse();
         return $this->items;

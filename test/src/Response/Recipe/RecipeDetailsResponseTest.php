@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Response\Recipe;
 
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
@@ -31,9 +31,9 @@ class RecipeDetailsResponseTest extends TestCase
                 ['name' => 'def']
             ]
         ];
-        $recipe1 = new Recipe();
+        $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->setName('abc');
-        $recipe2 = new Recipe();
+        $recipe2 = new RecipeWithExpensiveVersion();
         $recipe2->setName('def');
 
         $response = new RecipeDetailsResponse(new TestPendingResponse($responseData));

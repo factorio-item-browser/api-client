@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response\Recipe;
 
 use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
 
@@ -19,13 +19,13 @@ class RecipeDetailsResponse extends AbstractResponse
 {
     /**
      * The recipes details.
-     * @var array|Recipe[]
+     * @var array|RecipeWithExpensiveVersion[]
      */
     protected $recipes;
 
     /**
      * Returns the recipe details.
-     * @return array|Recipe[]
+     * @return array|RecipeWithExpensiveVersion[]
      * @throws ApiClientException
      */
     public function getRecipes()
@@ -43,7 +43,7 @@ class RecipeDetailsResponse extends AbstractResponse
     {
         $this->recipes = [];
         foreach ($responseData->getObjectArray('recipes') as $recipeData) {
-            $this->recipes[] = (new Recipe())->readData($recipeData);
+            $this->recipes[] = (new RecipeWithExpensiveVersion())->readData($recipeData);
         }
         return $this;
     }
