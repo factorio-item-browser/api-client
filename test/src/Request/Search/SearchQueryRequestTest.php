@@ -25,7 +25,7 @@ class SearchQueryRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new SearchQueryRequest();
-        $this->assertEquals('/search/query', $request->getRequestPath());
+        $this->assertSame('/search/query', $request->getRequestPath());
     }
 
     /**
@@ -39,10 +39,10 @@ class SearchQueryRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new SearchQueryRequest();
-        $this->assertEquals($request, $request->setQuery('abc'));
-        $this->assertEquals($request, $request->setNumberOfResults(42));
-        $this->assertEquals($request, $request->setIndexOfFirstResult(21));
-        $this->assertEquals($request, $request->setNumberOfRecipesPerResult(1337));
+        $this->assertSame($request, $request->setQuery('abc'));
+        $this->assertSame($request, $request->setNumberOfResults(42));
+        $this->assertSame($request, $request->setIndexOfFirstResult(21));
+        $this->assertSame($request, $request->setNumberOfRecipesPerResult(1337));
 
         $expectedData = [
             'query' => 'abc',

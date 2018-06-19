@@ -37,7 +37,7 @@ class ClientTest extends TestCase
     public function testSetLocale()
     {
         $client = new Client(new Options());
-        $this->assertEquals($client, $client->setLocale('abc'));
+        $this->assertSame($client, $client->setLocale('abc'));
     }
 
     /**
@@ -47,7 +47,7 @@ class ClientTest extends TestCase
     public function testSetEnabledModNames()
     {
         $client = new Client(new Options());
-        $this->assertEquals($client, $client->setEnabledModNames(['abc', 'def']));
+        $this->assertSame($client, $client->setEnabledModNames(['abc', 'def']));
     }
 
     /**
@@ -61,11 +61,11 @@ class ClientTest extends TestCase
         $authorizationToken = 'abc';
 
         $client = new Client(new Options());
-        $this->assertEquals($client, $client->setAuthorizationToken($authorizationToken));
-        $this->assertEquals($authorizationToken, $client->getAuthorizationToken());
+        $this->assertSame($client, $client->setAuthorizationToken($authorizationToken));
+        $this->assertSame($authorizationToken, $client->getAuthorizationToken());
 
-        $this->assertEquals($client, $client->clearAuthorizationToken());
-        $this->assertEquals('', $client->getAuthorizationToken());
+        $this->assertSame($client, $client->clearAuthorizationToken());
+        $this->assertSame('', $client->getAuthorizationToken());
     }
 
     /**
@@ -157,7 +157,7 @@ class ClientTest extends TestCase
 
         $client = new Client(new Options(), $multiCurlManager);
         $client->setAuthorizationToken($authorizationToken);
-        $this->assertEquals($client, $client->executeRequest($request));
+        $this->assertSame($client, $client->executeRequest($request));
     }
 
     /**
@@ -263,6 +263,6 @@ class ClientTest extends TestCase
         $client->setEnabledModNames(['ghi', 'jkl']);
 
         $client->requestAuthorizationToken();
-        $this->assertEquals($expectedToken, $client->getAuthorizationToken());
+        $this->assertSame($expectedToken, $client->getAuthorizationToken());
     }
 }

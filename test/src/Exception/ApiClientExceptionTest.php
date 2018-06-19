@@ -33,10 +33,10 @@ class ApiClientExceptionTest extends TestCase
 
         $exception = new ApiClientException($message, $code, $request, $response, $previous);
 
-        $this->assertEquals($message, $exception->getMessage());
-        $this->assertEquals($code, $exception->getCode());
-        $this->assertEquals($request, $exception->getRequest());
-        $this->assertEquals($response, $exception->getResponse());
-        $this->assertEquals($previous, $exception->getPrevious());
+        $this->assertSame($message, $exception->getMessage());
+        $this->assertSame($code, $exception->getCode());
+        $this->assertSame($request, $exception->getRequest());
+        $this->assertSame($response, $exception->getResponse());
+        $this->assertSame($previous, $exception->getPrevious());
     }
 }

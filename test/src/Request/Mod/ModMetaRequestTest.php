@@ -28,7 +28,7 @@ class ModMetaRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new ModMetaRequest();
-        $this->assertEquals('/mod/meta', $request->getRequestPath());
+        $this->assertSame('/mod/meta', $request->getRequestPath());
     }
 
     /**

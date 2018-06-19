@@ -24,8 +24,8 @@ class IconEntityTest extends TestCase
     public function testConstruct()
     {
         $entity = new IconEntity();
-        $this->assertEquals('', $entity->getType());
-        $this->assertEquals('', $entity->getName());
+        $this->assertSame('', $entity->getType());
+        $this->assertSame('', $entity->getName());
     }
 
     /**
@@ -36,8 +36,8 @@ class IconEntityTest extends TestCase
     public function testSetAndGetType()
     {
         $entity = new IconEntity();
-        $this->assertEquals($entity, $entity->setType('abc'));
-        $this->assertEquals('abc', $entity->getType());
+        $this->assertSame($entity, $entity->setType('abc'));
+        $this->assertSame('abc', $entity->getType());
     }
 
     /**
@@ -48,8 +48,8 @@ class IconEntityTest extends TestCase
     public function testSetAndGetName()
     {
         $entity = new IconEntity();
-        $this->assertEquals($entity, $entity->setName('abc'));
-        $this->assertEquals('abc', $entity->getName());
+        $this->assertSame($entity, $entity->setName('abc'));
+        $this->assertSame('abc', $entity->getName());
     }
 
     /**
@@ -72,7 +72,7 @@ class IconEntityTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newEntity = new IconEntity();
-        $this->assertEquals($newEntity, $newEntity->readData(new DataContainer($data)));
+        $this->assertSame($newEntity, $newEntity->readData(new DataContainer($data)));
         $this->assertEquals($newEntity, $entity);
     }
 }

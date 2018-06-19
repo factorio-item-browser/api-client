@@ -24,10 +24,10 @@ class GenericEntityTest extends TestCase
     public function testConstruct()
     {
         $entity = new GenericEntity();
-        $this->assertEquals('', $entity->getType());
-        $this->assertEquals('', $entity->getName());
-        $this->assertEquals('', $entity->getLabel());
-        $this->assertEquals('', $entity->getDescription());
+        $this->assertSame('', $entity->getType());
+        $this->assertSame('', $entity->getName());
+        $this->assertSame('', $entity->getLabel());
+        $this->assertSame('', $entity->getDescription());
     }
 
     /**
@@ -38,8 +38,8 @@ class GenericEntityTest extends TestCase
     public function testSetAndGetType()
     {
         $entity = new GenericEntity();
-        $this->assertEquals($entity, $entity->setType('abc'));
-        $this->assertEquals('abc', $entity->getType());
+        $this->assertSame($entity, $entity->setType('abc'));
+        $this->assertSame('abc', $entity->getType());
     }
 
     /**
@@ -50,8 +50,8 @@ class GenericEntityTest extends TestCase
     public function testSetAndGetName()
     {
         $entity = new GenericEntity();
-        $this->assertEquals($entity, $entity->setName('abc'));
-        $this->assertEquals('abc', $entity->getName());
+        $this->assertSame($entity, $entity->setName('abc'));
+        $this->assertSame('abc', $entity->getName());
     }
 
     /**
@@ -62,8 +62,8 @@ class GenericEntityTest extends TestCase
     public function testSetAndGetLabel()
     {
         $entity = new GenericEntity();
-        $this->assertEquals($entity, $entity->setLabel('abc'));
-        $this->assertEquals('abc', $entity->getLabel());
+        $this->assertSame($entity, $entity->setLabel('abc'));
+        $this->assertSame('abc', $entity->getLabel());
     }
 
     /**
@@ -74,8 +74,8 @@ class GenericEntityTest extends TestCase
     public function testSetAndGetDescription()
     {
         $entity = new GenericEntity();
-        $this->assertEquals($entity, $entity->setDescription('abc'));
-        $this->assertEquals('abc', $entity->getDescription());
+        $this->assertSame($entity, $entity->setDescription('abc'));
+        $this->assertSame('abc', $entity->getDescription());
     }
 
     /**
@@ -102,7 +102,7 @@ class GenericEntityTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newEntity = new GenericEntity();
-        $this->assertEquals($newEntity, $newEntity->readData(new DataContainer($data)));
+        $this->assertSame($newEntity, $newEntity->readData(new DataContainer($data)));
         $this->assertEquals($newEntity, $entity);
     }
 }

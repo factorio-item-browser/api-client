@@ -25,14 +25,14 @@ class RecipeTest extends TestCase
     public function testConstruct()
     {
         $recipe = new Recipe();
-        $this->assertEquals('recipe', $recipe->getType());
-        $this->assertEquals('', $recipe->getName());
-        $this->assertEquals('', $recipe->getMode());
-        $this->assertEquals('', $recipe->getLabel());
-        $this->assertEquals('', $recipe->getDescription());
-        $this->assertEquals([], $recipe->getIngredients());
-        $this->assertEquals([], $recipe->getProducts());
-        $this->assertEquals(0., $recipe->getCraftingTime());
+        $this->assertSame('recipe', $recipe->getType());
+        $this->assertSame('', $recipe->getName());
+        $this->assertSame('', $recipe->getMode());
+        $this->assertSame('', $recipe->getLabel());
+        $this->assertSame('', $recipe->getDescription());
+        $this->assertSame([], $recipe->getIngredients());
+        $this->assertSame([], $recipe->getProducts());
+        $this->assertSame(0., $recipe->getCraftingTime());
     }
 
     /**
@@ -42,7 +42,7 @@ class RecipeTest extends TestCase
     public function testGetType()
     {
         $recipe = new Recipe();
-        $this->assertEquals('recipe', $recipe->getType());
+        $this->assertSame('recipe', $recipe->getType());
     }
 
     /**
@@ -53,8 +53,8 @@ class RecipeTest extends TestCase
     public function testSetAndGetMode()
     {
         $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setMode('abc'));
-        $this->assertEquals('abc', $recipe->getMode());
+        $this->assertSame($recipe, $recipe->setMode('abc'));
+        $this->assertSame('abc', $recipe->getMode());
     }
 
     /**
@@ -73,11 +73,11 @@ class RecipeTest extends TestCase
         $item3->setType('ghi');
 
         $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setIngredients([$item1, new Recipe(), $item2]));
-        $this->assertEquals([$item1, $item2], $recipe->getIngredients());
+        $this->assertSame($recipe, $recipe->setIngredients([$item1, new Recipe(), $item2]));
+        $this->assertSame([$item1, $item2], $recipe->getIngredients());
 
-        $this->assertEquals($recipe, $recipe->addIngredient($item3));
-        $this->assertEquals([$item1, $item2, $item3], $recipe->getIngredients());
+        $this->assertSame($recipe, $recipe->addIngredient($item3));
+        $this->assertSame([$item1, $item2, $item3], $recipe->getIngredients());
     }
 
     /**
@@ -96,11 +96,11 @@ class RecipeTest extends TestCase
         $item3->setType('ghi');
 
         $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setProducts([$item1, new Recipe(), $item2]));
-        $this->assertEquals([$item1, $item2], $recipe->getProducts());
+        $this->assertSame($recipe, $recipe->setProducts([$item1, new Recipe(), $item2]));
+        $this->assertSame([$item1, $item2], $recipe->getProducts());
 
-        $this->assertEquals($recipe, $recipe->addProduct($item3));
-        $this->assertEquals([$item1, $item2, $item3], $recipe->getProducts());
+        $this->assertSame($recipe, $recipe->addProduct($item3));
+        $this->assertSame([$item1, $item2, $item3], $recipe->getProducts());
     }
 
     /**
@@ -111,8 +111,8 @@ class RecipeTest extends TestCase
     public function testSetAndGetCraftingTime()
     {
         $recipe = new Recipe();
-        $this->assertEquals($recipe, $recipe->setCraftingTime(13.37));
-        $this->assertEquals(13.37, $recipe->getCraftingTime());
+        $this->assertSame($recipe, $recipe->setCraftingTime(13.37));
+        $this->assertSame(13.37, $recipe->getCraftingTime());
     }
 
     /**
@@ -162,7 +162,7 @@ class RecipeTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newRecipe = new Recipe();
-        $this->assertEquals($newRecipe, $newRecipe->readData(new DataContainer($data)));
+        $this->assertSame($newRecipe, $newRecipe->readData(new DataContainer($data)));
         $this->assertEquals($newRecipe, $recipe);
     }
 }

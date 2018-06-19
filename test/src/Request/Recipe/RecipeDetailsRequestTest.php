@@ -25,7 +25,7 @@ class RecipeDetailsRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new RecipeDetailsRequest();
-        $this->assertEquals('/recipe/details', $request->getRequestPath());
+        $this->assertSame('/recipe/details', $request->getRequestPath());
     }
 
     /**
@@ -37,8 +37,8 @@ class RecipeDetailsRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new RecipeDetailsRequest();
-        $this->assertEquals($request, $request->setNames(['abc', 42, '', 'def']));
-        $this->assertEquals($request, $request->addName('ghi'));
+        $this->assertSame($request, $request->setNames(['abc', 42, '', 'def']));
+        $this->assertSame($request, $request->addName('ghi'));
 
         $expectedData = [
             'names' => ['abc', '42', 'def', 'ghi']

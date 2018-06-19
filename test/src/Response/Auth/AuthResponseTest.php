@@ -29,6 +29,6 @@ class AuthResponseTest extends TestCase
         ];
 
         $response = new AuthResponse(new TestPendingResponse($responseData));
-        $this->assertEquals('abc', $response->getAuthorizationToken());
+        $this->assertSame('abc', $response->getAuthorizationToken());
     }
 }

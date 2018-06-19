@@ -25,8 +25,8 @@ class IconTest extends TestCase
     public function testConstruct()
     {
         $icon = new Icon();
-        $this->assertEquals([], $icon->getEntities());
-        $this->assertEquals('', $icon->getContent());
+        $this->assertSame([], $icon->getEntities());
+        $this->assertSame('', $icon->getContent());
     }
 
     /**
@@ -45,11 +45,11 @@ class IconTest extends TestCase
         $entity3->setType('ghi');
 
         $icon = new Icon();
-        $this->assertEquals($icon, $icon->setEntities([$entity1, new Icon(), $entity2]));
-        $this->assertEquals([$entity1, $entity2], $icon->getEntities());
+        $this->assertSame($icon, $icon->setEntities([$entity1, new Icon(), $entity2]));
+        $this->assertSame([$entity1, $entity2], $icon->getEntities());
 
-        $this->assertEquals($icon, $icon->addEntity($entity3));
-        $this->assertEquals([$entity1, $entity2, $entity3], $icon->getEntities());
+        $this->assertSame($icon, $icon->addEntity($entity3));
+        $this->assertSame([$entity1, $entity2, $entity3], $icon->getEntities());
     }
 
     /**
@@ -60,8 +60,8 @@ class IconTest extends TestCase
     public function testSetAndGetContent()
     {
         $item = new Icon();
-        $this->assertEquals($item, $item->setContent('abc'));
-        $this->assertEquals('abc', $item->getContent());
+        $this->assertSame($item, $item->setContent('abc'));
+        $this->assertSame('abc', $item->getContent());
     }
 
     /**
@@ -99,7 +99,7 @@ class IconTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newIcon = new Icon();
-        $this->assertEquals($newIcon, $newIcon->readData(new DataContainer($data)));
+        $this->assertSame($newIcon, $newIcon->readData(new DataContainer($data)));
         $this->assertEquals($newIcon, $icon);
     }
 }

@@ -25,7 +25,7 @@ class GenericIconRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new GenericIconRequest();
-        $this->assertEquals('/generic/icon', $request->getRequestPath());
+        $this->assertSame('/generic/icon', $request->getRequestPath());
     }
 
     /**
@@ -36,8 +36,8 @@ class GenericIconRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new GenericIconRequest();
-        $this->assertEquals($request, $request->addEntity('abc', 'def'));
-        $this->assertEquals($request, $request->addEntity('ghi', 'jkl'));
+        $this->assertSame($request, $request->addEntity('abc', 'def'));
+        $this->assertSame($request, $request->addEntity('ghi', 'jkl'));
 
         $expectedData = [
             'entities' => [
