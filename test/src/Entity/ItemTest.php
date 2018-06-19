@@ -24,11 +24,11 @@ class ItemTest extends TestCase
     public function testConstruct()
     {
         $item = new Item();
-        $this->assertEquals('', $item->getType());
-        $this->assertEquals('', $item->getName());
-        $this->assertEquals('', $item->getLabel());
-        $this->assertEquals('', $item->getDescription());
-        $this->assertEquals(0., $item->getAmount());
+        $this->assertSame('', $item->getType());
+        $this->assertSame('', $item->getName());
+        $this->assertSame('', $item->getLabel());
+        $this->assertSame('', $item->getDescription());
+        $this->assertSame(0., $item->getAmount());
     }
 
     /**
@@ -39,8 +39,8 @@ class ItemTest extends TestCase
     public function testSetAndGetAmount()
     {
         $item = new Item();
-        $this->assertEquals($item, $item->setAmount(13.37));
-        $this->assertEquals(13.37, $item->getAmount());
+        $this->assertSame($item, $item->setAmount(13.37));
+        $this->assertSame(13.37, $item->getAmount());
     }
 
     /**
@@ -69,7 +69,7 @@ class ItemTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newItem = new Item();
-        $this->assertEquals($newItem, $newItem->readData(new DataContainer($data)));
+        $this->assertSame($newItem, $newItem->readData(new DataContainer($data)));
         $this->assertEquals($newItem, $item);
     }
 }

@@ -42,6 +42,6 @@ class AbstractResponseTest extends TestCase
                  ->method('mapResponse')
                  ->with(new DataContainer($responseData));
 
-        $this->assertEquals($response, $this->invokeMethod($response, 'checkPendingResponse'));
+        $this->assertSame($response, $this->invokeMethod($response, 'checkPendingResponse'));
     }
 }

@@ -25,7 +25,7 @@ class RecipeMachinesRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new RecipeMachinesRequest();
-        $this->assertEquals('/recipe/machines', $request->getRequestPath());
+        $this->assertSame('/recipe/machines', $request->getRequestPath());
     }
 
     /**
@@ -38,9 +38,9 @@ class RecipeMachinesRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new RecipeMachinesRequest();
-        $this->assertEquals($request, $request->setName('abc'));
-        $this->assertEquals($request, $request->setNumberOfResults(42));
-        $this->assertEquals($request, $request->setIndexOfFirstResult(21));
+        $this->assertSame($request, $request->setName('abc'));
+        $this->assertSame($request, $request->setNumberOfResults(42));
+        $this->assertSame($request, $request->setIndexOfFirstResult(21));
 
         $expectedData = [
             'name' => 'abc',

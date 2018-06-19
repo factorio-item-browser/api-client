@@ -25,7 +25,7 @@ class AuthRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new AuthRequest();
-        $this->assertEquals('/auth', $request->getRequestPath());
+        $this->assertSame('/auth', $request->getRequestPath());
     }
 
     /**
@@ -38,9 +38,9 @@ class AuthRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new AuthRequest();
-        $this->assertEquals($request, $request->setAgent('abc'));
-        $this->assertEquals($request, $request->setAccessKey('def'));
-        $this->assertEquals($request, $request->setEnabledModNames(['ghi', 'jkl']));
+        $this->assertSame($request, $request->setAgent('abc'));
+        $this->assertSame($request, $request->setAccessKey('def'));
+        $this->assertSame($request, $request->setEnabledModNames(['ghi', 'jkl']));
 
         $expectedData = [
             'agent' => 'abc',

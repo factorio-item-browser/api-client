@@ -25,7 +25,7 @@ class ItemProductRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new ItemProductRequest();
-        $this->assertEquals('/item/product', $request->getRequestPath());
+        $this->assertSame('/item/product', $request->getRequestPath());
     }
 
     /**
@@ -39,10 +39,10 @@ class ItemProductRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new ItemProductRequest();
-        $this->assertEquals($request, $request->setType('abc'));
-        $this->assertEquals($request, $request->setName('def'));
-        $this->assertEquals($request, $request->setNumberOfResults(42));
-        $this->assertEquals($request, $request->setIndexOfFirstResult(21));
+        $this->assertSame($request, $request->setType('abc'));
+        $this->assertSame($request, $request->setName('def'));
+        $this->assertSame($request, $request->setNumberOfResults(42));
+        $this->assertSame($request, $request->setIndexOfFirstResult(21));
 
         $expectedData = [
             'type' => 'abc',

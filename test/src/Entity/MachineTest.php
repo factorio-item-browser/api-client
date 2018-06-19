@@ -25,17 +25,17 @@ class MachineTest extends TestCase
     public function testConstruct()
     {
         $machine = new Machine();
-        $this->assertEquals('machine', $machine->getType());
-        $this->assertEquals('', $machine->getName());
-        $this->assertEquals('', $machine->getLabel());
-        $this->assertEquals('', $machine->getDescription());
-        $this->assertEquals(0., $machine->getCraftingSpeed());
-        $this->assertEquals(0, $machine->getNumberOfItemSlots());
-        $this->assertEquals(0, $machine->getNumberOfFluidInputSlots());
-        $this->assertEquals(0, $machine->getNumberOfFluidOutputSlots());
-        $this->assertEquals(0, $machine->getNumberOfModuleSlots());
-        $this->assertEquals(0., $machine->getEnergyUsage());
-        $this->assertEquals(EnergyUsageUnit::WATT, $machine->getEnergyUsageUnit());
+        $this->assertSame('machine', $machine->getType());
+        $this->assertSame('', $machine->getName());
+        $this->assertSame('', $machine->getLabel());
+        $this->assertSame('', $machine->getDescription());
+        $this->assertSame(0., $machine->getCraftingSpeed());
+        $this->assertSame(0, $machine->getNumberOfItemSlots());
+        $this->assertSame(0, $machine->getNumberOfFluidInputSlots());
+        $this->assertSame(0, $machine->getNumberOfFluidOutputSlots());
+        $this->assertSame(0, $machine->getNumberOfModuleSlots());
+        $this->assertSame(0., $machine->getEnergyUsage());
+        $this->assertSame(EnergyUsageUnit::WATT, $machine->getEnergyUsageUnit());
     }
 
     /**
@@ -45,7 +45,7 @@ class MachineTest extends TestCase
     public function testGetType()
     {
         $machine = new Machine();
-        $this->assertEquals('machine', $machine->getType());
+        $this->assertSame('machine', $machine->getType());
     }
 
     /**
@@ -56,8 +56,8 @@ class MachineTest extends TestCase
     public function testSetAndGetCraftingSpeed()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setCraftingSpeed(13.37));
-        $this->assertEquals(13.37, $machine->getCraftingSpeed());
+        $this->assertSame($machine, $machine->setCraftingSpeed(13.37));
+        $this->assertSame(13.37, $machine->getCraftingSpeed());
     }
 
     /**
@@ -68,8 +68,8 @@ class MachineTest extends TestCase
     public function testSetAndGetNumberOfItemSlots()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setNumberOfItemSlots(42));
-        $this->assertEquals(42, $machine->getNumberOfItemSlots());
+        $this->assertSame($machine, $machine->setNumberOfItemSlots(42));
+        $this->assertSame(42, $machine->getNumberOfItemSlots());
     }
 
     /**
@@ -80,8 +80,8 @@ class MachineTest extends TestCase
     public function testSetAndGetNumberOfFluidInputSlots()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setNumberOfFluidInputSlots(42));
-        $this->assertEquals(42, $machine->getNumberOfFluidInputSlots());
+        $this->assertSame($machine, $machine->setNumberOfFluidInputSlots(42));
+        $this->assertSame(42, $machine->getNumberOfFluidInputSlots());
     }
 
     /**
@@ -92,8 +92,8 @@ class MachineTest extends TestCase
     public function testSetAndGetNumberOfFluidOutputSlots()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setNumberOfFluidOutputSlots(42));
-        $this->assertEquals(42, $machine->getNumberOfFluidOutputSlots());
+        $this->assertSame($machine, $machine->setNumberOfFluidOutputSlots(42));
+        $this->assertSame(42, $machine->getNumberOfFluidOutputSlots());
     }
 
     /**
@@ -104,8 +104,8 @@ class MachineTest extends TestCase
     public function testSetAndGetNumberOfModuleSlots()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setNumberOfModuleSlots(42));
-        $this->assertEquals(42, $machine->getNumberOfModuleSlots());
+        $this->assertSame($machine, $machine->setNumberOfModuleSlots(42));
+        $this->assertSame(42, $machine->getNumberOfModuleSlots());
     }
 
     /**
@@ -116,8 +116,8 @@ class MachineTest extends TestCase
     public function testSetAndGetEnergyUsage()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setEnergyUsage(13.37));
-        $this->assertEquals(13.37, $machine->getEnergyUsage());
+        $this->assertSame($machine, $machine->setEnergyUsage(13.37));
+        $this->assertSame(13.37, $machine->getEnergyUsage());
     }
 
     /**
@@ -128,8 +128,8 @@ class MachineTest extends TestCase
     public function testSetAndGetEnergyUsageUnit()
     {
         $machine = new Machine();
-        $this->assertEquals($machine, $machine->setEnergyUsageUnit('abc'));
-        $this->assertEquals('abc', $machine->getEnergyUsageUnit());
+        $this->assertSame($machine, $machine->setEnergyUsageUnit('abc'));
+        $this->assertSame('abc', $machine->getEnergyUsageUnit());
     }
 
     /**
@@ -168,7 +168,7 @@ class MachineTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newMachine = new Machine();
-        $this->assertEquals($newMachine, $newMachine->readData(new DataContainer($data)));
+        $this->assertSame($newMachine, $newMachine->readData(new DataContainer($data)));
         $this->assertEquals($newMachine, $machine);
     }
 }

@@ -25,7 +25,7 @@ class ItemRandomRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new ItemRandomRequest();
-        $this->assertEquals('/item/random', $request->getRequestPath());
+        $this->assertSame('/item/random', $request->getRequestPath());
     }
 
     /**
@@ -37,8 +37,8 @@ class ItemRandomRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new ItemRandomRequest();
-        $this->assertEquals($request, $request->setNumberOfResults(42));
-        $this->assertEquals($request, $request->setNumberOfRecipesPerResult(1337));
+        $this->assertSame($request, $request->setNumberOfResults(42));
+        $this->assertSame($request, $request->setNumberOfRecipesPerResult(1337));
 
         $expectedData = [
             'numberOfResults' => 42,
