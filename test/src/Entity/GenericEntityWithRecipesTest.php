@@ -7,7 +7,7 @@ namespace FactorioItemBrowserTest\Api\Client\Entity;
 use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\Item;
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,12 +26,12 @@ class GenericEntityWithRecipesTest extends TestCase
     public function testConstruct()
     {
         $entity = new GenericEntityWithRecipes();
-        $this->assertEquals('', $entity->getType());
-        $this->assertEquals('', $entity->getName());
-        $this->assertEquals('', $entity->getLabel());
-        $this->assertEquals('', $entity->getDescription());
-        $this->assertEquals([], $entity->getRecipes());
-        $this->assertEquals(0, $entity->getTotalNumberOfRecipes());
+        $this->assertSame('', $entity->getType());
+        $this->assertSame('', $entity->getName());
+        $this->assertSame('', $entity->getLabel());
+        $this->assertSame('', $entity->getDescription());
+        $this->assertSame([], $entity->getRecipes());
+        $this->assertSame(0, $entity->getTotalNumberOfRecipes());
     }
 
     /**
@@ -42,19 +42,19 @@ class GenericEntityWithRecipesTest extends TestCase
      */
     public function testSetAddAndGetRecipes()
     {
-        $recipe1 = new Recipe();
+        $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->setMode('abc');
-        $recipe2 = new Recipe();
+        $recipe2 = new RecipeWithExpensiveVersion();
         $recipe2->setMode('def');
-        $recipe3 = new Recipe();
+        $recipe3 = new RecipeWithExpensiveVersion();
         $recipe3->setMode('ghi');
 
         $entity = new GenericEntityWithRecipes();
-        $this->assertEquals($entity, $entity->setRecipes([$recipe1, new Item(), $recipe2]));
-        $this->assertEquals([$recipe1, $recipe2], $entity->getRecipes());
+        $this->assertSame($entity, $entity->setRecipes([$recipe1, new Item(), $recipe2]));
+        $this->assertSame([$recipe1, $recipe2], $entity->getRecipes());
 
-        $this->assertEquals($entity, $entity->addRecipe($recipe3));
-        $this->assertEquals([$recipe1, $recipe2, $recipe3], $entity->getRecipes());
+        $this->assertSame($entity, $entity->addRecipe($recipe3));
+        $this->assertSame([$recipe1, $recipe2, $recipe3], $entity->getRecipes());
     }
 
     /**
@@ -65,8 +65,8 @@ class GenericEntityWithRecipesTest extends TestCase
     public function testSetAndGetTotalNumberOfRecipes()
     {
         $entity = new GenericEntityWithRecipes();
-        $this->assertEquals($entity, $entity->setTotalNumberOfRecipes(42));
-        $this->assertEquals(42, $entity->getTotalNumberOfRecipes());
+        $this->assertSame($entity, $entity->setTotalNumberOfRecipes(42));
+        $this->assertSame(42, $entity->getTotalNumberOfRecipes());
     }
 
     /**
@@ -76,9 +76,9 @@ class GenericEntityWithRecipesTest extends TestCase
      */
     public function testWriteAndReadData()
     {
-        $recipe1 = new Recipe();
+        $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->setMode('r1');
-        $recipe2 = new Recipe();
+        $recipe2 = new RecipeWithExpensiveVersion();
         $recipe2->setMode('r2');
 
         $entity = new GenericEntityWithRecipes();
@@ -123,7 +123,7 @@ class GenericEntityWithRecipesTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newEntity = new GenericEntityWithRecipes();
-        $this->assertEquals($newEntity, $newEntity->readData(new DataContainer($data)));
+        $this->assertSame($newEntity, $newEntity->readData(new DataContainer($data)));
         $this->assertEquals($newEntity, $entity);
     }
 }

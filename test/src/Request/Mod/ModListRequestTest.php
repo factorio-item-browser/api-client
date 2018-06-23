@@ -28,7 +28,7 @@ class ModListRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new ModListRequest();
-        $this->assertEquals('/mod/list', $request->getRequestPath());
+        $this->assertSame('/mod/list', $request->getRequestPath());
     }
 
     /**

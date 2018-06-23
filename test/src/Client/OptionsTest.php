@@ -21,10 +21,10 @@ class OptionsTest extends TestCase
     public function testConstruct()
     {
         $options = new Options();
-        $this->assertEquals('', $options->getApiUrl());
-        $this->assertEquals('', $options->getAgent());
-        $this->assertEquals('', $options->getAccessKey());
-        $this->assertEquals(0, $options->getTimeout());
+        $this->assertSame('', $options->getApiUrl());
+        $this->assertSame('', $options->getAgent());
+        $this->assertSame('', $options->getAccessKey());
+        $this->assertSame(0, $options->getTimeout());
     }
 
     /**
@@ -36,8 +36,8 @@ class OptionsTest extends TestCase
     {
         $apiUrl = 'http://localhost/api';
         $options = new Options();
-        $this->assertEquals($options, $options->setApiUrl($apiUrl));
-        $this->assertEquals($apiUrl, $options->getApiUrl());
+        $this->assertSame($options, $options->setApiUrl($apiUrl));
+        $this->assertSame($apiUrl, $options->getApiUrl());
     }
 
     /**
@@ -48,8 +48,8 @@ class OptionsTest extends TestCase
     public function testSetAndGetAgent()
     {
         $options = new Options();
-        $this->assertEquals($options, $options->setAgent('abc'));
-        $this->assertEquals('abc', $options->getAgent());
+        $this->assertSame($options, $options->setAgent('abc'));
+        $this->assertSame('abc', $options->getAgent());
     }
 
     /**
@@ -60,8 +60,8 @@ class OptionsTest extends TestCase
     public function testSetAndGetAccessKey()
     {
         $options = new Options();
-        $this->assertEquals($options, $options->setAccessKey('abc'));
-        $this->assertEquals('abc', $options->getAccessKey());
+        $this->assertSame($options, $options->setAccessKey('abc'));
+        $this->assertSame('abc', $options->getAccessKey());
     }
 
     /**
@@ -72,7 +72,7 @@ class OptionsTest extends TestCase
     public function testSetAndGetTimeout()
     {
         $options = new Options();
-        $this->assertEquals($options, $options->setTimeout(42));
-        $this->assertEquals(42, $options->getTimeout());
+        $this->assertSame($options, $options->setTimeout(42));
+        $this->assertSame(42, $options->getTimeout());
     }
 }

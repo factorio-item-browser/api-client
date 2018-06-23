@@ -24,13 +24,13 @@ class ModTest extends TestCase
     public function testConstruct()
     {
         $mod = new Mod();
-        $this->assertEquals('mod', $mod->getType());
-        $this->assertEquals('', $mod->getName());
-        $this->assertEquals('', $mod->getLabel());
-        $this->assertEquals('', $mod->getDescription());
-        $this->assertEquals('', $mod->getAuthor());
-        $this->assertEquals('', $mod->getVersion());
-        $this->assertEquals(false, $mod->getIsEnabled());
+        $this->assertSame('mod', $mod->getType());
+        $this->assertSame('', $mod->getName());
+        $this->assertSame('', $mod->getLabel());
+        $this->assertSame('', $mod->getDescription());
+        $this->assertSame('', $mod->getAuthor());
+        $this->assertSame('', $mod->getVersion());
+        $this->assertSame(false, $mod->getIsEnabled());
     }
 
     /**
@@ -40,7 +40,7 @@ class ModTest extends TestCase
     public function testGetType()
     {
         $mod = new Mod();
-        $this->assertEquals('mod', $mod->getType());
+        $this->assertSame('mod', $mod->getType());
     }
 
     /**
@@ -51,8 +51,8 @@ class ModTest extends TestCase
     public function testSetAndGetAuthor()
     {
         $mod = new Mod();
-        $this->assertEquals($mod, $mod->setAuthor('abc'));
-        $this->assertEquals('abc', $mod->getAuthor());
+        $this->assertSame($mod, $mod->setAuthor('abc'));
+        $this->assertSame('abc', $mod->getAuthor());
     }
 
     /**
@@ -63,8 +63,8 @@ class ModTest extends TestCase
     public function testSetAndGetVersion()
     {
         $mod = new Mod();
-        $this->assertEquals($mod, $mod->setVersion('abc'));
-        $this->assertEquals('abc', $mod->getVersion());
+        $this->assertSame($mod, $mod->setVersion('abc'));
+        $this->assertSame('abc', $mod->getVersion());
     }
 
     /**
@@ -75,8 +75,8 @@ class ModTest extends TestCase
     public function testSetAndGetIsEnabled()
     {
         $mod = new Mod();
-        $this->assertEquals($mod, $mod->setIsEnabled(true));
-        $this->assertEquals(true, $mod->getIsEnabled());
+        $this->assertSame($mod, $mod->setIsEnabled(true));
+        $this->assertSame(true, $mod->getIsEnabled());
     }
 
     /**
@@ -107,7 +107,7 @@ class ModTest extends TestCase
         $this->assertEquals($expectedData, $data);
 
         $newMod = new Mod();
-        $this->assertEquals($newMod, $newMod->readData(new DataContainer($data)));
+        $this->assertSame($newMod, $newMod->readData(new DataContainer($data)));
         $this->assertEquals($newMod, $mod);
     }
 }

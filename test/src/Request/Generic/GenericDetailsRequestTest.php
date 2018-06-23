@@ -25,7 +25,7 @@ class GenericDetailsRequestTest extends TestCase
     public function testGetRequestPath()
     {
         $request = new GenericDetailsRequest();
-        $this->assertEquals('/generic/details', $request->getRequestPath());
+        $this->assertSame('/generic/details', $request->getRequestPath());
     }
 
     /**
@@ -36,8 +36,8 @@ class GenericDetailsRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new GenericDetailsRequest();
-        $this->assertEquals($request, $request->addEntity('abc', 'def'));
-        $this->assertEquals($request, $request->addEntity('ghi', 'jkl'));
+        $this->assertSame($request, $request->addEntity('abc', 'def'));
+        $this->assertSame($request, $request->addEntity('ghi', 'jkl'));
 
         $expectedData = [
             'entities' => [
