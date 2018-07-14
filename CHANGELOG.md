@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `Machine` entity.
+- `/recipe/machines` request and response.
+
+### Changed
+
+- Expensive recipes are now returned attached to their normal version instead of a separate recipe. 
+  This changes the responses of `/item/ingredient`, `/item/product`, `/item/random`, `/recipe/details` and 
+  `/search/query` requests. 
+
+### Removed
+
+- `Meta` entity from all responses.
+
 ## 1.0.1 - 2018-04-14
 
 ### Added
