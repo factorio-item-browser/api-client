@@ -41,7 +41,6 @@ class ModListResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->mods = [];
         foreach ($responseData->getObjectArray('mods') as $modData) {
             $this->mods[] = (new Mod())->readData($modData);

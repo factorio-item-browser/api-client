@@ -1,0 +1,108 @@
+<?php
+
+declare(strict_types=1);
+
+namespace FactorioItemBrowserTest\Api\Client\Entity;
+
+use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * The PHPUnit test of the generic entity class.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Entity\GenericEntity
+ */
+class GenericEntityTest extends TestCase
+{
+    /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct()
+    {
+        $entity = new GenericEntity();
+        $this->assertSame('', $entity->getType());
+        $this->assertSame('', $entity->getName());
+        $this->assertSame('', $entity->getLabel());
+        $this->assertSame('', $entity->getDescription());
+    }
+
+    /**
+     * Tests setting and getting the type.
+     * @covers ::setType
+     * @covers ::getType
+     */
+    public function testSetAndGetType()
+    {
+        $entity = new GenericEntity();
+        $this->assertSame($entity, $entity->setType('abc'));
+        $this->assertSame('abc', $entity->getType());
+    }
+
+    /**
+     * Tests setting and getting the name.
+     * @covers ::setName
+     * @covers ::getName
+     */
+    public function testSetAndGetName()
+    {
+        $entity = new GenericEntity();
+        $this->assertSame($entity, $entity->setName('abc'));
+        $this->assertSame('abc', $entity->getName());
+    }
+
+    /**
+     * Tests setting and getting the label.
+     * @covers ::setLabel
+     * @covers ::getLabel
+     */
+    public function testSetAndGetLabel()
+    {
+        $entity = new GenericEntity();
+        $this->assertSame($entity, $entity->setLabel('abc'));
+        $this->assertSame('abc', $entity->getLabel());
+    }
+
+    /**
+     * Tests setting and getting the description.
+     * @covers ::setDescription
+     * @covers ::getDescription
+     */
+    public function testSetAndGetDescription()
+    {
+        $entity = new GenericEntity();
+        $this->assertSame($entity, $entity->setDescription('abc'));
+        $this->assertSame('abc', $entity->getDescription());
+    }
+
+    /**
+     * Tests writing and reading the data.
+     * @covers ::writeData
+     * @covers ::readData
+     */
+    public function testWriteAndReadData()
+    {
+        $entity = new GenericEntity();
+        $entity->setType('abc')
+            ->setName('def')
+            ->setLabel('ghi')
+            ->setDescription('jkl');
+
+        $expectedData = [
+            'type' => 'abc',
+            'name' => 'def',
+            'label' => 'ghi',
+            'description' => 'jkl',
+        ];
+
+        $data = $entity->writeData();
+        $this->assertEquals($expectedData, $data);
+
+        $newEntity = new GenericEntity();
+        $this->assertSame($newEntity, $newEntity->readData(new DataContainer($data)));
+        $this->assertEquals($newEntity, $entity);
+    }
+}

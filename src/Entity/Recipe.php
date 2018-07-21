@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Constant\EntityType;
 
 /**
  * The entity representing a recipe.
@@ -44,7 +45,7 @@ class Recipe extends GenericEntity
      */
     public function getType(): string
     {
-        return 'recipe';
+        return EntityType::RECIPE;
     }
 
     /**

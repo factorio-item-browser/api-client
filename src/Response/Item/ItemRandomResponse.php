@@ -25,10 +25,10 @@ class ItemRandomResponse extends AbstractResponse
 
     /**
      * Returns the random items.
-     * @return array|GenericEntityWithRecipes
+     * @return array|GenericEntityWithRecipes[]
      * @throws ApiClientException
      */
-    public function getItems()
+    public function getItems(): array
     {
         $this->checkPendingResponse();
         return $this->items;
@@ -41,7 +41,6 @@ class ItemRandomResponse extends AbstractResponse
      */
     protected function mapResponse(DataContainer $responseData)
     {
-        parent::mapResponse($responseData);
         $this->items = [];
         foreach ($responseData->getObjectArray('items') as $itemData) {
             $this->items[] = (new GenericEntityWithRecipes())->readData($itemData);

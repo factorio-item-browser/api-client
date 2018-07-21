@@ -16,7 +16,7 @@ class GenericEntityWithRecipes extends GenericEntity
 {
     /**
      * The recipes of the entity.
-     * @var array|Recipe[]
+     * @var array|RecipeWithExpensiveVersion[]
      */
     protected $recipes = [];
 
@@ -28,23 +28,23 @@ class GenericEntityWithRecipes extends GenericEntity
 
     /**
      * Sets the recipes of the entity.
-     * @param array|Recipe[] $recipes
+     * @param array|RecipeWithExpensiveVersion[] $recipes
      * @return $this Implementing fluent interface.
      */
     public function setRecipes(array $recipes)
     {
         $this->recipes = array_values(array_filter($recipes, function ($recipe): bool {
-            return $recipe instanceof Recipe;
+            return $recipe instanceof RecipeWithExpensiveVersion;
         }));
         return $this;
     }
 
     /**
      * Adds a recipe to the entity.
-     * @param Recipe $recipe
+     * @param RecipeWithExpensiveVersion $recipe
      * @return $this
      */
-    public function addRecipe(Recipe $recipe)
+    public function addRecipe(RecipeWithExpensiveVersion $recipe)
     {
         $this->recipes[] = $recipe;
         return $this;
@@ -52,7 +52,7 @@ class GenericEntityWithRecipes extends GenericEntity
 
     /**
      * Returns the recipes of the entity.
-     * @return array|Recipe[]
+     * @return array|RecipeWithExpensiveVersion[]
      */
     public function getRecipes(): array
     {
@@ -86,7 +86,7 @@ class GenericEntityWithRecipes extends GenericEntity
     public function writeData(): array
     {
         $data = parent::writeData();
-        $data['recipes'] = array_map(function (Recipe $recipe): array {
+        $data['recipes'] = array_map(function (RecipeWithExpensiveVersion $recipe): array {
             return $recipe->writeData();
         }, $this->recipes);
         $data['totalNumberOfRecipes'] = $this->totalNumberOfRecipes;
@@ -103,7 +103,7 @@ class GenericEntityWithRecipes extends GenericEntity
         parent::readData($data);
         $this->recipes = [];
         foreach ($data->getObjectArray('recipes') as $recipeData) {
-            $this->recipes[] = (new Recipe())->readData($recipeData);
+            $this->recipes[] = (new RecipeWithExpensiveVersion())->readData($recipeData);
         }
         $this->totalNumberOfRecipes = $data->getInteger('totalNumberOfRecipes');
         return $this;

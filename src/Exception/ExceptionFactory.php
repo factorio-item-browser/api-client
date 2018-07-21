@@ -25,8 +25,7 @@ class ExceptionFactory
         string $message,
         string $request,
         string $response
-    ): ApiClientException
-    {
+    ): ApiClientException {
         switch ($statusCode) {
             case 400:
                 $exception = new BadRequestException($message, $request, $response);

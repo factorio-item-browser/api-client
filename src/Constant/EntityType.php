@@ -23,6 +23,11 @@ class EntityType
     const FLUID = 'fluid';
 
     /**
+     * The entity is a machine. It is actually crafting a recipe.
+     */
+    const MACHINE = 'machine';
+
+    /**
      * The entity is a recipe. It shows how to craft something into something else.
      */
     const RECIPE = 'recipe';
