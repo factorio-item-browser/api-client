@@ -45,7 +45,7 @@ class IconTest extends TestCase
         $entity3->setType('ghi');
 
         $icon = new Icon();
-        $this->assertSame($icon, $icon->setEntities([$entity1, new Icon(), $entity2]));
+        $this->assertSame($icon, $icon->setEntities([$entity1, $entity2]));
         $this->assertSame([$entity1, $entity2], $icon->getEntities());
 
         $this->assertSame($icon, $icon->addEntity($entity3));

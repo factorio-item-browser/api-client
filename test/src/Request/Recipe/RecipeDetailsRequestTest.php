@@ -37,11 +37,11 @@ class RecipeDetailsRequestTest extends TestCase
     public function testGetRequestData()
     {
         $request = new RecipeDetailsRequest();
-        $this->assertSame($request, $request->setNames(['abc', 42, '', 'def']));
+        $this->assertSame($request, $request->setNames(['abc', '', 'def']));
         $this->assertSame($request, $request->addName('ghi'));
 
         $expectedData = [
-            'names' => ['abc', '42', 'def', 'ghi']
+            'names' => ['abc', 'def', 'ghi']
         ];
         $this->assertEquals($expectedData, $request->getRequestData());
     }

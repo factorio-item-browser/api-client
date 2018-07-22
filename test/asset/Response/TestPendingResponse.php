@@ -33,7 +33,6 @@ class TestPendingResponse extends PendingResponse
         $this->responseData = $responseData;
     }
 
-
     /**
      * Fetches the response by waiting until the request is actually finished.
      * @return array

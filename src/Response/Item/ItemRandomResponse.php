@@ -19,7 +19,7 @@ class ItemRandomResponse extends AbstractResponse
 {
     /**
      * The random items.
-     * @var array|GenericEntityWithRecipes
+     * @var array|GenericEntityWithRecipes[]
      */
     protected $items;
 

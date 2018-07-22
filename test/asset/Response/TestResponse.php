@@ -30,7 +30,7 @@ class TestResponse extends AbstractResponse
      * The pending response instance.
      * @return PendingResponse|null
      */
-    public function getPendingResponse(): PendingResponse
+    public function getPendingResponse()
     {
         return $this->pendingResponse;
     }
