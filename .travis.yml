@@ -16,14 +16,14 @@ cache:
     - $HOME/.composer/cache/files
 
 install:
-  - if [ $SKIP_PHPSTAN == "true" ]; then composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit; fi
+  - if [ "$SKIP_PHPSTAN" == "true" ]; then composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit; fi
   - composer install --prefer-dist --no-interaction
 
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - vendor/bin/coverage-check coverage.xml 100
   - vendor/bin/phpcs -np --colors
-  - if [ $SKIP_PHPSTAN != "true" ]; then vendor/bin/phpstan analyse --no-interaction; fi
+  - if [ "$SKIP_PHPSTAN" != "true" ]; then vendor/bin/phpstan analyse --no-interaction; fi
 
 after_script:
   - bash <(curl -s https://codecov.io/bash)
