@@ -17,7 +17,7 @@ cache:
 
 install:
   - if [ $SKIP_PHPSTAN == "true" ]; then composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit; fi
-  - composer install --dev --prefer-dist --no-interaction
+  - composer install --prefer-dist --no-interaction
 
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
