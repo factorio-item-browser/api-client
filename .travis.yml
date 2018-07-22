@@ -8,8 +8,10 @@ matrix:
     - php: 7.1
     - php: 7.2
     - php: nightly
+      env: SKIP_COVERAGE=true
   allow_failures:
     - php: nightly
+      env: SKIP_COVERAGE=true
 
 cache:
   directories:
@@ -21,7 +23,7 @@ install:
 
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
-  - vendor/bin/coverage-check coverage.xml 100
+  - if [ "$SKIP_COVERAGE" != "true" ]; then vendor/bin/coverage-check coverage.xml 100; fi
   - vendor/bin/phpcs -np --colors
   - if [ "$SKIP_PHPSTAN" != "true" ]; then vendor/bin/phpstan analyse --no-interaction; fi
 
