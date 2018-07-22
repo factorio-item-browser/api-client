@@ -160,7 +160,7 @@ class Client
             $request->setTimeout($this->options->getTimeout());
         }
         if (count($requestData) > 0) {
-            $request->setRequestData(json_encode($requestData));
+            $request->setRequestData((string) json_encode($requestData));
         }
         return $request;
     }
@@ -235,9 +235,11 @@ class Client
                 ->setAccessKey($this->options->getAccessKey())
                 ->setEnabledModNames($this->enabledModNames);
 
-        /* @var AuthResponse $response */
         $response = $this->send($request);
-        $this->authorizationToken = $response->getAuthorizationToken();
+        if ($response instanceof AuthResponse) {
+            $this->authorizationToken = $response->getAuthorizationToken();
+        }
+
         return $this;
     }
 }

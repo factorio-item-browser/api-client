@@ -56,7 +56,7 @@ class RecipeWithExpensiveVersion extends Recipe
     public function writeData(): array
     {
         $data = parent::writeData();
-        if ($this->hasExpensiveVersion()) {
+        if ($this->expensiveVersion instanceof Recipe) {
             $data['expensiveVersion'] = $this->expensiveVersion->writeData();
         }
         return $data;

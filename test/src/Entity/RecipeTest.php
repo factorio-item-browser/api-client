@@ -73,7 +73,7 @@ class RecipeTest extends TestCase
         $item3->setType('ghi');
 
         $recipe = new Recipe();
-        $this->assertSame($recipe, $recipe->setIngredients([$item1, new Recipe(), $item2]));
+        $this->assertSame($recipe, $recipe->setIngredients([$item1, $item2]));
         $this->assertSame([$item1, $item2], $recipe->getIngredients());
 
         $this->assertSame($recipe, $recipe->addIngredient($item3));
@@ -96,7 +96,7 @@ class RecipeTest extends TestCase
         $item3->setType('ghi');
 
         $recipe = new Recipe();
-        $this->assertSame($recipe, $recipe->setProducts([$item1, new Recipe(), $item2]));
+        $this->assertSame($recipe, $recipe->setProducts([$item1, $item2]));
         $this->assertSame([$item1, $item2], $recipe->getProducts());
 
         $this->assertSame($recipe, $recipe->addProduct($item3));

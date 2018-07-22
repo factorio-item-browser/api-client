@@ -6,7 +6,6 @@ namespace FactorioItemBrowserTest\Api\Client\Entity;
 
 use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use PHPUnit\Framework\TestCase;
 
@@ -50,7 +49,7 @@ class GenericEntityWithRecipesTest extends TestCase
         $recipe3->setMode('ghi');
 
         $entity = new GenericEntityWithRecipes();
-        $this->assertSame($entity, $entity->setRecipes([$recipe1, new Item(), $recipe2]));
+        $this->assertSame($entity, $entity->setRecipes([$recipe1, $recipe2]));
         $this->assertSame([$recipe1, $recipe2], $entity->getRecipes());
 
         $this->assertSame($entity, $entity->addRecipe($recipe3));

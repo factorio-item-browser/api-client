@@ -34,7 +34,7 @@ class RecipeWithExpensiveVersionTest extends TestCase
         $this->assertSame([], $recipe->getIngredients());
         $this->assertSame([], $recipe->getProducts());
         $this->assertSame(0., $recipe->getCraftingTime());
-        $this->assertSame(null, $recipe->getExpensiveVersion());
+        $this->assertNull($recipe->getExpensiveVersion());
     }
 
     /**
@@ -49,9 +49,9 @@ class RecipeWithExpensiveVersionTest extends TestCase
         $expensiveVersion->setName('abc');
 
         $recipe = new RecipeWithExpensiveVersion();
-        $this->assertSame(false, $recipe->hasExpensiveVersion());
+        $this->assertFalse($recipe->hasExpensiveVersion());
         $this->assertSame($recipe, $recipe->setExpensiveVersion($expensiveVersion));
-        $this->assertSame(true, $recipe->hasExpensiveVersion());
+        $this->assertTrue($recipe->hasExpensiveVersion());
         $this->assertSame($expensiveVersion, $recipe->getExpensiveVersion());
     }
 
