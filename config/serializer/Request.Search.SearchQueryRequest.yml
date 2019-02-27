@@ -1,0 +1,12 @@
+FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    query:
+      type: string
+    numberOfResults:
+      type: integer
+    indexOfFirstResult:
+      type: integer
+    numberOfRecipesPerResult:
+      type: integer

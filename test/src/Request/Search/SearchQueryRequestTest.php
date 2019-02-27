@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Request\Search;
 
 use FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest;
-use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,47 +17,58 @@ use PHPUnit\Framework\TestCase;
 class SearchQueryRequestTest extends TestCase
 {
     /**
-     * Tests getting the request path.
-     * @covers ::getRequestPath
+     * Tests the setting and getting the query.
+     * @covers ::getQuery
+     * @covers ::setQuery
      */
-    public function testGetRequestPath()
+    public function testSetAndGetQuery(): void
     {
+        $query = 'abc';
         $request = new SearchQueryRequest();
-        $this->assertSame('/search/query', $request->getRequestPath());
+
+        $this->assertSame($request, $request->setQuery($query));
+        $this->assertSame($query, $request->getQuery());
     }
 
     /**
-     * Tests getting the request data.
-     * @covers ::getRequestData
-     * @covers ::setQuery
+     * Tests the setting and getting the number of results.
+     * @covers ::getNumberOfResults
      * @covers ::setNumberOfResults
+     */
+    public function testSetAndGetNumberOfResults(): void
+    {
+        $numberOfResults = 42;
+        $request = new SearchQueryRequest();
+
+        $this->assertSame($request, $request->setNumberOfResults($numberOfResults));
+        $this->assertSame($numberOfResults, $request->getNumberOfResults());
+    }
+
+    /**
+     * Tests the setting and getting the index of first result.
+     * @covers ::getIndexOfFirstResult
      * @covers ::setIndexOfFirstResult
+     */
+    public function testSetAndGetIndexOfFirstResult(): void
+    {
+        $indexOfFirstResult = 42;
+        $request = new SearchQueryRequest();
+
+        $this->assertSame($request, $request->setIndexOfFirstResult($indexOfFirstResult));
+        $this->assertSame($indexOfFirstResult, $request->getIndexOfFirstResult());
+    }
+
+    /**
+     * Tests the setting and getting the number of recipes per result.
+     * @covers ::getNumberOfRecipesPerResult
      * @covers ::setNumberOfRecipesPerResult
      */
-    public function testGetRequestData()
+    public function testSetAndGetNumberOfRecipesPerResult(): void
     {
+        $numberOfRecipesPerResult = 42;
         $request = new SearchQueryRequest();
-        $this->assertSame($request, $request->setQuery('abc'));
-        $this->assertSame($request, $request->setNumberOfResults(42));
-        $this->assertSame($request, $request->setIndexOfFirstResult(21));
-        $this->assertSame($request, $request->setNumberOfRecipesPerResult(1337));
 
-        $expectedData = [
-            'query' => 'abc',
-            'numberOfResults' => 42,
-            'indexOfFirstResult' => 21,
-            'numberOfRecipesPerResult' => 1337
-        ];
-        $this->assertEquals($expectedData, $request->getRequestData());
-    }
-
-    /**
-     * Tests creating the response.
-     * @covers ::createResponse
-     */
-    public function testCreateResponse()
-    {
-        $request = new SearchQueryRequest();
-        $this->assertInstanceOf(SearchQueryResponse::class, $request->createResponse(new TestPendingResponse()));
+        $this->assertSame($request, $request->setNumberOfRecipesPerResult($numberOfRecipesPerResult));
+        $this->assertSame($numberOfRecipesPerResult, $request->getNumberOfRecipesPerResult());
     }
 }

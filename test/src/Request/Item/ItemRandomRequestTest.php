@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Request\Item;
 
 use FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest;
-use FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,41 +17,30 @@ use PHPUnit\Framework\TestCase;
 class ItemRandomRequestTest extends TestCase
 {
     /**
-     * Tests getting the request path.
-     * @covers ::getRequestPath
+     * Tests the setting and getting the number of results.
+     * @covers ::getNumberOfResults
+     * @covers ::setNumberOfResults
      */
-    public function testGetRequestPath()
+    public function testSetAndGetNumberOfResults(): void
     {
+        $numberOfResults = 42;
         $request = new ItemRandomRequest();
-        $this->assertSame('/item/random', $request->getRequestPath());
+
+        $this->assertSame($request, $request->setNumberOfResults($numberOfResults));
+        $this->assertSame($numberOfResults, $request->getNumberOfResults());
     }
 
     /**
-     * Tests getting the request data.
-     * @covers ::getRequestData
-     * @covers ::setNumberOfResults
+     * Tests the setting and getting the number of recipes per result.
+     * @covers ::getNumberOfRecipesPerResult
      * @covers ::setNumberOfRecipesPerResult
      */
-    public function testGetRequestData()
+    public function testSetAndGetNumberOfRecipesPerResult(): void
     {
+        $numberOfRecipesPerResult = 42;
         $request = new ItemRandomRequest();
-        $this->assertSame($request, $request->setNumberOfResults(42));
-        $this->assertSame($request, $request->setNumberOfRecipesPerResult(1337));
 
-        $expectedData = [
-            'numberOfResults' => 42,
-            'numberOfRecipesPerResult' => 1337
-        ];
-        $this->assertEquals($expectedData, $request->getRequestData());
-    }
-
-    /**
-     * Tests creating the response.
-     * @covers ::createResponse
-     */
-    public function testCreateResponse()
-    {
-        $request = new ItemRandomRequest();
-        $this->assertInstanceOf(ItemRandomResponse::class, $request->createResponse(new TestPendingResponse()));
+        $this->assertSame($request, $request->setNumberOfRecipesPerResult($numberOfRecipesPerResult));
+        $this->assertSame($numberOfRecipesPerResult, $request->getNumberOfRecipesPerResult());
     }
 }

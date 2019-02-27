@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Request\Generic;
 
+use FactorioItemBrowser\Api\Client\Entity\RequestEntity;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
 /**
  * The request of generic details of entities.
@@ -19,52 +17,38 @@ class GenericDetailsRequest implements RequestInterface
 {
     /**
      * The entities to request the details for.
-     * @var array
+     * @var array|RequestEntity[]
      */
     protected $entities = [];
 
     /**
-     * Adds an entity to request the details for.
-     * @param string $type
-     * @param string $name
+     * Sets the entities to request the details for.
+     * @param array|RequestEntity[] $entities
      * @return $this
      */
-    public function addEntity(string $type, string $name)
+    public function setEntities(array $entities): self
     {
-        $this->entities[] = [
-            'type' => $type,
-            'name' => $name
-        ];
+        $this->entities = $entities;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Adds an entity to request the details for.
+     * @param RequestEntity $entity
+     * @return $this
      */
-    public function getRequestPath(): string
+    public function addEntity(RequestEntity $entity): self
     {
-        return '/generic/details';
+        $this->entities[] = $entity;
+        return $this;
     }
 
     /**
-     * Returns the actual data of the request.
-     * @return array
+     * Returns the the entities to request the details for.
+     * @return array|RequestEntity[]
      */
-    public function getRequestData(): array
+    public function getEntities(): array
     {
-        return [
-            'entities' => $this->entities
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new GenericDetailsResponse($pendingResponse);
+        return $this->entities;
     }
 }

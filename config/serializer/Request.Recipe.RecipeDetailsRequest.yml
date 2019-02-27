@@ -1,0 +1,6 @@
+FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    names:
+      type: array<string>

@@ -1,0 +1,10 @@
+FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    name:
+      type: string
+    numberOfResults:
+      type: integer
+    indexOfFirstResult:
+      type: integer

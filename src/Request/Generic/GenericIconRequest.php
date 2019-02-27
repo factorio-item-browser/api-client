@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Request\Generic;
 
+use FactorioItemBrowser\Api\Client\Entity\RequestEntity;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\Generic\GenericIconResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
 /**
  * The request of icons for entities.
@@ -18,53 +16,39 @@ use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 class GenericIconRequest implements RequestInterface
 {
     /**
-     * The entities to request the details for.
-     * @var array
+     * The entities to request the icon for.
+     * @var array|RequestEntity[]
      */
     protected $entities = [];
 
     /**
-     * Adds an entity to request the details for.
-     * @param string $type
-     * @param string $name
+     * Sets the entities to request the icon for.
+     * @param array|RequestEntity[] $entities
      * @return $this
      */
-    public function addEntity(string $type, string $name)
+    public function setEntities(array $entities): self
     {
-        $this->entities[] = [
-            'type' => $type,
-            'name' => $name
-        ];
+        $this->entities = $entities;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Adds an entity to request the icon for.
+     * @param RequestEntity $entity
+     * @return $this
      */
-    public function getRequestPath(): string
+    public function addEntity(RequestEntity $entity): self
     {
-        return '/generic/icon';
+        $this->entities[] = $entity;
+        return $this;
     }
 
     /**
-     * Returns the actual data of the request.
-     * @return array
+     * Returns the the entities to request the icon for.
+     * @return array|RequestEntity[]
      */
-    public function getRequestData(): array
+    public function getEntities(): array
     {
-        return [
-            'entities' => $this->entities
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new GenericIconResponse($pendingResponse);
+        return $this->entities;
     }
 }
