@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Request\Generic;
 
-use FactorioItemBrowser\Api\Client\Entity\RequestEntity;
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -28,12 +28,12 @@ class GenericIconRequestTest extends TestCase
      */
     public function testSetAddAndGetEntities(): void
     {
-        /* @var RequestEntity&MockObject $entity1 */
-        $entity1 = $this->createMock(RequestEntity::class);
-        /* @var RequestEntity&MockObject $entity2 */
-        $entity2 = $this->createMock(RequestEntity::class);
-        /* @var RequestEntity&MockObject $entity3 */
-        $entity3 = $this->createMock(RequestEntity::class);
+        /* @var Entity&MockObject $entity1 */
+        $entity1 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity2 */
+        $entity2 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity3 */
+        $entity3 = $this->createMock(Entity::class);
 
         $entities = [$entity1, $entity2];
         $request = new GenericIconRequest();

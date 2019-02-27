@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Constant\EnergyUsageUnit;
 use FactorioItemBrowser\Api\Client\Constant\EntityType;
 
@@ -72,7 +71,7 @@ class Machine extends GenericEntity
      * @param float $craftingSpeed
      * @return $this
      */
-    public function setCraftingSpeed(float $craftingSpeed)
+    public function setCraftingSpeed(float $craftingSpeed): self
     {
         $this->craftingSpeed = $craftingSpeed;
         return $this;
@@ -92,7 +91,7 @@ class Machine extends GenericEntity
      * @param int $numberOfItemSlots
      * @return $this
      */
-    public function setNumberOfItemSlots(int $numberOfItemSlots)
+    public function setNumberOfItemSlots(int $numberOfItemSlots): self
     {
         $this->numberOfItemSlots = $numberOfItemSlots;
         return $this;
@@ -112,7 +111,7 @@ class Machine extends GenericEntity
      * @param int $numberOfFluidInputSlots
      * @return $this
      */
-    public function setNumberOfFluidInputSlots(int $numberOfFluidInputSlots)
+    public function setNumberOfFluidInputSlots(int $numberOfFluidInputSlots): self
     {
         $this->numberOfFluidInputSlots = $numberOfFluidInputSlots;
         return $this;
@@ -132,7 +131,7 @@ class Machine extends GenericEntity
      * @param int $numberOfFluidOutputSlots
      * @return $this
      */
-    public function setNumberOfFluidOutputSlots(int $numberOfFluidOutputSlots)
+    public function setNumberOfFluidOutputSlots(int $numberOfFluidOutputSlots): self
     {
         $this->numberOfFluidOutputSlots = $numberOfFluidOutputSlots;
         return $this;
@@ -152,7 +151,7 @@ class Machine extends GenericEntity
      * @param int $numberOfModuleSlots
      * @return $this
      */
-    public function setNumberOfModuleSlots(int $numberOfModuleSlots)
+    public function setNumberOfModuleSlots(int $numberOfModuleSlots): self
     {
         $this->numberOfModuleSlots = $numberOfModuleSlots;
         return $this;
@@ -172,7 +171,7 @@ class Machine extends GenericEntity
      * @param float $energyUsage
      * @return $this
      */
-    public function setEnergyUsage(float $energyUsage)
+    public function setEnergyUsage(float $energyUsage): self
     {
         $this->energyUsage = $energyUsage;
         return $this;
@@ -192,7 +191,7 @@ class Machine extends GenericEntity
      * @param string $energyUsageUnit
      * @return $this
      */
-    public function setEnergyUsageUnit(string $energyUsageUnit)
+    public function setEnergyUsageUnit(string $energyUsageUnit): self
     {
         $this->energyUsageUnit = $energyUsageUnit;
         return $this;
@@ -205,42 +204,5 @@ class Machine extends GenericEntity
     public function getEnergyUsageUnit(): string
     {
         return $this->energyUsageUnit;
-    }
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        $data = array_merge(parent::writeData(), [
-            'craftingSpeed' => $this->craftingSpeed,
-            'numberOfItemSlots' => $this->numberOfItemSlots,
-            'numberOfFluidInputSlots' => $this->numberOfFluidInputSlots,
-            'numberOfFluidOutputSlots' => $this->numberOfFluidOutputSlots,
-            'numberOfModuleSlots' => $this->numberOfModuleSlots,
-            'energyUsage' => $this->energyUsage,
-            'energyUsageUnit' => $this->energyUsageUnit
-        ]);
-        unset($data['type']);
-        return $data;
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        parent::readData($data);
-        $this->craftingSpeed = $data->getFloat('craftingSpeed');
-        $this->numberOfItemSlots = $data->getInteger('numberOfItemSlots');
-        $this->numberOfFluidInputSlots = $data->getInteger('numberOfFluidInputSlots');
-        $this->numberOfFluidOutputSlots = $data->getInteger('numberOfFluidOutputSlots');
-        $this->numberOfModuleSlots = $data->getInteger('numberOfModuleSlots');
-        $this->energyUsage = $data->getFloat('energyUsage');
-        $this->energyUsageUnit = $data->getString('energyUsageUnit');
-        return $this;
     }
 }

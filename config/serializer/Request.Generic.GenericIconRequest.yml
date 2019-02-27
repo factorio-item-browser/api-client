@@ -3,4 +3,4 @@ FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest:
   exclusion_policy: all
   properties:
     entities:
-      type: array<FactorioItemBrowser\Api\Client\Entity\RequestEntity>
+      type: array<FactorioItemBrowser\Api\Client\Entity\Entity>

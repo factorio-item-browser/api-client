@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Constant\EnergyUsageUnit;
+use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\Machine;
 use PHPUnit\Framework\TestCase;
 
@@ -20,12 +20,13 @@ class MachineTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @coversNothing
+     * @covers ::getType
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $machine = new Machine();
-        $this->assertSame('machine', $machine->getType());
+
+        $this->assertSame(EntityType::MACHINE, $machine->getType());
         $this->assertSame('', $machine->getName());
         $this->assertSame('', $machine->getLabel());
         $this->assertSame('', $machine->getDescription());
@@ -39,136 +40,100 @@ class MachineTest extends TestCase
     }
 
     /**
-     * Tests getting the type.
-     * @covers ::getType
-     */
-    public function testGetType()
-    {
-        $machine = new Machine();
-        $this->assertSame('machine', $machine->getType());
-    }
-
-    /**
-     * Tests setting and getting the crafting speed.
-     * @covers ::setCraftingSpeed
+     * Tests the setting and getting the crafting speed.
      * @covers ::getCraftingSpeed
+     * @covers ::setCraftingSpeed
      */
-    public function testSetAndGetCraftingSpeed()
+    public function testSetAndGetCraftingSpeed(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setCraftingSpeed(13.37));
-        $this->assertSame(13.37, $machine->getCraftingSpeed());
+        $craftingSpeed = 13.37;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setCraftingSpeed($craftingSpeed));
+        $this->assertSame($craftingSpeed, $entity->getCraftingSpeed());
     }
 
     /**
-     * Tests setting and getting the number of item slots.
-     * @covers ::setNumberOfItemSlots
+     * Tests the setting and getting the number of item slots.
      * @covers ::getNumberOfItemSlots
+     * @covers ::setNumberOfItemSlots
      */
-    public function testSetAndGetNumberOfItemSlots()
+    public function testSetAndGetNumberOfItemSlots(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setNumberOfItemSlots(42));
-        $this->assertSame(42, $machine->getNumberOfItemSlots());
+        $numberOfItemSlots = 42;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setNumberOfItemSlots($numberOfItemSlots));
+        $this->assertSame($numberOfItemSlots, $entity->getNumberOfItemSlots());
     }
 
     /**
-     * Tests setting and getting the number of fluid input slots.
-     * @covers ::setNumberOfFluidInputSlots
+     * Tests the setting and getting the number of fluid input slots.
      * @covers ::getNumberOfFluidInputSlots
+     * @covers ::setNumberOfFluidInputSlots
      */
-    public function testSetAndGetNumberOfFluidInputSlots()
+    public function testSetAndGetNumberOfFluidInputSlots(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setNumberOfFluidInputSlots(42));
-        $this->assertSame(42, $machine->getNumberOfFluidInputSlots());
+        $numberOfFluidInputSlots = 42;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setNumberOfFluidInputSlots($numberOfFluidInputSlots));
+        $this->assertSame($numberOfFluidInputSlots, $entity->getNumberOfFluidInputSlots());
     }
 
     /**
-     * Tests setting and getting the number of fluid output slots.
-     * @covers ::setNumberOfFluidOutputSlots
+     * Tests the setting and getting the number of fluid output slots.
      * @covers ::getNumberOfFluidOutputSlots
+     * @covers ::setNumberOfFluidOutputSlots
      */
-    public function testSetAndGetNumberOfFluidOutputSlots()
+    public function testSetAndGetNumberOfFluidOutputSlots(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setNumberOfFluidOutputSlots(42));
-        $this->assertSame(42, $machine->getNumberOfFluidOutputSlots());
+        $numberOfFluidOutputSlots = 42;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setNumberOfFluidOutputSlots($numberOfFluidOutputSlots));
+        $this->assertSame($numberOfFluidOutputSlots, $entity->getNumberOfFluidOutputSlots());
     }
 
     /**
-     * Tests setting and getting the number of module slots.
-     * @covers ::setNumberOfModuleSlots
+     * Tests the setting and getting the number of module slots.
      * @covers ::getNumberOfModuleSlots
+     * @covers ::setNumberOfModuleSlots
      */
-    public function testSetAndGetNumberOfModuleSlots()
+    public function testSetAndGetNumberOfModuleSlots(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setNumberOfModuleSlots(42));
-        $this->assertSame(42, $machine->getNumberOfModuleSlots());
+        $numberOfModuleSlots = 42;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setNumberOfModuleSlots($numberOfModuleSlots));
+        $this->assertSame($numberOfModuleSlots, $entity->getNumberOfModuleSlots());
     }
 
     /**
-     * Tests setting and getting the energy usage.
-     * @covers ::setEnergyUsage
+     * Tests the setting and getting the energy usage.
      * @covers ::getEnergyUsage
+     * @covers ::setEnergyUsage
      */
-    public function testSetAndGetEnergyUsage()
+    public function testSetAndGetEnergyUsage(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setEnergyUsage(13.37));
-        $this->assertSame(13.37, $machine->getEnergyUsage());
+        $energyUsage = 13.37;
+        $entity = new Machine();
+
+        $this->assertSame($entity, $entity->setEnergyUsage($energyUsage));
+        $this->assertSame($energyUsage, $entity->getEnergyUsage());
     }
 
     /**
-     * Tests setting and getting the energyUsageUnit.
-     * @covers ::setEnergyUsageUnit
+     * Tests the setting and getting the energy usage unit.
      * @covers ::getEnergyUsageUnit
+     * @covers ::setEnergyUsageUnit
      */
-    public function testSetAndGetEnergyUsageUnit()
+    public function testSetAndGetEnergyUsageUnit(): void
     {
-        $machine = new Machine();
-        $this->assertSame($machine, $machine->setEnergyUsageUnit('abc'));
-        $this->assertSame('abc', $machine->getEnergyUsageUnit());
-    }
+        $energyUsageUnit = 'abc';
+        $entity = new Machine();
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $machine = new Machine();
-        $machine->setName('abc')
-                ->setLabel('def')
-                ->setDescription('ghi')
-                ->setCraftingSpeed(13.37)
-                ->setNumberOfItemSlots(42)
-                ->setNumberOfFluidInputSlots(21)
-                ->setNumberOfFluidOutputSlots(13)
-                ->setNumberOfModuleSlots(37)
-                ->setEnergyUsage(73.31)
-                ->setEnergyUsageUnit('jkl');
-
-        $expectedData = [
-            'name' => 'abc',
-            'label' => 'def',
-            'description' => 'ghi',
-            'craftingSpeed' => 13.37,
-            'numberOfItemSlots' => 42,
-            'numberOfFluidInputSlots' => 21,
-            'numberOfFluidOutputSlots' => 13,
-            'numberOfModuleSlots' => 37,
-            'energyUsage' => 73.31,
-            'energyUsageUnit' => 'jkl'
-        ];
-
-        $data = $machine->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newMachine = new Machine();
-        $this->assertSame($newMachine, $newMachine->readData(new DataContainer($data)));
-        $this->assertEquals($newMachine, $machine);
+        $this->assertSame($entity, $entity->setEnergyUsageUnit($energyUsageUnit));
+        $this->assertSame($energyUsageUnit, $entity->getEnergyUsageUnit());
     }
 }

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe class.
@@ -20,12 +22,13 @@ class RecipeTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @coversNothing
+     * @covers ::getType
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $recipe = new Recipe();
-        $this->assertSame('recipe', $recipe->getType());
+
+        $this->assertSame(EntityType::RECIPE, $recipe->getType());
         $this->assertSame('', $recipe->getName());
         $this->assertSame('', $recipe->getMode());
         $this->assertSame('', $recipe->getLabel());
@@ -36,41 +39,34 @@ class RecipeTest extends TestCase
     }
 
     /**
-     * Tests getting the type.
-     * @covers ::getType
-     */
-    public function testGetType()
-    {
-        $recipe = new Recipe();
-        $this->assertSame('recipe', $recipe->getType());
-    }
-
-    /**
-     * Tests setting and getting the mode.
-     * @covers ::setMode
+     * Tests the setting and getting the mode.
      * @covers ::getMode
+     * @covers ::setMode
      */
-    public function testSetAndGetMode()
+    public function testSetAndGetMode(): void
     {
-        $recipe = new Recipe();
-        $this->assertSame($recipe, $recipe->setMode('abc'));
-        $this->assertSame('abc', $recipe->getMode());
+        $mode = 'abc';
+        $entity = new Recipe();
+
+        $this->assertSame($entity, $entity->setMode($mode));
+        $this->assertSame($mode, $entity->getMode());
     }
 
     /**
      * Tests setting, adding and getting the ingredients.
-     * @covers ::setIngredients
+     * @throws ReflectionException
      * @covers ::addIngredient
+     * @covers ::setIngredients
      * @covers ::getIngredients
      */
-    public function testSetAddAndGetIngredients()
+    public function testSetAddAndGetIngredients(): void
     {
-        $item1 = new Item();
-        $item1->setType('abc');
-        $item2 = new Item();
-        $item2->setType('def');
-        $item3 = new Item();
-        $item3->setType('ghi');
+        /* @var Item&MockObject $item1 */
+        $item1 = $this->createMock(Item::class);
+        /* @var Item&MockObject $item2 */
+        $item2 = $this->createMock(Item::class);
+        /* @var Item&MockObject $item3 */
+        $item3 = $this->createMock(Item::class);
 
         $recipe = new Recipe();
         $this->assertSame($recipe, $recipe->setIngredients([$item1, $item2]));
@@ -82,18 +78,19 @@ class RecipeTest extends TestCase
 
     /**
      * Tests setting, adding and getting the products.
-     * @covers ::setProducts
+     * @throws ReflectionException
      * @covers ::addProduct
+     * @covers ::setProducts
      * @covers ::getProducts
      */
-    public function testSetAddAndGetProducts()
+    public function testSetAddAndGetProducts(): void
     {
-        $item1 = new Item();
-        $item1->setType('abc');
-        $item2 = new Item();
-        $item2->setType('def');
-        $item3 = new Item();
-        $item3->setType('ghi');
+        /* @var Item&MockObject $item1 */
+        $item1 = $this->createMock(Item::class);
+        /* @var Item&MockObject $item2 */
+        $item2 = $this->createMock(Item::class);
+        /* @var Item&MockObject $item3 */
+        $item3 = $this->createMock(Item::class);
 
         $recipe = new Recipe();
         $this->assertSame($recipe, $recipe->setProducts([$item1, $item2]));
@@ -104,65 +101,16 @@ class RecipeTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the craftingTime.
-     * @covers ::setCraftingTime
+     * Tests the setting and getting the crafting time.
      * @covers ::getCraftingTime
+     * @covers ::setCraftingTime
      */
-    public function testSetAndGetCraftingTime()
+    public function testSetAndGetCraftingTime(): void
     {
-        $recipe = new Recipe();
-        $this->assertSame($recipe, $recipe->setCraftingTime(13.37));
-        $this->assertSame(13.37, $recipe->getCraftingTime());
-    }
+        $craftingTime = 13.37;
+        $entity = new Recipe();
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $item1 = new Item();
-        $item1->setType('i1');
-        $item2 = new Item();
-        $item2->setType('i2');
-        $item3 = new Item();
-        $item3->setType('i3');
-        $item4 = new Item();
-        $item4->setType('i4');
-
-        $recipe = new Recipe();
-        $recipe->setName('abc')
-               ->setMode('def')
-               ->setLabel('ghi')
-               ->setDescription('jkl')
-               ->addIngredient($item1)
-               ->addIngredient($item2)
-               ->addProduct($item3)
-               ->addProduct($item4)
-               ->setCraftingTime(13.37);
-
-        $expectedData = [
-            'name' => 'abc',
-            'mode' => 'def',
-            'label' => 'ghi',
-            'description' => 'jkl',
-            'ingredients' => [
-                ['type' => 'i1', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0],
-                ['type' => 'i2', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0]
-            ],
-            'products' => [
-                ['type' => 'i3', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0],
-                ['type' => 'i4', 'name' => '', 'label' => '', 'description' => '', 'amount' => 0]
-            ],
-            'craftingTime' => 13.37
-        ];
-
-        $data = $recipe->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newRecipe = new Recipe();
-        $this->assertSame($newRecipe, $newRecipe->readData(new DataContainer($data)));
-        $this->assertEquals($newRecipe, $recipe);
+        $this->assertSame($entity, $entity->setCraftingTime($craftingTime));
+        $this->assertSame($craftingTime, $entity->getCraftingTime());
     }
 }

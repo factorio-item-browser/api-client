@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
-
 /**
  * The class representing a generic entity containing recipes.
  *
@@ -31,11 +29,9 @@ class GenericEntityWithRecipes extends GenericEntity
      * @param array|RecipeWithExpensiveVersion[] $recipes
      * @return $this Implementing fluent interface.
      */
-    public function setRecipes(array $recipes)
+    public function setRecipes(array $recipes): self
     {
-        $this->recipes = array_values(array_filter($recipes, function ($recipe): bool {
-            return $recipe instanceof RecipeWithExpensiveVersion;
-        }));
+        $this->recipes = $recipes;
         return $this;
     }
 
@@ -44,7 +40,7 @@ class GenericEntityWithRecipes extends GenericEntity
      * @param RecipeWithExpensiveVersion $recipe
      * @return $this
      */
-    public function addRecipe(RecipeWithExpensiveVersion $recipe)
+    public function addRecipe(RecipeWithExpensiveVersion $recipe): self
     {
         $this->recipes[] = $recipe;
         return $this;
@@ -64,7 +60,7 @@ class GenericEntityWithRecipes extends GenericEntity
      * @param int $totalNumberOfRecipes
      * @return $this
      */
-    public function setTotalNumberOfRecipes(int $totalNumberOfRecipes)
+    public function setTotalNumberOfRecipes(int $totalNumberOfRecipes): self
     {
         $this->totalNumberOfRecipes = $totalNumberOfRecipes;
         return $this;
@@ -77,35 +73,5 @@ class GenericEntityWithRecipes extends GenericEntity
     public function getTotalNumberOfRecipes(): int
     {
         return $this->totalNumberOfRecipes;
-    }
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        $data = parent::writeData();
-        $data['recipes'] = array_map(function (RecipeWithExpensiveVersion $recipe): array {
-            return $recipe->writeData();
-        }, $this->recipes);
-        $data['totalNumberOfRecipes'] = $this->totalNumberOfRecipes;
-        return $data;
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        parent::readData($data);
-        $this->recipes = [];
-        foreach ($data->getObjectArray('recipes') as $recipeData) {
-            $this->recipes[] = (new RecipeWithExpensiveVersion())->readData($recipeData);
-        }
-        $this->totalNumberOfRecipes = $data->getInteger('totalNumberOfRecipes');
-        return $this;
     }
 }

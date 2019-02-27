@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Generic;
 
-use FactorioItemBrowser\Api\Client\Entity\RequestEntity;
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericDetailsRequest;
 use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
 
@@ -23,11 +23,11 @@ class GenericDetailsRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $entity1 = new RequestEntity();
+        $entity1 = new Entity();
         $entity1->setType('abc')
                 ->setName('def');
 
-        $entity2 = new RequestEntity();
+        $entity2 = new Entity();
         $entity2->setType('ghi')
                 ->setName('jkl');
 

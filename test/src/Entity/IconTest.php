@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Entity\Icon;
-use FactorioItemBrowser\Api\Client\Entity\IconEntity;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the icon class.
@@ -22,27 +23,29 @@ class IconTest extends TestCase
      * Tests the constructing.
      * @coversNothing
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $icon = new Icon();
+
         $this->assertSame([], $icon->getEntities());
         $this->assertSame('', $icon->getContent());
     }
 
     /**
      * Tests setting, adding and getting the recipes.
-     * @covers ::setEntities
+     * @throws ReflectionException
      * @covers ::addEntity
+     * @covers ::setEntities
      * @covers ::getEntities
      */
-    public function testSetAddAndGetIconEntities()
+    public function testSetAddAndGetIconEntities(): void
     {
-        $entity1 = new IconEntity();
-        $entity1->setType('abc');
-        $entity2 = new IconEntity();
-        $entity2->setType('def');
-        $entity3 = new IconEntity();
-        $entity3->setType('ghi');
+        /* @var Entity&MockObject $entity1 */
+        $entity1 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity2 */
+        $entity2 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity3 */
+        $entity3 = $this->createMock(Entity::class);
 
         $icon = new Icon();
         $this->assertSame($icon, $icon->setEntities([$entity1, $entity2]));
@@ -53,53 +56,16 @@ class IconTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the content.
-     * @covers ::setContent
+     * Tests the setting and getting the content.
      * @covers ::getContent
+     * @covers ::setContent
      */
-    public function testSetAndGetContent()
+    public function testSetAndGetContent(): void
     {
-        $item = new Icon();
-        $this->assertSame($item, $item->setContent('abc'));
-        $this->assertSame('abc', $item->getContent());
-    }
+        $content = 'abc';
+        $entity = new Icon();
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $entity1 = new IconEntity();
-        $entity1->setType('abc');
-        $entity2 = new IconEntity();
-        $entity2->setType('def');
-
-        $icon = new Icon();
-        $icon->addEntity($entity1)
-             ->addEntity($entity2)
-             ->setContent('ghi');
-
-        $expectedData = [
-            'entities' => [
-                [
-                    'type' => 'abc',
-                    'name' => '',
-                ],
-                [
-                    'type' => 'def',
-                    'name' => '',
-                ],
-            ],
-            'content' => 'ghi',
-        ];
-
-        $data = $icon->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newIcon = new Icon();
-        $this->assertSame($newIcon, $newIcon->readData(new DataContainer($data)));
-        $this->assertEquals($newIcon, $icon);
+        $this->assertSame($entity, $entity->setContent($content));
+        $this->assertSame($content, $entity->getContent());
     }
 }

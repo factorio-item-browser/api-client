@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
-
 /**
  * The entity representing an actual item or fluid.
  *
@@ -25,7 +23,7 @@ class Item extends GenericEntity
      * @param float $amount
      * @return $this Implementing fluent interface.
      */
-    public function setAmount(float $amount)
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
@@ -38,28 +36,5 @@ class Item extends GenericEntity
     public function getAmount(): float
     {
         return $this->amount;
-    }
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        return array_merge(parent::writeData(), [
-            'amount' => $this->amount
-        ]);
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        parent::readData($data);
-        $this->amount = $data->getFloat('amount');
-        return $this;
     }
 }

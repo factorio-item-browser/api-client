@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
-
 /**
  * The entity representing a recipe inluding its expensive version.
  *
@@ -25,7 +23,7 @@ class RecipeWithExpensiveVersion extends Recipe
      * @param Recipe|null $expensiveVersion
      * @return $this
      */
-    public function setExpensiveVersion($expensiveVersion)
+    public function setExpensiveVersion(?Recipe $expensiveVersion): self
     {
         $this->expensiveVersion = $expensiveVersion;
         return $this;
@@ -44,35 +42,8 @@ class RecipeWithExpensiveVersion extends Recipe
      * Returns the expensive version of the recipe, if available.
      * @return Recipe|null
      */
-    public function getExpensiveVersion()
+    public function getExpensiveVersion(): ?Recipe
     {
         return $this->expensiveVersion;
-    }
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        $data = parent::writeData();
-        if ($this->expensiveVersion instanceof Recipe) {
-            $data['expensiveVersion'] = $this->expensiveVersion->writeData();
-        }
-        return $data;
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        parent::readData($data);
-        if (!is_null($data->get('expensiveVersion'))) {
-            $this->expensiveVersion = (new Recipe())->readData($data->getObject('expensiveVersion'));
-        }
-        return $this;
     }
 }

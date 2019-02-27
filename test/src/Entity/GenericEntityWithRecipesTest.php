@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the generic entity with recipes class.
@@ -22,9 +23,10 @@ class GenericEntityWithRecipesTest extends TestCase
      * Tests the constructing.
      * @coversNothing
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $entity = new GenericEntityWithRecipes();
+
         $this->assertSame('', $entity->getType());
         $this->assertSame('', $entity->getName());
         $this->assertSame('', $entity->getLabel());
@@ -35,18 +37,19 @@ class GenericEntityWithRecipesTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
+     * @throws ReflectionException
      * @covers ::setRecipes
      * @covers ::addRecipe
      * @covers ::getRecipes
      */
-    public function testSetAddAndGetRecipes()
+    public function testSetAddAndGetRecipes(): void
     {
-        $recipe1 = new RecipeWithExpensiveVersion();
-        $recipe1->setMode('abc');
-        $recipe2 = new RecipeWithExpensiveVersion();
-        $recipe2->setMode('def');
-        $recipe3 = new RecipeWithExpensiveVersion();
-        $recipe3->setMode('ghi');
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe1 */
+        $recipe1 = $this->createMock(RecipeWithExpensiveVersion::class);
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe2 */
+        $recipe2 = $this->createMock(RecipeWithExpensiveVersion::class);
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe3 */
+        $recipe3 = $this->createMock(RecipeWithExpensiveVersion::class);
 
         $entity = new GenericEntityWithRecipes();
         $this->assertSame($entity, $entity->setRecipes([$recipe1, $recipe2]));
@@ -57,72 +60,16 @@ class GenericEntityWithRecipesTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the total number of recipes.
-     * @covers ::setTotalNumberOfRecipes
+     * Tests the setting and getting the total number of recipes.
      * @covers ::getTotalNumberOfRecipes
+     * @covers ::setTotalNumberOfRecipes
      */
-    public function testSetAndGetTotalNumberOfRecipes()
+    public function testSetAndGetTotalNumberOfRecipes(): void
     {
+        $totalNumberOfRecipes = 42;
         $entity = new GenericEntityWithRecipes();
-        $this->assertSame($entity, $entity->setTotalNumberOfRecipes(42));
-        $this->assertSame(42, $entity->getTotalNumberOfRecipes());
-    }
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $recipe1 = new RecipeWithExpensiveVersion();
-        $recipe1->setMode('r1');
-        $recipe2 = new RecipeWithExpensiveVersion();
-        $recipe2->setMode('r2');
-
-        $entity = new GenericEntityWithRecipes();
-        $entity
-            ->setType('abc')
-            ->setName('def')
-            ->setLabel('ghi')
-            ->setDescription('jkl')
-            ->addRecipe($recipe1)
-            ->addRecipe($recipe2)
-            ->setTotalNumberOfRecipes(42);
-
-        $expectedData = [
-            'type' => 'abc',
-            'name' => 'def',
-            'label' => 'ghi',
-            'description' => 'jkl',
-            'recipes' => [
-                [
-                    'name' => '',
-                    'mode' => 'r1',
-                    'label' => '',
-                    'description' => '',
-                    'ingredients' => [],
-                    'products' => [],
-                    'craftingTime' => 0.
-                ],
-                [
-                    'name' => '',
-                    'mode' => 'r2',
-                    'label' => '',
-                    'description' => '',
-                    'ingredients' => [],
-                    'products' => [],
-                    'craftingTime' => 0.
-                ],
-            ],
-            'totalNumberOfRecipes' => 42
-        ];
-
-        $data = $entity->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newEntity = new GenericEntityWithRecipes();
-        $this->assertSame($newEntity, $newEntity->readData(new DataContainer($data)));
-        $this->assertEquals($newEntity, $entity);
+        $this->assertSame($entity, $entity->setTotalNumberOfRecipes($totalNumberOfRecipes));
+        $this->assertSame($totalNumberOfRecipes, $entity->getTotalNumberOfRecipes());
     }
 }

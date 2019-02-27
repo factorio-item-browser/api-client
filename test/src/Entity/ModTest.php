@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use PHPUnit\Framework\TestCase;
 
@@ -19,11 +18,12 @@ class ModTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @coversNothing
+     * @covers ::getType
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $mod = new Mod();
+
         $this->assertSame('mod', $mod->getType());
         $this->assertSame('', $mod->getName());
         $this->assertSame('', $mod->getLabel());
@@ -34,80 +34,44 @@ class ModTest extends TestCase
     }
 
     /**
-     * Tests getting the type.
-     * @covers ::getType
-     */
-    public function testGetType()
-    {
-        $mod = new Mod();
-        $this->assertSame('mod', $mod->getType());
-    }
-
-    /**
-     * Tests setting and getting the author.
-     * @covers ::setAuthor
+     * Tests the setting and getting the author.
      * @covers ::getAuthor
+     * @covers ::setAuthor
      */
-    public function testSetAndGetAuthor()
+    public function testSetAndGetAuthor(): void
     {
-        $mod = new Mod();
-        $this->assertSame($mod, $mod->setAuthor('abc'));
-        $this->assertSame('abc', $mod->getAuthor());
+        $author = 'abc';
+        $entity = new Mod();
+
+        $this->assertSame($entity, $entity->setAuthor($author));
+        $this->assertSame($author, $entity->getAuthor());
     }
 
     /**
-     * Tests setting and getting the version.
-     * @covers ::setVersion
+     * Tests the setting and getting the version.
      * @covers ::getVersion
+     * @covers ::setVersion
      */
-    public function testSetAndGetVersion()
+    public function testSetAndGetVersion(): void
     {
-        $mod = new Mod();
-        $this->assertSame($mod, $mod->setVersion('abc'));
-        $this->assertSame('abc', $mod->getVersion());
+        $version = '1.2.3';
+        $entity = new Mod();
+
+        $this->assertSame($entity, $entity->setVersion($version));
+        $this->assertSame($version, $entity->getVersion());
     }
 
     /**
-     * Tests setting and getting the enabled flag.
-     * @covers ::setIsEnabled
+     * Tests the setting and getting the is enabled.
      * @covers ::getIsEnabled
+     * @covers ::setIsEnabled
      */
-    public function testSetAndGetIsEnabled()
+    public function testSetAndGetIsEnabled(): void
     {
-        $mod = new Mod();
-        $this->assertSame($mod, $mod->setIsEnabled(true));
-        $this->assertTrue($mod->getIsEnabled());
-    }
+        $isEnabled = true;
+        $entity = new Mod();
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $mod = new Mod();
-        $mod->setName('abc')
-            ->setLabel('def')
-            ->setDescription('ghi')
-            ->setAuthor('jkl')
-            ->setVersion('4.2.0')
-            ->setIsEnabled(true);
-
-        $expectedData = [
-            'name' => 'abc',
-            'label' => 'def',
-            'description' => 'ghi',
-            'author' => 'jkl',
-            'version' => '4.2.0',
-            'isEnabled' => true
-        ];
-
-        $data = $mod->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newMod = new Mod();
-        $this->assertSame($newMod, $newMod->readData(new DataContainer($data)));
-        $this->assertEquals($newMod, $mod);
+        $this->assertSame($entity, $entity->setIsEnabled($isEnabled));
+        $this->assertSame($isEnabled, $entity->getIsEnabled());
     }
 }

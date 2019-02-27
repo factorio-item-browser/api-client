@@ -1,4 +1,4 @@
-FactorioItemBrowser\Api\Client\Entity\RequestEntity:
+FactorioItemBrowser\Api\Client\Entity\Entity:
   access_type: public_method
   exclusion_policy: all
   properties:

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Request\Generic;
 
-use FactorioItemBrowser\Api\Client\Entity\RequestEntity;
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 
 /**
@@ -17,13 +17,13 @@ class GenericDetailsRequest implements RequestInterface
 {
     /**
      * The entities to request the details for.
-     * @var array|RequestEntity[]
+     * @var array|Entity[]
      */
     protected $entities = [];
 
     /**
      * Sets the entities to request the details for.
-     * @param array|RequestEntity[] $entities
+     * @param array|Entity[] $entities
      * @return $this
      */
     public function setEntities(array $entities): self
@@ -34,10 +34,10 @@ class GenericDetailsRequest implements RequestInterface
 
     /**
      * Adds an entity to request the details for.
-     * @param RequestEntity $entity
+     * @param Entity $entity
      * @return $this
      */
-    public function addEntity(RequestEntity $entity): self
+    public function addEntity(Entity $entity): self
     {
         $this->entities[] = $entity;
         return $this;
@@ -45,7 +45,7 @@ class GenericDetailsRequest implements RequestInterface
 
     /**
      * Returns the the entities to request the details for.
-     * @return array|RequestEntity[]
+     * @return array|Entity[]
      */
     public function getEntities(): array
     {

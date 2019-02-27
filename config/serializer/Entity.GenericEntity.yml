@@ -1,0 +1,8 @@
+FactorioItemBrowser\Api\Client\Entity\GenericEntity:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    label:
+      type: string
+    description:
+      type: string

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -21,9 +20,10 @@ class ItemTest extends TestCase
      * Tests the constructing.
      * @coversNothing
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $item = new Item();
+
         $this->assertSame('', $item->getType());
         $this->assertSame('', $item->getName());
         $this->assertSame('', $item->getLabel());
@@ -32,44 +32,16 @@ class ItemTest extends TestCase
     }
 
     /**
-     * Tests setting and getting the amount.
-     * @covers ::setAmount
+     * Tests the setting and getting the amount.
      * @covers ::getAmount
+     * @covers ::setAmount
      */
-    public function testSetAndGetAmount()
+    public function testSetAndGetAmount(): void
     {
-        $item = new Item();
-        $this->assertSame($item, $item->setAmount(13.37));
-        $this->assertSame(13.37, $item->getAmount());
-    }
+        $amount = 13.37;
+        $entity = new Item();
 
-    /**
-     * Tests writing and reading the data.
-     * @covers ::writeData
-     * @covers ::readData
-     */
-    public function testWriteAndReadData()
-    {
-        $item = new Item();
-        $item->setType('abc')
-             ->setName('def')
-             ->setLabel('ghi')
-             ->setDescription('jkl')
-             ->setAmount(13.37);
-
-        $expectedData = [
-            'type' => 'abc',
-            'name' => 'def',
-            'label' => 'ghi',
-            'description' => 'jkl',
-            'amount' => 13.37
-        ];
-
-        $data = $item->writeData();
-        $this->assertEquals($expectedData, $data);
-
-        $newItem = new Item();
-        $this->assertSame($newItem, $newItem->readData(new DataContainer($data)));
-        $this->assertEquals($newItem, $item);
+        $this->assertSame($entity, $entity->setAmount($amount));
+        $this->assertSame($amount, $entity->getAmount());
     }
 }

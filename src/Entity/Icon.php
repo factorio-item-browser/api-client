@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
-
 /**
- * The entity representing an item file.
+ * The entity representing an icon file.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Icon implements EntityInterface
+class Icon
 {
     /**
      * The entities using the icons.
-     * @var array|IconEntity[]
+     * @var array|Entity[]
      */
     protected $entities = [];
 
@@ -28,23 +26,21 @@ class Icon implements EntityInterface
 
     /**
      * Sets the entities of the entity.
-     * @param array|IconEntity[] $entities
+     * @param array|Entity[] $entities
      * @return $this Implementing fluent interface.
      */
-    public function setEntities(array $entities)
+    public function setEntities(array $entities): self
     {
-        $this->entities = array_values(array_filter($entities, function ($entity): bool {
-            return $entity instanceof IconEntity;
-        }));
+        $this->entities = $entities;
         return $this;
     }
 
     /**
      * Adds a entity to the entity.
-     * @param IconEntity $entity
+     * @param Entity $entity
      * @return $this
      */
-    public function addEntity(IconEntity $entity)
+    public function addEntity(Entity $entity): self
     {
         $this->entities[] = $entity;
         return $this;
@@ -52,7 +48,7 @@ class Icon implements EntityInterface
 
     /**
      * Returns the entities of the entity.
-     * @return array|IconEntity[]
+     * @return array|Entity[]
      */
     public function getEntities(): array
     {
@@ -64,7 +60,7 @@ class Icon implements EntityInterface
      * @param string $content
      * @return $this
      */
-    public function setContent(string $content)
+    public function setContent(string $content): self
     {
         $this->content = $content;
         return $this;
@@ -77,35 +73,5 @@ class Icon implements EntityInterface
     public function getContent(): string
     {
         return $this->content;
-    }
-
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        return [
-            'entities' => array_map(function (IconEntity $entity): array {
-                return $entity->writeData();
-            }, $this->entities),
-            'content' => $this->content
-        ];
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        $this->entities = [];
-        foreach ($data->getObjectArray('entities') as $entityData) {
-            $this->entities[] = (new IconEntity())->readData($entityData);
-        }
-        $this->content = $data->getString('content');
-        return $this;
     }
 }
