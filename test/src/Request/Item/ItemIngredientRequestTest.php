@@ -17,6 +17,20 @@ use PHPUnit\Framework\TestCase;
 class ItemIngredientRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new ItemIngredientRequest();
+
+        $this->assertSame('', $request->getType());
+        $this->assertSame('', $request->getName());
+        $this->assertSame(10, $request->getNumberOfResults());
+        $this->assertSame(0, $request->getIndexOfFirstResult());
+    }
+
+    /**
      * Tests the setting and getting the type.
      * @covers ::getType
      * @covers ::setType

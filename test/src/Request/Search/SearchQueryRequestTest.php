@@ -17,6 +17,20 @@ use PHPUnit\Framework\TestCase;
 class SearchQueryRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new SearchQueryRequest();
+
+        $this->assertSame('', $request->getQuery());
+        $this->assertSame(10, $request->getNumberOfResults());
+        $this->assertSame(0, $request->getIndexOfFirstResult());
+        $this->assertSame(3, $request->getNumberOfRecipesPerResult());
+    }
+
+    /**
      * Tests the setting and getting the query.
      * @covers ::getQuery
      * @covers ::setQuery

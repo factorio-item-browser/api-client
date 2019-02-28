@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Response\Auth;
 
 use FactorioItemBrowser\Api\Client\Response\Auth\AuthResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,17 +17,27 @@ use PHPUnit\Framework\TestCase;
 class AuthResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the authorization token.
-     * @covers ::getAuthorizationToken
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetAuthorizationToken()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'authorizationToken' => 'abc'
-        ];
+        $response = new AuthResponse();
 
-        $response = new AuthResponse(new TestPendingResponse($responseData));
-        $this->assertSame('abc', $response->getAuthorizationToken());
+        $this->assertSame('', $response->getAuthorizationToken());
+    }
+
+    /**
+     * Tests the setting and getting the authorization token.
+     * @covers ::getAuthorizationToken
+     * @covers ::setAuthorizationToken
+     */
+    public function testSetAndGetAuthorizationToken(): void
+    {
+        $authorizationToken = 'abc';
+        $response = new AuthResponse();
+
+        $this->assertSame($response, $response->setAuthorizationToken($authorizationToken));
+        $this->assertSame($authorizationToken, $response->getAuthorizationToken());
     }
 }

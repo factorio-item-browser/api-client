@@ -17,6 +17,18 @@ use PHPUnit\Framework\TestCase;
 class ItemRandomRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new ItemRandomRequest();
+
+        $this->assertSame(10, $request->getNumberOfResults());
+        $this->assertSame(3, $request->getNumberOfRecipesPerResult());
+    }
+
+    /**
      * Tests the setting and getting the number of results.
      * @covers ::getNumberOfResults
      * @covers ::setNumberOfResults

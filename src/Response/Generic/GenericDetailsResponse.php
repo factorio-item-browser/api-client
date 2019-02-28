@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Generic;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the generic details request.
@@ -15,36 +13,42 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class GenericDetailsResponse extends AbstractResponse
+class GenericDetailsResponse implements ResponseInterface
 {
     /**
      * The entity details.
      * @var array|GenericEntity[]
      */
-    protected $entities;
+    protected $entities = [];
+
+    /**
+     * Sets the entity details.
+     * @param array|GenericEntity[] $entities
+     * @return $this
+     */
+    public function setEntities(array $entities): self
+    {
+        $this->entities = $entities;
+        return $this;
+    }
+
+    /**
+     * Adds entity details.
+     * @param GenericEntity $entity
+     * @return $this
+     */
+    public function addEntity(GenericEntity $entity): self
+    {
+        $this->entities[] = $entity;
+        return $this;
+    }
 
     /**
      * Returns the entity details.
      * @return array|GenericEntity[]
-     * @throws ApiClientException
      */
     public function getEntities(): array
     {
-        $this->checkPendingResponse();
         return $this->entities;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->entities = [];
-        foreach ($responseData->getObjectArray('entities') as $entityData) {
-            $this->entities[] = (new GenericEntity())->readData($entityData);
-        }
-        return $this;
     }
 }

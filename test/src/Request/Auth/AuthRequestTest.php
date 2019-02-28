@@ -17,6 +17,19 @@ use PHPUnit\Framework\TestCase;
 class AuthRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new AuthRequest();
+
+        $this->assertSame('', $request->getAgent());
+        $this->assertSame('', $request->getAccessKey());
+        $this->assertSame([], $request->getEnabledModNames());
+    }
+
+    /**
      * Tests the setting and getting the agent.
      * @covers ::getAgent
      * @covers ::setAgent

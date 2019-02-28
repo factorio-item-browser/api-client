@@ -20,6 +20,17 @@ use ReflectionException;
 class GenericDetailsRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new GenericDetailsRequest();
+
+        $this->assertSame([], $request->getEntities());
+    }
+
+    /**
      * Tests the setting and getting the entities.
      * @throws ReflectionException
      * @covers ::addEntity

@@ -20,6 +20,17 @@ use ReflectionException;
 class GenericIconRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new GenericIconRequest();
+
+        $this->assertSame([], $request->getEntities());
+    }
+
+    /**
      * Tests the setting and getting the entities.
      * @throws ReflectionException
      * @covers ::addEntity

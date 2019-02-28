@@ -17,6 +17,17 @@ use PHPUnit\Framework\TestCase;
 class RecipeDetailsRequestTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @coversNothing
+     */
+    public function testConstruct(): void
+    {
+        $request = new RecipeDetailsRequest();
+
+        $this->assertSame([], $request->getNames());
+    }
+
+    /**
      * Tests the setting and getting the names.
      * @covers ::addName
      * @covers ::getNames

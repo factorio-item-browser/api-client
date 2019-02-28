@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Item;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the item product request.
@@ -15,7 +13,7 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemProductResponse extends AbstractResponse
+class ItemProductResponse implements ResponseInterface
 {
     /**
      * The details of the requested item.
@@ -24,24 +22,22 @@ class ItemProductResponse extends AbstractResponse
     protected $item;
 
     /**
-     * Returns the details of the requested item.
-     * @return GenericEntityWithRecipes
-     * @throws ApiClientException
+     * Sets the details of the requested item.
+     * @param GenericEntityWithRecipes $item
+     * @return $this
      */
-    public function getItem(): GenericEntityWithRecipes
+    public function setItem(GenericEntityWithRecipes $item): self
     {
-        $this->checkPendingResponse();
-        return $this->item;
+        $this->item = $item;
+        return $this;
     }
 
     /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
+     * Returns the details of the requested item.
+     * @return GenericEntityWithRecipes
      */
-    protected function mapResponse(DataContainer $responseData)
+    public function getItem(): GenericEntityWithRecipes
     {
-        $this->item = (new GenericEntityWithRecipes())->readData($responseData->getObject('item'));
-        return $this;
+        return $this->item;
     }
 }

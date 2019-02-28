@@ -6,8 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Response\Mod;
 
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the mod list response class.
@@ -19,24 +20,37 @@ use PHPUnit\Framework\TestCase;
 class ModListResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the mods.
-     * @covers ::getMods
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetMods()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'mods' => [
-                ['name' => 'abc'],
-                ['name' => 'def']
-            ]
-        ];
-        $mod1 = new Mod();
-        $mod1->setName('abc');
-        $mod2 = new Mod();
-        $mod2->setName('def');
+        $response = new ModListResponse();
 
-        $response = new ModListResponse(new TestPendingResponse($responseData));
-        $this->assertEquals([$mod1, $mod2], $response->getMods());
+        $this->assertSame([], $response->getMods());
+    }
+
+    /**
+     * Tests setting, adding and getting the mods.
+     * @throws ReflectionException
+     * @covers ::addMod
+     * @covers ::setMods
+     * @covers ::getMods
+     */
+    public function testSetAddAndGetMods(): void
+    {
+        /* @var Mod&MockObject $mod1 */
+        $mod1 = $this->createMock(Mod::class);
+        /* @var Mod&MockObject $mod2 */
+        $mod2 = $this->createMock(Mod::class);
+        /* @var Mod&MockObject $mod3 */
+        $mod3 = $this->createMock(Mod::class);
+
+        $response = new ModListResponse();
+        $this->assertSame($response, $response->setMods([$mod1, $mod2]));
+        $this->assertSame([$mod1, $mod2], $response->getMods());
+
+        $this->assertSame($response, $response->addMod($mod3));
+        $this->assertSame([$mod1, $mod2, $mod3], $response->getMods());
     }
 }

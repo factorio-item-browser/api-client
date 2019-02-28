@@ -6,8 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Response\Item;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the item ingredient response class.
@@ -19,21 +20,19 @@ use PHPUnit\Framework\TestCase;
 class ItemIngredientResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the item.
+     * Tests the setting and getting the item.
+     * @throws ReflectionException
      * @covers ::getItem
-     * @covers ::mapResponse
+     * @covers ::setItem
      */
-    public function testGetItem()
+    public function testSetAndGetItem(): void
     {
-        $responseData = [
-            'item' => [
-                'name' => 'abc'
-            ]
-        ];
-        $item = new GenericEntityWithRecipes();
-        $item->setName('abc');
+        /* @var GenericEntityWithRecipes&MockObject $item */
+        $item = $this->createMock(GenericEntityWithRecipes::class);
 
-        $response = new ItemIngredientResponse(new TestPendingResponse($responseData));
-        $this->assertEquals($item, $response->getItem());
+        $response = new ItemIngredientResponse();
+
+        $this->assertSame($response, $response->setItem($item));
+        $this->assertSame($item, $response->getItem());
     }
 }
