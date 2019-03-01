@@ -1,0 +1,8 @@
+FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    results:
+      type: array<FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes>
+    totalNumberOfResults:
+      type: integer

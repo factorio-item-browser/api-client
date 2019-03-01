@@ -1,0 +1,8 @@
+FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    machines:
+      type: array<FactorioItemBrowser\Api\Client\Entity\Machine>
+    totalNumberOfResults:
+      type: integer

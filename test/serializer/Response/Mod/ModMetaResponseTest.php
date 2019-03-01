@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Auth;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Mod;
 
-use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
 use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the GenericEntity class.
+ * The PHPUnit test of serializing the ModMetaResponse class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  * @coversNothing
  */
-class GenericEntityTest extends SerializerTestCase
+class ModMetaResponseTest extends SerializerTestCase
 {
     /**
      * Returns the object to be serialized or deserialized.
@@ -22,11 +22,9 @@ class GenericEntityTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new GenericEntity();
-        $result->setType('abc')
-               ->setName('def')
-               ->setLabel('ghi')
-               ->setDescription('jkl');
+        $result = new ModMetaResponse();
+        $result->setNumberOfAvailableMods(42)
+               ->setNumberOfEnabledMods(21);
 
         return $result;
     }
@@ -38,10 +36,8 @@ class GenericEntityTest extends SerializerTestCase
     protected function getData(): array
     {
         return [
-            'type' => 'abc',
-            'name' => 'def',
-            'label'=> 'ghi',
-            'description' => 'jkl',
+            'numberOfAvailableMods' => 42,
+            'numberOfEnabledMods' => 21,
         ];
     }
 }

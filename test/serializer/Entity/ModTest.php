@@ -29,6 +29,7 @@ class ModTest extends SerializerTestCase
                ->setAuthor('jkl')
                ->setVersion('1.2.3')
                ->setIsEnabled(true);
+
         return $result;
     }
 

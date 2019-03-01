@@ -1,0 +1,8 @@
+FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    numberOfAvailableMods:
+      type: int
+    numberOfEnabledMods:
+      type: int

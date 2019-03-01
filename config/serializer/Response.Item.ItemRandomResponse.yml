@@ -1,0 +1,6 @@
+FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    items:
+      type: array<FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes>
