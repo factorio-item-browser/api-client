@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestAsset\Api\Client;
 
-use FactorioItemBrowser\Api\Client\Client\SerializerFactory;
+use FactorioItemBrowser\Api\Client\Serializer\SerializerFactory;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- *
+ * The test case for the serializing and deserializing of objects.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3

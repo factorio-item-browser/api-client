@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowser\Api\Client\Client;
+namespace FactorioItemBrowser\Api\Client\Serializer;
 
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
@@ -24,7 +24,8 @@ class SerializerFactory
     {
         $builder = SerializerBuilder::create();
         $builder->addMetadataDir(__DIR__ . '/../../config/serializer', 'FactorioItemBrowser\Api\Client')
-                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy());
+                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
+                ->setSerializationContextFactory(new ContextFactory());
 
         return $builder->build();
     }
