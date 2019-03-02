@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Api\Client\Service;
 use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the endpoint service.
@@ -14,7 +15,7 @@ use Interop\Container\ContainerInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class EndpointServiceFactory
+class EndpointServiceFactory implements FactoryInterface
 {
     /**
      * Creates the service.
@@ -23,7 +24,7 @@ class EndpointServiceFactory
      * @param  null|array $options
      * @return EndpointService
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): EndpointService
     {
         $config = $container->get('config');
         $libraryConfig = $config[ConfigKey::PROJECT][ConfigKey::LIBRARY] ?? [];

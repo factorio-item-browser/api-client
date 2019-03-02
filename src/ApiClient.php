@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client;
 
+use FactorioItemBrowser\Api\Client\Client\Options;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 use FactorioItemBrowser\Api\Client\Service\EndpointService;
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerInterface;
@@ -30,9 +31,15 @@ class ApiClient
 
     /**
      * The Guzzle client.
-     * @var Client
+     * @var ClientInterface
      */
     protected $guzzleClient;
+
+    /**
+     * The options.
+     * @var Options
+     */
+    protected $options;
 
     /**
      * The serializer for thr requests and responses.
@@ -49,13 +56,19 @@ class ApiClient
     /**
      * ApiClient constructor.
      * @param EndpointService $endpointService
-     * @param Client $guzzleClient
+     * @param ClientInterface $guzzleClient
+     * @param Options $options
      * @param SerializerInterface $serializer
      */
-    public function __construct(EndpointService $endpointService, Client $guzzleClient, SerializerInterface $serializer)
-    {
+    public function __construct(
+        EndpointService $endpointService,
+        ClientInterface $guzzleClient,
+        Options $options,
+        SerializerInterface $serializer
+    ) {
         $this->endpointService = $endpointService;
         $this->guzzleClient = $guzzleClient;
+        $this->options = $options;
         $this->serializer = $serializer;
     }
 
@@ -116,7 +129,6 @@ class ApiClient
     public function getResponse(RequestInterface $request): ResponseInterface
     {
         $requestId = $this->getRequestId($request);
-        var_dump($requestId);
         if (!isset($this->pendingRequests[$requestId])) {
             $this->sendRequest($request);
         }

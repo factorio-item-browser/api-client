@@ -16,6 +16,10 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'dependencies' => [
         'factories'  => [
+            ApiClient::class => ApiClientFactory::class,
+
+            Client\Options::class => Client\OptionsFactory::class,
+
             Endpoint\Auth\AuthEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericIconEndpoint::class => InvokableFactory::class,
@@ -27,8 +31,6 @@ return [
             Endpoint\Recipe\RecipeDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Recipe\RecipeMachinesEndpoint::class => InvokableFactory::class,
             Endpoint\Search\SearchQueryEndpoint::class => InvokableFactory::class,
-
-            Serializer\SerializerInterface::class => Serializer\SerializerFactory::class,
 
             Service\EndpointService::class => Service\EndpointServiceFactory::class,
         ],
