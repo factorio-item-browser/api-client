@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Auth;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;

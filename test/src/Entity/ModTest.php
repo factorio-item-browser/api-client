@@ -72,6 +72,6 @@ class ModTest extends TestCase
         $entity = new Mod();
 
         $this->assertSame($entity, $entity->setIsEnabled($isEnabled));
-        $this->assertSame($isEnabled, $entity->getIsEnabled());
+        $this->assertTrue($entity->getIsEnabled());
     }
 }

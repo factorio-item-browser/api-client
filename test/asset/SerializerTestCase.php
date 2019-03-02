@@ -49,7 +49,7 @@ abstract class SerializerTestCase extends TestCase
         $expectedObject = $this->getObject();
 
         $serializer = $this->createSerializer();
-        $result = $serializer->deserialize(json_encode($data), get_class($expectedObject), 'json');
+        $result = $serializer->deserialize((string) json_encode($data), get_class($expectedObject), 'json');
 
         $this->assertEquals($expectedObject, $result);
     }
