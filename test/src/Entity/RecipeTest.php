@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
-use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Common\Constant\EntityType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use FactorioItemBrowser\Api\Client\Constant\EnergyUsageUnit;
-use FactorioItemBrowser\Api\Client\Constant\EntityType;
+use FactorioItemBrowser\Common\Constant\EnergyUsageUnit;
+use FactorioItemBrowser\Common\Constant\EntityType;
 
 /**
  * The entity representing a machine crafting recipes.

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use FactorioItemBrowser\Api\Client\Constant\EntityType;
+use FactorioItemBrowser\Common\Constant\EntityType;
 
 /**
  * The entity representing a recipe.
