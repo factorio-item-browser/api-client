@@ -1,0 +1,6 @@
+FactorioItemBrowser\Api\Client\Entity\Error:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    message:
+      type: string

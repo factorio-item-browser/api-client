@@ -18,7 +18,7 @@ class OptionsTest extends TestCase
      * Tests the constructing.
      * @coversNothing
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $options = new Options();
 

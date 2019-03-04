@@ -22,6 +22,14 @@ class ItemProductResponse implements ResponseInterface
     protected $item;
 
     /**
+     * Initializes the response.
+     */
+    public function __construct()
+    {
+        $this->item = new GenericEntityWithRecipes();
+    }
+
+    /**
      * Sets the details of the requested item.
      * @param GenericEntityWithRecipes $item
      * @return $this

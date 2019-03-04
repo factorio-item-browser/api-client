@@ -20,6 +20,17 @@ use ReflectionException;
 class ItemProductResponseTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @covers ::__construct
+     */
+    public function testConstruct(): void
+    {
+        $response = new ItemProductResponse();
+
+        $this->assertEquals(new GenericEntityWithRecipes(), $response->getItem());
+    }
+
+    /**
      * Tests the setting and getting the item.
      * @throws ReflectionException
      * @covers ::getItem
