@@ -26,12 +26,13 @@ class SerializerFactoryTest extends TestCase
     public function testInvoke(): void
     {
         $builder = SerializerBuilder::create();
-        $builder->addMetadataDir(
-                    (string) realpath(__DIR__ . '/../../../config/serializer'),
-                    'FactorioItemBrowser\Api\Client'
-                )
-                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
-                ->setSerializationContextFactory(new ContextFactory());
+        $builder
+            ->addMetadataDir(
+                (string) realpath(__DIR__ . '/../../../config/serializer'),
+                'FactorioItemBrowser\Api\Client'
+            )
+            ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
+            ->setSerializationContextFactory(new ContextFactory());
         $expectedResult = $builder->build();
 
         $factory = new SerializerFactory();

@@ -21,10 +21,9 @@ class ForbiddenExceptionTest extends TestCase
      * Tests the constructing.
      * @covers ::__construct
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $message = 'abc';
-        $code = 403;
         $request = 'def';
         $response = 'ghi';
         $previous = new Exception('jkl');
@@ -32,7 +31,7 @@ class ForbiddenExceptionTest extends TestCase
         $exception = new ForbiddenException($message, $request, $response, $previous);
 
         $this->assertSame($message, $exception->getMessage());
-        $this->assertSame($code, $exception->getCode());
+        $this->assertSame(403, $exception->getCode());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
         $this->assertSame($previous, $exception->getPrevious());

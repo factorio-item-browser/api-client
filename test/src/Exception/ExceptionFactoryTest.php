@@ -9,7 +9,6 @@ use FactorioItemBrowser\Api\Client\Exception\BadRequestException;
 use FactorioItemBrowser\Api\Client\Exception\ExceptionFactory;
 use FactorioItemBrowser\Api\Client\Exception\ForbiddenException;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
-use FactorioItemBrowser\Api\Client\Exception\TimeoutException;
 use FactorioItemBrowser\Api\Client\Exception\UnauthorizedException;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +32,6 @@ class ExceptionFactoryTest extends TestCase
             [401, UnauthorizedException::class],
             [403, ForbiddenException::class],
             [404, NotFoundException::class],
-            [408, TimeoutException::class],
             [500, ApiClientException::class],
             [0, ApiClientException::class]
         ];
@@ -46,7 +44,7 @@ class ExceptionFactoryTest extends TestCase
      * @covers ::create
      * @dataProvider provideCreate
      */
-    public function testCreate(int $statusCode, string $expectedExceptionClass)
+    public function testCreate(int $statusCode, string $expectedExceptionClass): void
     {
         $exception = ExceptionFactory::create($statusCode, 'abc', 'def', 'ghi');
         $this->assertInstanceOf($expectedExceptionClass, $exception);

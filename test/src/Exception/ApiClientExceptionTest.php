@@ -23,7 +23,7 @@ class ApiClientExceptionTest extends TestCase
      * @covers ::getRequest
      * @covers ::getResponse
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $message = 'abc';
         $code = 123;

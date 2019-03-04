@@ -21,10 +21,9 @@ class UnauthorizedExceptionTest extends TestCase
      * Tests the constructing.
      * @covers ::__construct
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $message = 'abc';
-        $code = 401;
         $request = 'def';
         $response = 'ghi';
         $previous = new Exception('jkl');
@@ -32,7 +31,7 @@ class UnauthorizedExceptionTest extends TestCase
         $exception = new UnauthorizedException($message, $request, $response, $previous);
 
         $this->assertSame($message, $exception->getMessage());
-        $this->assertSame($code, $exception->getCode());
+        $this->assertSame(401, $exception->getCode());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
         $this->assertSame($previous, $exception->getPrevious());

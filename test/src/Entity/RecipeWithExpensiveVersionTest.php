@@ -46,7 +46,7 @@ class RecipeWithExpensiveVersionTest extends TestCase
      * @covers ::hasExpensiveVersion
      * @covers ::setExpensiveVersion
      */
-    public function testSetHasAndGetExpensiveVersion()
+    public function testSetHasAndGetExpensiveVersion(): void
     {
         /* @var Recipe&MockObject $expensiveVersion */
         $expensiveVersion = $this->createMock(Recipe::class);

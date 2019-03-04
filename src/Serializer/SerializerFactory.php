@@ -23,12 +23,13 @@ class SerializerFactory
     public function __invoke(): SerializerInterface
     {
         $builder = SerializerBuilder::create();
-        $builder->addMetadataDir(
-                    (string) realpath(__DIR__ . '/../../config/serializer'),
-                    'FactorioItemBrowser\Api\Client'
-                )
-                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
-                ->setSerializationContextFactory(new ContextFactory());
+        $builder
+            ->addMetadataDir(
+                (string) realpath(__DIR__ . '/../../config/serializer'),
+                'FactorioItemBrowser\Api\Client'
+            )
+            ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
+            ->setSerializationContextFactory(new ContextFactory());
 
         return $builder->build();
     }
