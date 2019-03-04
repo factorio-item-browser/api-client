@@ -23,6 +23,6 @@ class InvalidResponseException extends ApiClientException
      */
     public function __construct(string $message, string $request, string $response = '', Exception $previous = null)
     {
-        parent::__construct('Invalid response: ' . $message, 500, $request, $response, $previous);
+        parent::__construct($message, 500, $request, $response, $previous);
     }
 }

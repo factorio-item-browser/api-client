@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Service;
 
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
+use FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 
 /**
@@ -36,9 +37,15 @@ class EndpointService
      * Returns the endpoint for the request.
      * @param RequestInterface $request
      * @return EndpointInterface
+     * @throws UnsupportedRequestException
      */
     public function getEndpointForRequest(RequestInterface $request): EndpointInterface
     {
-        return $this->endpointsByRequestClass[get_class($request)];
+        $requestClass = get_class($request);
+        if (!isset($this->endpointsByRequestClass[$requestClass])) {
+            throw new UnsupportedRequestException($requestClass);
+        }
+
+        return $this->endpointsByRequestClass[$requestClass];
     }
 }

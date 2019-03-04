@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client;
 
+use FactorioItemBrowser\Api\Client\Constant\ServiceName;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -33,6 +34,10 @@ return [
             Endpoint\Search\SearchQueryEndpoint::class => InvokableFactory::class,
 
             Service\EndpointService::class => Service\EndpointServiceFactory::class,
+
+            // 3rd party dependencies
+            ServiceName::GUZZLE_CLIENT => Client\GuzzleClientFactory::class,
+            ServiceName::SERIALIZER => Serializer\SerializerFactory::class,
         ],
     ],
 ];

@@ -33,7 +33,7 @@ return [
                 ConfigKey::OPTION_API_URL => '',
                 ConfigKey::OPTION_AGENT => '',
                 ConfigKey::OPTION_ACCESS_KEY => '',
-
+                ConfigKey::OPTION_TIMEOUT => 0,
             ]
         ],
     ],

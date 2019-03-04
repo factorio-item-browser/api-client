@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client;
 
-use FactorioItemBrowser\Api\Client\Client\GuzzleClientFactory;
 use FactorioItemBrowser\Api\Client\Client\Options;
-use FactorioItemBrowser\Api\Client\Serializer\SerializerFactory;
+use FactorioItemBrowser\Api\Client\Constant\ServiceName;
 use FactorioItemBrowser\Api\Client\Service\EndpointService;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
-use JMS\Serializer\SerializerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -33,30 +29,9 @@ class ApiClientFactory implements FactoryInterface
     {
         return new ApiClient(
             $container->get(EndpointService::class),
-            $this->createGuzzleClient($container),
+            $container->get(ServiceName::GUZZLE_CLIENT),
             $container->get(Options::class),
-            $this->createSerializer()
+            $container->get(ServiceName::SERIALIZER)
         );
-    }
-
-    /**
-     * Creates the Guzzle client.
-     * @param ContainerInterface $container
-     * @return ClientInterface
-     */
-    protected function createGuzzleClient(ContainerInterface $container): ClientInterface
-    {
-        $factory = new GuzzleClientFactory();
-        return $factory($container, Client::class);
-    }
-
-    /**
-     * Creates the Serializer.
-     * @return SerializerInterface
-     */
-    protected function createSerializer(): SerializerInterface
-    {
-        $factory = new SerializerFactory();
-        return $factory();
     }
 }

@@ -6,6 +6,8 @@ namespace FactorioItemBrowserTest\Api\Client\Service;
 
 use BluePsyduck\Common\Test\ReflectionTrait;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
+use FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException;
+use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 use FactorioItemBrowser\Api\Client\Service\EndpointService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -50,5 +52,65 @@ class EndpointServiceTest extends TestCase
         $service = new EndpointService($endpoints);
 
         $this->assertEquals($expectedEndpoints, $this->extractProperty($service, 'endpointsByRequestClass'));
+    }
+
+    /**
+     * Tests the getEndpointForRequest method.
+     * @throws ReflectionException
+     * @throws UnsupportedRequestException
+     * @covers ::getEndpointForRequest
+     */
+    public function testGetEndpointForRequest(): void
+    {
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->getMockBuilder(RequestInterface::class)
+                        ->setMockClassName('MockedRequestInterface')
+                        ->getMockForAbstractClass();
+
+        /* @var EndpointInterface&MockObject $endpoint1 */
+        $endpoint1 = $this->createMock(EndpointInterface::class);
+        /* @var EndpointInterface&MockObject $endpoint2 */
+        $endpoint2 = $this->createMock(EndpointInterface::class);
+
+        $endpoints = [
+            'MockedRequestInterface' => $endpoint1,
+            'abc' => $endpoint2,
+        ];
+
+        $service = new EndpointService([]);
+        $this->injectProperty($service, 'endpointsByRequestClass', $endpoints);
+
+        $result = $service->getEndpointForRequest($request);
+
+        $this->assertSame($endpoint1, $result);
+    }
+
+    /**
+     * Tests the getEndpointForRequest method with throwing an exception.
+     * @throws ReflectionException
+     * @throws UnsupportedRequestException
+     * @covers ::getEndpointForRequest
+     */
+    public function testGetEndpointForRequestWithException(): void
+    {
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->createMock(RequestInterface::class);
+
+        /* @var EndpointInterface&MockObject $endpoint1 */
+        $endpoint1 = $this->createMock(EndpointInterface::class);
+        /* @var EndpointInterface&MockObject $endpoint2 */
+        $endpoint2 = $this->createMock(EndpointInterface::class);
+
+        $endpoints = [
+            'abc' => $endpoint1,
+            'def' => $endpoint2,
+        ];
+
+        $this->expectException(UnsupportedRequestException::class);
+
+        $service = new EndpointService([]);
+        $this->injectProperty($service, 'endpointsByRequestClass', $endpoints);
+
+        $service->getEndpointForRequest($request);
     }
 }

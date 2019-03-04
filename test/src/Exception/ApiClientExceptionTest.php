@@ -6,7 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Exception;
 
 use Exception;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the API client exception class.
@@ -19,6 +21,7 @@ class ApiClientExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @throws ReflectionException
      * @covers ::__construct
      * @covers ::getRequest
      * @covers ::getResponse
@@ -29,7 +32,9 @@ class ApiClientExceptionTest extends TestCase
         $code = 123;
         $request = 'def';
         $response = 'ghi';
-        $previous = new Exception('jkl');
+
+        /* @var Exception&MockObject $previous */
+        $previous = $this->createMock(Exception::class);
 
         $exception = new ApiClientException($message, $code, $request, $response, $previous);
 
