@@ -24,6 +24,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerInterface;
+use Psr\Http\Message\MessageInterface as PsrMessageInterface;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
@@ -92,9 +93,77 @@ class ApiClient
      */
     public function sendRequest(RequestInterface $request): void
     {
+        $requestId = $this->getRequestId($request);
+        $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request);
+    }
+
+    /**
+     * Fetches the response of the request. This method is blocking and will wait for the request to actually finish.
+     * If the request has not been sent to the server yet, it will be sent with this method call.
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     * @throws ApiClientException
+     */
+    public function fetchResponse(RequestInterface $request): ResponseInterface
+    {
+        $requestId = $this->getRequestId($request);
+        if (!isset($this->pendingRequests[$requestId])) {
+            $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request);
+        }
+
+        try {
+            $response = $this->pendingRequests[$requestId]->wait();
+        } finally {
+            unset($this->pendingRequests[$requestId]);
+        }
+        return $response;
+    }
+
+    /**
+     * Returns the unique id of the request.
+     * @param RequestInterface $request
+     * @return int
+     */
+    protected function getRequestId(RequestInterface $request): int
+    {
+        return spl_object_id($request);
+    }
+
+    /**
+     * Creates and returns the promise for the request. This will actually send the request to the API server.
+     * @param RequestInterface $request
+     * @return PromiseInterface
+     * @throws ApiClientException
+     */
+    protected function createPromiseForRequest(RequestInterface $request): PromiseInterface
+    {
         $clientRequest = $this->createClientRequest($request);
-        $promise = $this->executeRequest($request, $clientRequest);
-        $this->pendingRequests[$this->getRequestId($request)] = $promise;
+        $promise = $this->guzzleClient->sendAsync($clientRequest);
+        $promise = $promise->then(
+            function (PsrResponseInterface $response) use ($request, $clientRequest): ResponseInterface {
+                return $this->processResponse($request, $clientRequest, $response);
+            },
+            function (RequestException $exception): void {
+                $this->processException($exception);
+            }
+        );
+        $promise = $promise->then(
+            null,
+            function (ApiClientException $exception) use ($request): ResponseInterface {
+
+                if (!$exception instanceof UnauthorizedException) {
+                    throw $exception;
+                }
+
+                $this->options->setAuthorizationToken('');
+                $promise = $this->createPromiseForRequest($request);
+                return $promise->wait();
+                // @todo Avoid endless loop of authorization!
+
+            }
+        );
+
+        return $promise;
     }
 
     /**
@@ -141,7 +210,8 @@ class ApiClient
      */
     protected function requestAuthorizationToken(): string
     {
-        if ($this->options->getAuthorizationToken() === '') {
+        $result = $this->options->getAuthorizationToken();
+        if ($result === '') {
             $authRequest = new AuthRequest();
             $authRequest->setAgent($this->options->getAgent())
                         ->setAccessKey($this->options->getAccessKey())
@@ -149,61 +219,34 @@ class ApiClient
 
             $authResponse = $this->fetchResponse($authRequest);
             if ($authResponse instanceof AuthResponse) {
-                $this->options->setAuthorizationToken($authResponse->getAuthorizationToken());
+                $result = $authResponse->getAuthorizationToken();
+                $this->options->setAuthorizationToken($result);
             }
         }
-        return $this->options->getAuthorizationToken();
-    }
-
-    /**
-     * Actually executes the request, sending it to the server.
-     * @param RequestInterface $request
-     * @param PsrRequestInterface $clientRequest
-     * @return PromiseInterface
-     */
-    protected function executeRequest(RequestInterface $request, PsrRequestInterface $clientRequest): PromiseInterface
-    {
-        $promise = $this->guzzleClient->sendAsync($clientRequest);
-        $promise = $promise->then(
-            function (PsrResponseInterface $response) use ($request): ResponseInterface {
-                return $this->processResponse($request, $response);
-            },
-            function (RequestException $exception): void {
-                $this->processException($exception);
-            }
-        );
-        $promise = $promise->then(
-            null,
-            function (ApiClientException $exception) use ($request): ResponseInterface {
-                if (!$exception instanceof UnauthorizedException) {
-                    throw $exception;
-                }
-
-                $this->options->setAuthorizationToken('');
-                var_dump($request);
-                // @todo Handle re-sending the request
-            }
-        );
-
-        return $promise;
+        return $result;
     }
 
     /**
      * Processes the response received from the HTTP client.
      * @param RequestInterface $request
-     * @param PsrResponseInterface $response
+     * @param PsrRequestInterface $clientRequest
+     * @param PsrResponseInterface $clientResponse
      * @return ResponseInterface
      * @throws ApiClientException
      */
-    protected function processResponse(RequestInterface $request, PsrResponseInterface $response): ResponseInterface
-    {
+    protected function processResponse(
+        RequestInterface $request,
+        PsrRequestInterface $clientRequest,
+        PsrResponseInterface $clientResponse
+    ): ResponseInterface {
         $endpoint = $this->endpointService->getEndpointForRequest($request);
-        $responseContents = $response->getBody()->getContents();
+        $responseContents = $this->getContentsFromMessage($clientResponse);
 
         try {
             $result = $this->serializer->deserialize($responseContents, $endpoint->getResponseClass(), 'json');
         } catch (Exception $e) {
-            throw new InvalidResponseException($e->getMessage(), '', '', $e);
+            $requestContents = $this->getContentsFromMessage($clientRequest);
+            throw new InvalidResponseException($e->getMessage(), $requestContents, $responseContents, $e);
         }
 
         return $result;
@@ -216,60 +259,54 @@ class ApiClient
      */
     protected function processException(RequestException $exception): void
     {
-        $request = $exception->getRequest()->getBody()->getContents();
+        $requestContents = $this->getContentsFromMessage($exception->getRequest());
+        $responseContents = $this->getContentsFromMessage($exception->getResponse());
+
         if ($exception instanceof ConnectException) {
-            throw new ConnectionException($exception->getMessage(), $request, $exception);
+            throw new ConnectionException($exception->getMessage(), $requestContents, $exception);
         } else {
+            $message = $this->extractMessageFromErrorResponse($responseContents, $exception->getMessage());
             $statusCode = 0;
-            $response = '';
-            $message = $exception->getMessage();
             if ($exception->getResponse() instanceof PsrResponseInterface) {
                 $statusCode = $exception->getResponse()->getStatusCode();
-                $response = $exception->getResponse()->getBody()->getContents();
-
-                try {
-                    $errorResponse = $this->serializer->deserialize($response, ErrorResponse::class, 'json');
-                    if ($errorResponse instanceof ErrorResponse) {
-                        $message = $errorResponse->getError()->getMessage();
-                    }
-                } catch (Exception $e) {
-                    // Failed to decode error response.
-                }
             }
 
-            throw ExceptionFactory::create($statusCode, $message, $request, $response);
+            throw ExceptionFactory::create($statusCode, $message, $requestContents, $responseContents);
         }
     }
 
     /**
-     * Fetches the response of the request. This method is blocking and will wait for the request to actually finish.
-     * If the request has not been sent to the server yet, it will be sent with this method call.
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     * @throws ApiClientException
+     * Tries to extract the message from an error response.
+     * @param string $responseContents
+     * @param string $fallbackMessage
+     * @return string
      */
-    public function fetchResponse(RequestInterface $request): ResponseInterface
+    protected function extractMessageFromErrorResponse(string $responseContents, string $fallbackMessage): string
     {
-        $requestId = $this->getRequestId($request);
-        if (!isset($this->pendingRequests[$requestId])) {
-            $this->sendRequest($request);
-        }
-
+        $result = $fallbackMessage;
         try {
-            $response = $this->pendingRequests[$requestId]->wait();
-        } finally {
-            unset($this->pendingRequests[$requestId]);
+            $errorResponse = $this->serializer->deserialize($responseContents, ErrorResponse::class, 'json');
+
+            if ($errorResponse instanceof ErrorResponse) {
+                $result = $errorResponse->getError()->getMessage();
+            }
+        } catch (Exception $e) {
+            // Failed to decode error response.
         }
-        return $response;
+        return $result;
     }
 
     /**
-     * Returns the unique id of the request.
-     * @param RequestInterface $request
-     * @return int
+     * Returns the contents of the message (i.e. request or response), if it is an actual instance.
+     * @param PsrMessageInterface $message
+     * @return string
      */
-    protected function getRequestId(RequestInterface $request): int
+    protected function getContentsFromMessage(?PsrMessageInterface $message): string
     {
-        return spl_object_id($request);
+        $result = '';
+        if ($message !== null) {
+            $result = $message->getBody()->getContents();
+        }
+        return $result;
     }
 }

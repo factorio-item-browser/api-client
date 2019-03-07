@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Response;
 
 use FactorioItemBrowser\Api\Client\Entity\Error;
+use FactorioItemBrowser\Api\Client\Response\ErrorResponse;
 use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the Error class.
+ * The PHPUnit test of serializing the ErrorResponse class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  * @coversNothing
  */
-class ErrorTest extends SerializerTestCase
+class ErrorResponseTest extends SerializerTestCase
 {
     /**
      * Returns the object to be serialized or deserialized.
@@ -22,8 +23,11 @@ class ErrorTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new Error();
-        $result->setMessage('abc');
+        $error = new Error();
+        $error->setMessage('abc');
+
+        $result = new ErrorResponse();
+        $result->setError($error);
 
         return $result;
     }
@@ -35,7 +39,9 @@ class ErrorTest extends SerializerTestCase
     protected function getData(): array
     {
         return [
-            'message' => 'abc',
+            'error' => [
+                'message' => 'abc',
+            ],
         ];
     }
 }
