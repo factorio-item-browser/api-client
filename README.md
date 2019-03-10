@@ -1,6 +1,9 @@
 # Factorio Item Browser - API Client
 
-[![Latest Stable Version](https://poser.pugx.org/factorio-item-browser/api-client/v/stable)](https://packagist.org/packages/factorio-item-browser/api-client) [![License](https://poser.pugx.org/factorio-item-browser/api-client/license)](https://packagist.org/packages/factorio-item-browser/api-client) [![Build Status](https://travis-ci.org/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.org/factorio-item-browser/api-client) [![codecov](https://codecov.io/gh/factorio-item-browser/api-client/branch/master/graph/badge.svg)](https://codecov.io/gh/factorio-item-browser/api-client)
+[![Latest Stable Version](https://poser.pugx.org/factorio-item-browser/api-client/v/stable)](https://packagist.org/packages/factorio-item-browser/api-client) 
+[![License](https://poser.pugx.org/factorio-item-browser/api-client/license)](https://packagist.org/packages/factorio-item-browser/api-client) 
+[![Build Status](https://travis-ci.org/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.org/factorio-item-browser/api-client) 
+[![codecov](https://codecov.io/gh/factorio-item-browser/api-client/branch/master/graph/badge.svg)](https://codecov.io/gh/factorio-item-browser/api-client)
 
 This library implements a PHP client to the API of the Factorio Item Browser to access the data of the browser.
 
@@ -26,70 +29,110 @@ present.
 
 The client is able to execute multiple requests at once without waiting for their responses. 
 
-To achieve parallel execution, simply `$client->send($request)` your requests one after another without calling 
-anything on the returned response object. The first call of a getter on the response will block and wait for the 
-request to finish.
+To achieve parallel execution, simply call `$apiClient->sendRequest($request)` on your requests one after another 
+without calling `$apiClient->fetchResponse($request)` to actually fetch a response. Only the latter method will block
+and wait for the request to actually finish. 
+
+When only executing a single request, calling `$apiClient->sendRequest($request)` is optional. It will be invoked 
+automatically if it has not been done yet for the request.
 
 ## Usage
 
-The usage of the library is pretty straight-forward and best explained with an example.
+The client is set up to be used within a Zend Expressive project. Using it in another context requires an additional
+setup which is not covered in this README.
+
+To use the client, add the `FactorioItemBrowser\Api\Client\ConfigProvider` to the config aggregator of your project.
+
+### Configuration
+
+The client requires the following configuration to be present in your project:
+
+```php
+<?php
+
+use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
+
+return [
+    ConfigKey::PROJECT => [
+        ConfigKey::LIBRARY => [
+            ConfigKey::OPTIONS => [
+                // The URL to the API server, including a trailing slash.
+                ConfigKey::OPTION_API_URL => 'https://www.factorio-item-browser.com/api/',
+                // The agent to use for authorizing at the API server.
+                ConfigKey::OPTION_AGENT => 'demo',
+                // The access key of the agent.
+                ConfigKey::OPTION_ACCESS_KEY => 'factorio-item-browser',
+                // The timeout in seconds to use for the requests.
+                ConfigKey::OPTION_TIMEOUT => 10,
+            ],
+        ],
+    ],
+];
+```
+
+### Example
+
+The usage of the actual client is best described with an example.
 
 ```php
 <?php 
 
-// Initialize the client with the basic information required to access the API server.
-$options = new FactorioItemBrowser\Api\Client\Client\Options();
-$options->setApiUrl('https://www.factorio-item-browser.com/api')
-        ->setAgent('demo')
-        ->setAccessKey('factorio-item-browser');
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
+use FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest;
+use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
+use FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse;
+use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
+/* @var \Psr\Container\ContainerInterface $container */
 
-$client = new FactorioItemBrowser\Api\Client\Client\Client($options);
+// Fetch the API client from the container. This will use the config to initialize it.
+/* @var ApiClientInterface $apiClient */
+$apiClient = $container->get(ApiClientInterface::class);
 
 // Set the names of the mods to be enabled. Whenever the authorization token times out,
-// These mods will be used to re-create it.
-$client->setEnabledModNames(['base']);
+// these mods will be used to re-create it.
+$apiClient->setEnabledModNames(['base']);
 
 // The API will translate names and descriptions, as long as the mods are providing them.
 // The locale codes are the same as in the game.
-$client->setLocale('de');
+$apiClient->setLocale('de');
 
 // If you already have an authorization token, set it to the client.
 // The client will automatically request a new token if none is present or the old one timed out.
-$client->setAuthorizationToken('<Your token>');
+$apiClient->setAuthorizationToken('<Your token>');
 
 
 
 // Create an instance of the request class you want to call, and set its parameters.
-$randomItemRequest = new FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest();
+$randomItemRequest = new ItemRandomRequest();
 $randomItemRequest->setNumberOfResults(10)
                   ->setNumberOfRecipesPerResult(3);
 
 // Send the request to the API server.
 // This will send the request to the server, but will not wait for it to finish. So you can
 // send another request to the servers to run in parallel.
-/* @var FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse $randomItemResponse */
-$randomItemResponse = $client->send($randomItemRequest); // Non-blocking
+$apiClient->sendRequest($randomItemRequest); // Non-blocking
 
 // Lets send a second request.
-$modListRequest = new FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest();
-/* @var FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse $modListResponse */
-$modListResponse = $client->send($modListRequest); // Non-blocking
+$modListRequest = new ModListRequest();
+$apiClient->sendRequest($modListRequest); // Non-blocking
 
-// As soon as you call any getter on the response, this method will be blocking and wait for the request to finish.
-// The order does not matter. The getter will always wait for its request to finish, not on any other ones.
-$mods = $modListResponse->getMods(); // Blocking. Will wait for the $modListRequest to finish.
-$randomItems = $randomItemResponse->getItems(); // Blocking. Will wait for the $randomItemRequest to finish.
+// To actually process the response, you have to fetch it from the client. This method will actually
+// wait for the request to be finished.
+
+/* @var  ItemRandomResponse $randomItemsResponse */
+$randomItemsResponse = $apiClient->fetchResponse($randomItemRequest); // Blocking 
+/* @var ModListResponse $modListResponse */
+$modListResponse = $apiClient->fetchResponse($modListRequest); // Non-blocking
 
 // Do something with the received data.
-var_dump($randomItems);
-var_dump($mods);
-
+var_dump($randomItemsResponse->getItems());
+var_dump($modListResponse->getMods());
 
 
 // Save the authorization token after the last request in the session or somewhere and re-use it on the next script
 // call. This will save you the initial auth request of the client.
 // Remember that the authorization token may have changed if the old one timed out.
-$authorizationToken = $client->getAuthorizationToken();
+$authorizationToken = $apiClient->getAuthorizationToken();
 ```
 
 For testing purposes, you can use the "demo" agent as used in the example. Note that this agent is restricted to the 
