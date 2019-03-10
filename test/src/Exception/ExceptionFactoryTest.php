@@ -33,7 +33,7 @@ class ExceptionFactoryTest extends TestCase
             [403, ForbiddenException::class],
             [404, NotFoundException::class],
             [500, ApiClientException::class],
-            [0, ApiClientException::class]
+            [0, ApiClientException::class],
         ];
     }
 

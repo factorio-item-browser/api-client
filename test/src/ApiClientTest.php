@@ -11,7 +11,12 @@ use FactorioItemBrowser\Api\Client\Client\Options;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
 use FactorioItemBrowser\Api\Client\Entity\Error;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
+use FactorioItemBrowser\Api\Client\Exception\BadRequestException;
+use FactorioItemBrowser\Api\Client\Exception\ConnectionException;
+use FactorioItemBrowser\Api\Client\Exception\ForbiddenException;
 use FactorioItemBrowser\Api\Client\Exception\InvalidResponseException;
+use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
+use FactorioItemBrowser\Api\Client\Exception\UnauthorizedException;
 use FactorioItemBrowser\Api\Client\Request\Auth\AuthRequest;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 use FactorioItemBrowser\Api\Client\Response\Auth\AuthResponse;
@@ -19,6 +24,8 @@ use FactorioItemBrowser\Api\Client\Response\ErrorResponse;
 use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 use FactorioItemBrowser\Api\Client\Service\EndpointService;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerInterface;
@@ -329,6 +336,199 @@ class ApiClientTest extends TestCase
         $result2 = $this->invokeMethod($apiClient, 'getRequestId', $request2);
 
         $this->assertNotEquals($result1, $result2);
+    }
+
+    /**
+     * Tests the createPromiseForRequest method with setting the processApiException flag.
+     * @throws ReflectionException
+     * @covers ::createPromiseForRequest
+     */
+    public function testCreatePromiseForRequestWithProcessApiException(): void
+    {
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->createMock(RequestInterface::class);
+        /* @var PsrRequestInterface&MockObject $clientRequest */
+        $clientRequest = $this->createMock(PsrRequestInterface::class);
+        /* @var RequestException&MockObject $requestException */
+        $requestException = $this->createMock(RequestException::class);
+        /* @var ApiClientException&MockObject $apiClientException */
+        $apiClientException = $this->createMock(ApiClientException::class);
+        /* @var ResponseInterface&MockObject $response1 */
+        $response1 = $this->createMock(ResponseInterface::class);
+        /* @var ResponseInterface&MockObject $response2 */
+        $response2 = $this->createMock(ResponseInterface::class);
+        /* @var PsrResponseInterface&MockObject $clientResponse */
+        $clientResponse = $this->createMock(PsrResponseInterface::class);
+
+        /* @var PromiseInterface&MockObject $promise3 */
+        $promise3 = $this->createMock(PromiseInterface::class);
+
+        /* @var PromiseInterface&MockObject $promise2 */
+        $promise2 = $this->createMock(PromiseInterface::class);
+        $promise2->expects($this->once())
+                 ->method('then')
+                 ->with(
+                     $this->isNull(),
+                     $this->callback(function ($callback) use ($apiClientException, $response2) {
+                         $this->assertIsCallable($callback);
+
+                         $result = $callback($apiClientException);
+                         $this->assertSame($response2, $result);
+                         return true;
+                     })
+                 )
+                 ->willReturn($promise3);
+
+        /* @var PromiseInterface&MockObject $promise1 */
+        $promise1 = $this->createMock(PromiseInterface::class);
+        $promise1->expects($this->once())
+                 ->method('then')
+                 ->with(
+                     $this->callback(function ($callback) use ($clientResponse, $response1) {
+                         $this->assertIsCallable($callback);
+
+                         $result = $callback($clientResponse);
+                         $this->assertSame($response1, $result);
+                         return true;
+                     }),
+                     $this->callback(function ($callback) use ($requestException) {
+                         $this->assertIsCallable($callback);
+
+                         $callback($requestException);
+                         return true;
+                     })
+                 )
+                 ->willReturn($promise2);
+
+        $this->guzzleClient->expects($this->once())
+                           ->method('sendAsync')
+                           ->with($this->identicalTo($clientRequest))
+                           ->willReturn($promise1);
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods([
+                              'createClientRequest',
+                              'processResponse',
+                              'processException',
+                              'processApiClientException'
+                          ])
+                          ->setConstructorArgs([
+                              $this->endpointService,
+                              $this->guzzleClient,
+                              $this->options,
+                              $this->serializer
+                          ])
+                          ->getMock();
+        $apiClient->expects($this->once())
+                  ->method('createClientRequest')
+                  ->with($this->identicalTo($request))
+                  ->willReturn($clientRequest);
+        $apiClient->expects($this->once())
+                  ->method('processResponse')
+                  ->with(
+                      $this->identicalTo($request),
+                      $this->identicalTo($clientRequest),
+                      $this->identicalTo($clientResponse)
+                  )
+                  ->willReturn($response1);
+        $apiClient->expects($this->once())
+                  ->method('processException')
+                  ->with($this->identicalTo($requestException));
+        $apiClient->expects($this->once())
+                  ->method('processApiClientException')
+                  ->with($this->identicalTo($apiClientException), $this->identicalTo($request))
+                  ->willReturn($response2);
+
+        $result = $this->invokeMethod($apiClient, 'createPromiseForRequest', $request, true);
+
+        $this->assertSame($promise3, $result);
+    }
+
+
+    /**
+     * Tests the createPromiseForRequest method without setting the processApiException flag.
+     * @throws ReflectionException
+     * @covers ::createPromiseForRequest
+     */
+    public function testCreatePromiseForRequestWithoutProcessApiException(): void
+    {
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->createMock(RequestInterface::class);
+        /* @var PsrRequestInterface&MockObject $clientRequest */
+        $clientRequest = $this->createMock(PsrRequestInterface::class);
+        /* @var RequestException&MockObject $requestException */
+        $requestException = $this->createMock(RequestException::class);
+        /* @var ResponseInterface&MockObject $response */
+        $response = $this->createMock(ResponseInterface::class);
+        /* @var PsrResponseInterface&MockObject $clientResponse */
+        $clientResponse = $this->createMock(PsrResponseInterface::class);
+
+        /* @var PromiseInterface&MockObject $promise2 */
+        $promise2 = $this->createMock(PromiseInterface::class);
+
+        /* @var PromiseInterface&MockObject $promise1 */
+        $promise1 = $this->createMock(PromiseInterface::class);
+        $promise1->expects($this->once())
+                 ->method('then')
+                 ->with(
+                     $this->callback(function ($callback) use ($clientResponse, $response) {
+                         $this->assertIsCallable($callback);
+
+                         $result = $callback($clientResponse);
+                         $this->assertSame($response, $result);
+                         return true;
+                     }),
+                     $this->callback(function ($callback) use ($requestException) {
+                         $this->assertIsCallable($callback);
+
+                         $callback($requestException);
+                         return true;
+                     })
+                 )
+                 ->willReturn($promise2);
+
+        $this->guzzleClient->expects($this->once())
+                           ->method('sendAsync')
+                           ->with($this->identicalTo($clientRequest))
+                           ->willReturn($promise1);
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods([
+                              'createClientRequest',
+                              'processResponse',
+                              'processException',
+                              'processApiClientException'
+                          ])
+                          ->setConstructorArgs([
+                              $this->endpointService,
+                              $this->guzzleClient,
+                              $this->options,
+                              $this->serializer
+                          ])
+                          ->getMock();
+        $apiClient->expects($this->once())
+                  ->method('createClientRequest')
+                  ->with($this->identicalTo($request))
+                  ->willReturn($clientRequest);
+        $apiClient->expects($this->once())
+                  ->method('processResponse')
+                  ->with(
+                      $this->identicalTo($request),
+                      $this->identicalTo($clientRequest),
+                      $this->identicalTo($clientResponse)
+                  )
+                  ->willReturn($response);
+        $apiClient->expects($this->once())
+                  ->method('processException')
+                  ->with($this->identicalTo($requestException));
+        $apiClient->expects($this->never())
+                  ->method('processApiClientException');
+
+        $result = $this->invokeMethod($apiClient, 'createPromiseForRequest', $request, false);
+
+        $this->assertSame($promise2, $result);
     }
 
     /**
@@ -694,30 +894,160 @@ class ApiClientTest extends TestCase
     }
 
     /**
-     * Tests the getContentsFromMessage method.
+     * Tests the processException method with a ConnectException.
      * @throws ReflectionException
-     * @covers ::getContentsFromMessage
+     * @covers ::processException
      */
-    public function testGetContentsFromMessage(): void
+    public function testProcessExceptionWithConnectException(): void
     {
-        $contents = 'abc';
+        $message = 'abc';
+        $requestContents = 'def';
 
-        /* @var StreamInterface&MockObject $stream */
-        $stream = $this->createMock(StreamInterface::class);
-        $stream->expects($this->once())
-               ->method('getContents')
-               ->willReturn($contents);
+        /* @var PsrRequestInterface&MockObject $request */
+        $request = $this->createMock(PsrRequestInterface::class);
 
-        /* @var PsrMessageInterface&MockObject $message */
-        $message = $this->createMock(PsrMessageInterface::class);
-        $message->expects($this->once())
-                ->method('getBody')
-                ->willReturn($stream);
+        $exception = new ConnectException($message, $request);
 
-        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
-        $result = $this->invokeMethod($apiClient, 'getContentsFromMessage', $message);
+        $this->expectExceptionObject(new ConnectionException($message, $requestContents, $exception));
 
-        $this->assertSame($contents, $result);
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods(['getContentsFromMessage'])
+                          ->disableOriginalConstructor()
+                          ->getMock();
+        $apiClient->expects($this->exactly(2))
+                  ->method('getContentsFromMessage')
+                  ->withConsecutive(
+                      [$this->identicalTo($request)],
+                      [$this->isNull()]
+                  )
+                  ->willReturnOnConsecutiveCalls(
+                      $requestContents,
+                      ''
+                  );
+
+        $this->invokeMethod($apiClient, 'processException', $exception);
+    }
+
+    /**
+     * Tests the processException method.
+     * @throws ReflectionException
+     * @covers ::processException
+     */
+    public function testProcessExceptionWithResponse(): void
+    {
+        $statusCode = 42;
+        $exceptionMessage = 'abc';
+        $message = 'def';
+        $requestContents = 'ghi';
+        $responseContents = 'jkl';
+
+        /* @var PsrRequestInterface&MockObject $request */
+        $request = $this->createMock(PsrRequestInterface::class);
+        /* @var PsrResponseInterface&MockObject $response */
+        $response = $this->createMock(PsrResponseInterface::class);
+        $response->expects($this->atLeastOnce())
+                 ->method('getStatusCode')
+                 ->willReturn($statusCode);
+
+        $exception = new RequestException($exceptionMessage, $request, $response);
+
+        /* @var ApiClientException&MockObject $apiClientException */
+        $apiClientException = $this->createMock(ApiClientException::class);
+
+        $this->expectExceptionObject($apiClientException);
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods([
+                              'getContentsFromMessage',
+                              'extractMessageFromErrorResponse',
+                              'createApiClientException'
+                          ])
+                          ->disableOriginalConstructor()
+                          ->getMock();
+        $apiClient->expects($this->exactly(2))
+                  ->method('getContentsFromMessage')
+                  ->withConsecutive(
+                      [$this->identicalTo($request)],
+                      [$this->identicalTo($response)]
+                  )
+                  ->willReturnOnConsecutiveCalls(
+                      $requestContents,
+                      $responseContents
+                  );
+        $apiClient->expects($this->once())
+                  ->method('extractMessageFromErrorResponse')
+                  ->with($this->identicalTo($responseContents), $this->identicalTo($exceptionMessage))
+                  ->willReturn($message);
+        $apiClient->expects($this->once())
+                   ->method('createApiClientException')
+                   ->with(
+                       $this->identicalTo($statusCode),
+                       $this->identicalTo($message),
+                       $this->identicalTo($requestContents),
+                       $this->identicalTo($responseContents)
+                   )
+                   ->willReturn($apiClientException);
+
+        $this->invokeMethod($apiClient, 'processException', $exception);
+    }
+
+    /**
+     * Tests the processException method.
+     * @throws ReflectionException
+     * @covers ::processException
+     */
+    public function testProcessExceptionWithoutResponse(): void
+    {
+        $exceptionMessage = 'abc';
+        $message = 'def';
+        $requestContents = 'ghi';
+
+        /* @var PsrRequestInterface&MockObject $request */
+        $request = $this->createMock(PsrRequestInterface::class);
+
+        $exception = new RequestException($exceptionMessage, $request);
+
+        /* @var ApiClientException&MockObject $apiClientException */
+        $apiClientException = $this->createMock(ApiClientException::class);
+
+        $this->expectExceptionObject($apiClientException);
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods([
+                              'getContentsFromMessage',
+                              'extractMessageFromErrorResponse',
+                              'createApiClientException'
+                          ])
+                          ->disableOriginalConstructor()
+                          ->getMock();
+        $apiClient->expects($this->exactly(2))
+                  ->method('getContentsFromMessage')
+                  ->withConsecutive(
+                      [$this->identicalTo($request)],
+                      [$this->isNull()]
+                  )
+                  ->willReturnOnConsecutiveCalls(
+                      $requestContents,
+                      ''
+                  );
+        $apiClient->expects($this->once())
+                  ->method('extractMessageFromErrorResponse')
+                  ->with($this->identicalTo(''), $this->identicalTo($exceptionMessage))
+                  ->willReturn($message);
+        $apiClient->expects($this->once())
+                   ->method('createApiClientException')
+                   ->with(
+                       $this->identicalTo(0),
+                       $this->identicalTo($message),
+                       $this->identicalTo($requestContents),
+                       $this->identicalTo('')
+                   )
+                   ->willReturn($apiClientException);
+
+        $this->invokeMethod($apiClient, 'processException', $exception);
     }
 
     /**
@@ -793,6 +1123,32 @@ class ApiClientTest extends TestCase
         $this->assertSame($fallbackMessage, $result);
     }
 
+    /**
+     * Tests the getContentsFromMessage method.
+     * @throws ReflectionException
+     * @covers ::getContentsFromMessage
+     */
+    public function testGetContentsFromMessage(): void
+    {
+        $contents = 'abc';
+
+        /* @var StreamInterface&MockObject $stream */
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($contents);
+
+        /* @var PsrMessageInterface&MockObject $message */
+        $message = $this->createMock(PsrMessageInterface::class);
+        $message->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $result = $this->invokeMethod($apiClient, 'getContentsFromMessage', $message);
+
+        $this->assertSame($contents, $result);
+    }
 
     /**
      * Tests the getContentsFromMessage method without an actual message instance.
@@ -808,5 +1164,106 @@ class ApiClientTest extends TestCase
         $result = $this->invokeMethod($apiClient, 'getContentsFromMessage', $message);
 
         $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * Provides the data for the createApiClientException test.
+     * @return array
+     */
+    public function provideCreateApiClientException(): array
+    {
+        return [
+            [400, BadRequestException::class],
+            [401, UnauthorizedException::class],
+            [403, ForbiddenException::class],
+            [404, NotFoundException::class],
+            [500, ApiClientException::class],
+            [0, ApiClientException::class],
+        ];
+    }
+
+    /**
+     * Tests the createApiClientException method.
+     * @param int $statusCode
+     * @param string $expectedClass
+     * @throws ReflectionException
+     * @covers ::createApiClientException
+     * @dataProvider provideCreateApiClientException
+     */
+    public function testCreateApiClientException(int $statusCode, string $expectedClass): void
+    {
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $result = $this->invokeMethod($apiClient, 'createApiClientException', $statusCode, 'abc', 'def', 'ghi');
+
+        $this->assertInstanceOf($expectedClass, $result);
+    }
+
+    /**
+     * Tests the processApiClientException method.
+     * @throws ReflectionException
+     * @covers ::processApiClientException
+     */
+    public function testProcessApiClientException(): void
+    {
+        /* @var UnauthorizedException&MockObject $exception */
+        $exception = $this->createMock(UnauthorizedException::class);
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->createMock(RequestInterface::class);
+        /* @var ResponseInterface&MockObject $response */
+        $response = $this->createMock(ResponseInterface::class);
+
+        /* @var PromiseInterface&MockObject $promise */
+        $promise = $this->createMock(PromiseInterface::class);
+        $promise->expects($this->once())
+                ->method('wait')
+                ->willReturn($response);
+
+        $this->options->expects($this->once())
+                      ->method('setAuthorizationToken')
+                      ->with($this->identicalTo(''));
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods(['createPromiseForRequest'])
+                          ->setConstructorArgs([
+                              $this->endpointService,
+                              $this->guzzleClient,
+                              $this->options,
+                              $this->serializer
+                          ])
+                          ->getMock();
+        $apiClient->expects($this->once())
+                  ->method('createPromiseForRequest')
+                  ->with($this->identicalTo($request), $this->isFalse())
+                  ->willReturn($promise);
+
+        $result = $this->invokeMethod($apiClient, 'processApiClientException', $exception, $request);
+
+        $this->assertSame($response, $result);
+    }
+
+    /**
+     * Tests the processApiClientException method with a wrong exception.
+     * @throws ReflectionException
+     * @covers ::processApiClientException
+     */
+    public function testProcessApiClientExceptionWithWrongException(): void
+    {
+        /* @var UnauthorizedException&MockObject $exception */
+        $exception = $this->createMock(ApiClientException::class);
+        /* @var RequestInterface&MockObject $request */
+        $request = $this->createMock(RequestInterface::class);
+
+        $this->expectExceptionObject($exception);
+
+        /* @var ApiClient&MockObject $apiClient */
+        $apiClient = $this->getMockBuilder(ApiClient::class)
+                          ->setMethods(['createPromiseForRequest'])
+                          ->disableOriginalConstructor()
+                          ->getMock();
+        $apiClient->expects($this->never())
+                  ->method('createPromiseForRequest');
+
+        $this->invokeMethod($apiClient, 'processApiClientException', $exception, $request);
     }
 }

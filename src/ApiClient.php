@@ -94,7 +94,7 @@ class ApiClient
     public function sendRequest(RequestInterface $request): void
     {
         $requestId = $this->getRequestId($request);
-        $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request);
+        $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request, true);
     }
 
     /**
@@ -108,7 +108,7 @@ class ApiClient
     {
         $requestId = $this->getRequestId($request);
         if (!isset($this->pendingRequests[$requestId])) {
-            $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request);
+            $this->pendingRequests[$requestId] = $this->createPromiseForRequest($request, true);
         }
 
         try {
@@ -132,36 +132,31 @@ class ApiClient
     /**
      * Creates and returns the promise for the request. This will actually send the request to the API server.
      * @param RequestInterface $request
+     * @param bool $processApiException
      * @return PromiseInterface
      * @throws ApiClientException
      */
-    protected function createPromiseForRequest(RequestInterface $request): PromiseInterface
+    protected function createPromiseForRequest(RequestInterface $request, bool $processApiException): PromiseInterface
     {
         $clientRequest = $this->createClientRequest($request);
         $promise = $this->guzzleClient->sendAsync($clientRequest);
         $promise = $promise->then(
-            function (PsrResponseInterface $response) use ($request, $clientRequest): ResponseInterface {
-                return $this->processResponse($request, $clientRequest, $response);
+            function (PsrResponseInterface $clientResponse) use ($request, $clientRequest): ResponseInterface {
+                return $this->processResponse($request, $clientRequest, $clientResponse);
             },
             function (RequestException $exception): void {
                 $this->processException($exception);
             }
         );
-        $promise = $promise->then(
-            null,
-            function (ApiClientException $exception) use ($request): ResponseInterface {
 
-                if (!$exception instanceof UnauthorizedException) {
-                    throw $exception;
+        if ($processApiException) {
+            $promise = $promise->then(
+                null,
+                function (ApiClientException $exception) use ($request): ResponseInterface {
+                    return $this->processApiClientException($exception, $request);
                 }
-
-                $this->options->setAuthorizationToken('');
-                $promise = $this->createPromiseForRequest($request);
-                return $promise->wait();
-                // @todo Avoid endless loop of authorization!
-
-            }
-        );
+            );
+        }
 
         return $promise;
     }
@@ -271,7 +266,7 @@ class ApiClient
                 $statusCode = $exception->getResponse()->getStatusCode();
             }
 
-            throw ExceptionFactory::create($statusCode, $message, $requestContents, $responseContents);
+            throw $this->createApiClientException($statusCode, $message, $requestContents, $responseContents);
         }
     }
 
@@ -308,5 +303,42 @@ class ApiClient
             $result = $message->getBody()->getContents();
         }
         return $result;
+    }
+
+    /**
+     * Creates an API exception to throw.
+     * @param int $statusCode
+     * @param string $message
+     * @param string $requestContents
+     * @param string $responseContents
+     * @return ApiClientException
+     */
+    protected function createApiClientException(
+        $statusCode,
+        $message,
+        $requestContents,
+        $responseContents
+    ): ApiClientException {
+        return ExceptionFactory::create($statusCode, $message, $requestContents, $responseContents);
+    }
+
+    /**
+     * Processes an API client exception checking if authorization has to be renewed.
+     * @param ApiClientException $exception
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     * @throws ApiClientException
+     */
+    protected function processApiClientException(
+        ApiClientException $exception,
+        RequestInterface $request
+    ): ResponseInterface {
+        if (!$exception instanceof UnauthorizedException) {
+            throw $exception;
+        }
+
+        $this->options->setAuthorizationToken('');
+        $promise = $this->createPromiseForRequest($request, false);
+        return $promise->wait();
     }
 }
