@@ -34,7 +34,7 @@ use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ApiClient
+class ApiClient implements ApiClientInterface
 {
     /**
      * The endpoint service.
@@ -83,6 +83,50 @@ class ApiClient
         $this->guzzleClient = $guzzleClient;
         $this->options = $options;
         $this->serializer = $serializer;
+    }
+
+    /**
+     * Sets the locale to use for the requests.
+     * @param string $locale
+     */
+    public function setLocale(string $locale): void
+    {
+        $this->options->setLocale($locale);
+    }
+
+    /**
+     * Sets the mod names to enabled on authorization.
+     * @param array|string[] $enabledModNames
+     */
+    public function setEnabledModNames(array $enabledModNames): void
+    {
+        $this->options->setEnabledModNames($enabledModNames);
+    }
+
+    /**
+     * Sets the authorization token to use for the requests.
+     * @param string $authorizationToken
+     */
+    public function setAuthorizationToken(string $authorizationToken): void
+    {
+        $this->options->setAuthorizationToken($authorizationToken);
+    }
+
+    /**
+     * Returns the authorization token from the last request.
+     * @return string
+     */
+    public function getAuthorizationToken(): string
+    {
+        return $this->options->getAuthorizationToken();
+    }
+
+    /**
+     * Clears the authorization token to trigger a re-authorization on the next request.
+     */
+    public function clearAuthorizationToken(): void
+    {
+        $this->options->setAuthorizationToken('');
     }
 
     /**
@@ -337,7 +381,7 @@ class ApiClient
             throw $exception;
         }
 
-        $this->options->setAuthorizationToken('');
+        $this->clearAuthorizationToken();
         $promise = $this->createPromiseForRequest($request, false);
         return $promise->wait();
     }

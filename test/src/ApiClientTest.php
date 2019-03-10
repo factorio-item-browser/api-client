@@ -102,6 +102,86 @@ class ApiClientTest extends TestCase
     }
 
     /**
+     * Tests the setLocale method.
+     * @covers ::setLocale
+     */
+    public function testSetLocale(): void
+    {
+        $locale = 'abc';
+
+        $this->options->expects($this->once())
+                      ->method('setLocale')
+                      ->with($this->identicalTo($locale));
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $apiClient->setLocale($locale);
+    }
+
+    /**
+     * Tests the setEnabledModNames method.
+     * @covers ::setEnabledModNames
+     */
+    public function testSetEnabledModNames(): void
+    {
+        $enabledModNames = ['abc', 'def'];
+
+        $this->options->expects($this->once())
+                      ->method('setEnabledModNames')
+                      ->with($this->identicalTo($enabledModNames));
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $apiClient->setEnabledModNames($enabledModNames);
+    }
+
+    /**
+     * Tests the setAuthorizationToken method.
+     * @covers ::setAuthorizationToken
+     */
+    public function testSetAuthorizationToken(): void
+    {
+        $authorizationToken = 'abc';
+
+        $this->options->expects($this->once())
+                      ->method('setAuthorizationToken')
+                      ->with($this->identicalTo($authorizationToken));
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $apiClient->setAuthorizationToken($authorizationToken);
+    }
+
+    /**
+     * Tests the getAuthorizationToken method.
+     * @covers ::getAuthorizationToken
+     */
+    public function testGetAuthorizationToken(): void
+    {
+        $authorizationToken = 'abc';
+
+        $this->options->expects($this->once())
+                      ->method('getAuthorizationToken')
+                      ->willReturn($authorizationToken);
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $result = $apiClient->getAuthorizationToken();
+
+        $this->assertSame($authorizationToken, $result);
+    }
+
+    /**
+     * Tests the clearAuthorizationToken method.
+     * @covers ::clearAuthorizationToken
+     */
+    public function testClearAuthorizationToken(): void
+    {
+        $this->options->expects($this->once())
+                      ->method('setAuthorizationToken')
+                      ->with($this->identicalTo(''));
+
+        $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
+        $apiClient->clearAuthorizationToken();
+    }
+
+    /**
      * Tests the sendRequest method.
      * @throws ApiClientException
      * @throws ReflectionException
@@ -1218,20 +1298,13 @@ class ApiClientTest extends TestCase
                 ->method('wait')
                 ->willReturn($response);
 
-        $this->options->expects($this->once())
-                      ->method('setAuthorizationToken')
-                      ->with($this->identicalTo(''));
-
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['createPromiseForRequest'])
-                          ->setConstructorArgs([
-                              $this->endpointService,
-                              $this->guzzleClient,
-                              $this->options,
-                              $this->serializer
-                          ])
+                          ->setMethods(['clearAuthorizationToken', 'createPromiseForRequest'])
+                          ->disableOriginalConstructor()
                           ->getMock();
+        $apiClient->expects($this->once())
+                  ->method('clearAuthorizationToken');
         $apiClient->expects($this->once())
                   ->method('createPromiseForRequest')
                   ->with($this->identicalTo($request), $this->isFalse())

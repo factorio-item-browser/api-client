@@ -17,7 +17,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'dependencies' => [
         'factories'  => [
-            ApiClient::class => ApiClientFactory::class,
+            ApiClientInterface::class => ApiClientFactory::class,
 
             Client\Options::class => Client\OptionsFactory::class,
 

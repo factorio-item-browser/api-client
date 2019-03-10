@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Entity;
 
 /**
- * The entity representing a recipe inluding its expensive version.
+ * The entity representing a recipe including its expensive version.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
