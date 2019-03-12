@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\Mod;
+use FactorioItemBrowser\Common\Constant\EntityType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,7 +25,7 @@ class ModTest extends TestCase
     {
         $mod = new Mod();
 
-        $this->assertSame('mod', $mod->getType());
+        $this->assertSame(EntityType::MOD, $mod->getType());
         $this->assertSame('', $mod->getName());
         $this->assertSame('', $mod->getLabel());
         $this->assertSame('', $mod->getDescription());

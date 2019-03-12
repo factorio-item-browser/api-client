@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
+use FactorioItemBrowser\Common\Constant\EntityType;
+
 /**
  * The entity representing a mod.
  *
@@ -36,7 +38,7 @@ class Mod extends GenericEntity
      */
     public function getType(): string
     {
-        return 'mod';
+        return EntityType::MOD;
     }
 
     /**
