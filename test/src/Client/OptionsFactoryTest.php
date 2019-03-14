@@ -30,7 +30,7 @@ class OptionsFactoryTest extends TestCase
     {
         $config = [
             ConfigKey::PROJECT => [
-                ConfigKey::LIBRARY => [
+                ConfigKey::API_CLIENT => [
                     ConfigKey::OPTIONS => [
                         ConfigKey::OPTION_API_URL => 'abc',
                         ConfigKey::OPTION_AGENT => 'def',

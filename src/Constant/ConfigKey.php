@@ -18,9 +18,14 @@ interface ConfigKey
     public const PROJECT = 'factorio-item-browser';
 
     /**
-     * The key holding the name of the library itself.
+     * The key holding the name of the API client itself.
      */
-    public const LIBRARY = 'api-client';
+    public const API_CLIENT = 'api-client';
+
+    /**
+     * The key holding the cache directory to use.
+     */
+    public const CACHE_DIR = 'cache-dir';
 
     /**
      * The key for the endpoints.

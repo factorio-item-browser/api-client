@@ -54,7 +54,10 @@ use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 
 return [
     ConfigKey::PROJECT => [
-        ConfigKey::LIBRARY => [
+        ConfigKey::API_CLIENT => [
+            // The writable directory the client should use to cache some meta data.
+            ConfigKey::CACHE_DIR => 'data/cache/api-client',
+            // The options to access the API server.
             ConfigKey::OPTIONS => [
                 // The URL to the API server, including a trailing slash.
                 ConfigKey::OPTION_API_URL => 'https://www.factorio-item-browser.com/api/',

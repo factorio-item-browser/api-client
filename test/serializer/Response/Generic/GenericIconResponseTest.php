@@ -45,11 +45,11 @@ class GenericIconResponseTest extends SerializerTestCase
             'icons' => [
                 [
                     'entities' => [],
-                    'content' => 'abc',
+                    'content' => 'YWJj',
                 ],
                 [
                     'entities' => [],
-                    'content' => 'def',
+                    'content' => 'ZGVm',
                 ],
             ],
         ];

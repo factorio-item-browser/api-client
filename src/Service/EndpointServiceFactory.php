@@ -27,7 +27,7 @@ class EndpointServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): EndpointService
     {
         $config = $container->get('config');
-        $libraryConfig = $config[ConfigKey::PROJECT][ConfigKey::LIBRARY] ?? [];
+        $libraryConfig = $config[ConfigKey::PROJECT][ConfigKey::API_CLIENT] ?? [];
 
         return new EndpointService($this->createEndpoints($container, $libraryConfig[ConfigKey::ENDPOINTS] ?? []));
     }

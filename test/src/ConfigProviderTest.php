@@ -30,7 +30,7 @@ class ConfigProviderTest extends TestCase
         $this->assertArrayHasKey('factories', $result['dependencies']);
 
         $this->assertArrayHasKey(ConfigKey::PROJECT, $result);
-        $this->assertArrayHasKey(ConfigKey::LIBRARY, $result[ConfigKey::PROJECT]);
-        $this->assertArrayHasKey(ConfigKey::ENDPOINTS, $result[ConfigKey::PROJECT][ConfigKey::LIBRARY]);
+        $this->assertArrayHasKey(ConfigKey::API_CLIENT, $result[ConfigKey::PROJECT]);
+        $this->assertArrayHasKey(ConfigKey::ENDPOINTS, $result[ConfigKey::PROJECT][ConfigKey::API_CLIENT]);
     }
 }

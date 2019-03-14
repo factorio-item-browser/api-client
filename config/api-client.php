@@ -15,7 +15,7 @@ use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 
 return [
     ConfigKey::PROJECT => [
-        ConfigKey::LIBRARY => [
+        ConfigKey::API_CLIENT => [
             ConfigKey::ENDPOINTS => [
                 Endpoint\Auth\AuthEndpoint::class,
                 Endpoint\Generic\GenericDetailsEndpoint::class,
@@ -29,12 +29,6 @@ return [
                 Endpoint\Recipe\RecipeMachinesEndpoint::class,
                 Endpoint\Search\SearchQueryEndpoint::class,
             ],
-            ConfigKey::OPTIONS => [
-                ConfigKey::OPTION_API_URL => '',
-                ConfigKey::OPTION_AGENT => '',
-                ConfigKey::OPTION_ACCESS_KEY => '',
-                ConfigKey::OPTION_TIMEOUT => 0,
-            ]
         ],
     ],
 ];

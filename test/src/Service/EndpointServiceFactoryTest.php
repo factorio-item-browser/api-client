@@ -35,7 +35,7 @@ class EndpointServiceFactoryTest extends TestCase
         $endpointAliases = ['abc', 'def'];
         $config = [
             ConfigKey::PROJECT => [
-                ConfigKey::LIBRARY => [
+                ConfigKey::API_CLIENT => [
                     ConfigKey::ENDPOINTS => $endpointAliases,
                 ],
             ],

@@ -5,4 +5,4 @@ FactorioItemBrowser\Api\Client\Entity\Icon:
     entities:
       type: array<FactorioItemBrowser\Api\Client\Entity\Entity>
     content:
-      type: string
+      type: base64

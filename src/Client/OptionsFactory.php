@@ -26,13 +26,13 @@ class OptionsFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): Options
     {
         $config = $container->get('config');
-        $optionsConfig = $config[ConfigKey::PROJECT][ConfigKey::LIBRARY][ConfigKey::OPTIONS] ?? [];
+        $optionsConfig = $config[ConfigKey::PROJECT][ConfigKey::API_CLIENT][ConfigKey::OPTIONS] ?? [];
 
         $result = new Options();
-        $result->setApiUrl($optionsConfig[ConfigKey::OPTION_API_URL])
-               ->setAgent($optionsConfig[ConfigKey::OPTION_AGENT])
-               ->setAccessKey($optionsConfig[ConfigKey::OPTION_ACCESS_KEY])
-               ->setTimeout($optionsConfig[ConfigKey::OPTION_TIMEOUT]);
+        $result->setApiUrl($optionsConfig[ConfigKey::OPTION_API_URL] ?? '')
+               ->setAgent($optionsConfig[ConfigKey::OPTION_AGENT] ?? '')
+               ->setAccessKey($optionsConfig[ConfigKey::OPTION_ACCESS_KEY] ?? '')
+               ->setTimeout($optionsConfig[ConfigKey::OPTION_TIMEOUT] ?? 0);
 
         return $result;
     }

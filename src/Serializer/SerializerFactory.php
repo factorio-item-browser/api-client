@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Serializer;
 
+use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
+use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;
 use Interop\Container\ContainerInterface;
+use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
@@ -34,8 +37,30 @@ class SerializerFactory implements FactoryInterface
                 'FactorioItemBrowser\Api\Client'
             )
             ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
-            ->setSerializationContextFactory(new ContextFactory());
+            ->setSerializationContextFactory(new ContextFactory())
+            ->addDefaultHandlers()
+            ->configureHandlers(function (HandlerRegistry $registry): void {
+                $registry->registerSubscribingHandler(new Base64Handler());
+            });
+
+        $this->addCacheDirectory($container, $builder);
 
         return $builder->build();
+    }
+
+    /**
+     * Adds the cache directory from the config to the builder.
+     * @param ContainerInterface $container
+     * @param SerializerBuilder $builder
+     */
+    protected function addCacheDirectory(ContainerInterface $container, SerializerBuilder $builder): void
+    {
+        $config = $container->get('config');
+        $libraryConfig = $config[ConfigKey::PROJECT][ConfigKey::API_CLIENT] ?? [];
+        $cacheDir = (string) ($libraryConfig[ConfigKey::CACHE_DIR] ?? '');
+
+        if ($cacheDir !== '') {
+            $builder->setCacheDir($cacheDir);
+        }
     }
 }

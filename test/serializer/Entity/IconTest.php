@@ -55,7 +55,7 @@ class IconTest extends SerializerTestCase
                     'name' => 'jkl',
                 ],
             ],
-            'content' => 'mno',
+            'content' => 'bW5v',
         ];
     }
 }
