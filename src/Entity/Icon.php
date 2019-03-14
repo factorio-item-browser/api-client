@@ -19,7 +19,7 @@ class Icon
     protected $entities = [];
 
     /**
-     * The base64 encoded contents of the icon file.
+     * The contents of the icon file.
      * @var string
      */
     protected $content = '';
@@ -56,7 +56,7 @@ class Icon
     }
     
     /**
-     * Sets the base64 encoded contents of the icon file.
+     * Sets the contents of the icon file.
      * @param string $content
      * @return $this
      */
@@ -67,7 +67,7 @@ class Icon
     }
 
     /**
-     * Returns the base64 encoded contents of the icon file.
+     * Returns the contents of the icon file.
      * @return string
      */
     public function getContent(): string
