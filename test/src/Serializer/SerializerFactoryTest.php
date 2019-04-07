@@ -74,7 +74,7 @@ class SerializerFactoryTest extends TestCase
      */
     public function testAddCacheDirectory(): void
     {
-        $cacheDir = 'abc';
+        $cacheDir = 'test/log';
         $config = [
             ConfigKey::PROJECT => [
                 ConfigKey::API_CLIENT => [
