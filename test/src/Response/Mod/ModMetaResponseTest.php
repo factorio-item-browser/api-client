@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Response\Mod;
 
 use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,32 +17,42 @@ use PHPUnit\Framework\TestCase;
 class ModMetaResponseTest extends TestCase
 {
     /**
-     * Tests getting the number of available mods.
-     * @covers ::getNumberOfAvailableMods
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetNumberOfAvailableMods()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'numberOfAvailableMods' => 42
-        ];
+        $response = new ModMetaResponse();
 
-        $response = new ModMetaResponse(new TestPendingResponse($responseData));
-        $this->assertEquals(42, $response->getNumberOfAvailableMods());
+        $this->assertSame(0, $response->getNumberOfAvailableMods());
+        $this->assertSame(0, $response->getNumberOfEnabledMods());
     }
 
     /**
-     * Tests getting the number of enabled mods.
-     * @covers ::getNumberOfEnabledMods
-     * @covers ::mapResponse
+     * Tests the setting and getting the number of available mods.
+     * @covers ::getNumberOfAvailableMods
+     * @covers ::setNumberOfAvailableMods
      */
-    public function testGetNumberOfEnabledMods()
+    public function testSetAndGetNumberOfAvailableMods(): void
     {
-        $responseData = [
-            'numberOfEnabledMods' => 42
-        ];
+        $numberOfAvailableMods = 42;
+        $response = new ModMetaResponse();
 
-        $response = new ModMetaResponse(new TestPendingResponse($responseData));
-        $this->assertEquals(42, $response->getNumberOfEnabledMods());
+        $this->assertSame($response, $response->setNumberOfAvailableMods($numberOfAvailableMods));
+        $this->assertSame($numberOfAvailableMods, $response->getNumberOfAvailableMods());
+    }
+
+    /**
+     * Tests the setting and getting the number of enabled mods.
+     * @covers ::getNumberOfEnabledMods
+     * @covers ::setNumberOfEnabledMods
+     */
+    public function testSetAndGetNumberOfEnabledMods(): void
+    {
+        $numberOfEnabledMods = 42;
+        $response = new ModMetaResponse();
+
+        $this->assertSame($response, $response->setNumberOfEnabledMods($numberOfEnabledMods));
+        $this->assertSame($numberOfEnabledMods, $response->getNumberOfEnabledMods());
     }
 }

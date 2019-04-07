@@ -18,61 +18,114 @@ class OptionsTest extends TestCase
      * Tests the constructing.
      * @coversNothing
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $options = new Options();
+
         $this->assertSame('', $options->getApiUrl());
         $this->assertSame('', $options->getAgent());
         $this->assertSame('', $options->getAccessKey());
         $this->assertSame(0, $options->getTimeout());
+        $this->assertSame('en', $options->getLocale());
+        $this->assertSame([], $options->getEnabledModNames());
+        $this->assertSame('', $options->getAuthorizationToken());
     }
 
     /**
-     * Tests setting and getting the API URL.
-     * @covers ::setApiUrl
+     * Tests the setting and getting the api url.
      * @covers ::getApiUrl
+     * @covers ::setApiUrl
      */
-    public function testSetAndGetApiUrl()
+    public function testSetAndGetApiUrl(): void
     {
-        $apiUrl = 'http://localhost/api';
+        $apiUrl = 'http://example.com/';
         $options = new Options();
+
         $this->assertSame($options, $options->setApiUrl($apiUrl));
         $this->assertSame($apiUrl, $options->getApiUrl());
     }
 
     /**
-     * Tests setting and getting the agent.
-     * @covers ::setAgent
+     * Tests the setting and getting the agent.
      * @covers ::getAgent
+     * @covers ::setAgent
      */
-    public function testSetAndGetAgent()
+    public function testSetAndGetAgent(): void
     {
-        $options = new Options();
-        $this->assertSame($options, $options->setAgent('abc'));
-        $this->assertSame('abc', $options->getAgent());
+        $agent = 'abc';
+        $option = new Options();
+
+        $this->assertSame($option, $option->setAgent($agent));
+        $this->assertSame($agent, $option->getAgent());
     }
 
     /**
-     * Tests setting and getting the access key.
-     * @covers ::setAccessKey
+     * Tests the setting and getting the access key.
      * @covers ::getAccessKey
+     * @covers ::setAccessKey
      */
-    public function testSetAndGetAccessKey()
+    public function testSetAndGetAccessKey(): void
     {
+        $accessKey = 'abc';
         $options = new Options();
-        $this->assertSame($options, $options->setAccessKey('abc'));
-        $this->assertSame('abc', $options->getAccessKey());
+
+        $this->assertSame($options, $options->setAccessKey($accessKey));
+        $this->assertSame($accessKey, $options->getAccessKey());
     }
 
     /**
-     * Tests setting and getting the timeout.
-     * @covers ::setTimeout
+     * Tests the setting and getting the timeout.
      * @covers ::getTimeout
+     * @covers ::setTimeout
      */
-    public function testSetAndGetTimeout()
+    public function testSetAndGetTimeout(): void
     {
+        $timeout = 42;
         $options = new Options();
-        $this->assertSame($options, $options->setTimeout(42));
-        $this->assertSame(42, $options->getTimeout());
+
+        $this->assertSame($options, $options->setTimeout($timeout));
+        $this->assertSame($timeout, $options->getTimeout());
+    }
+
+    /**
+     * Tests the setting and getting the locale.
+     * @covers ::getLocale
+     * @covers ::setLocale
+     */
+    public function testSetAndGetLocale(): void
+    {
+        $locale = 'abc';
+        $options = new Options();
+
+        $this->assertSame($options, $options->setLocale($locale));
+        $this->assertSame($locale, $options->getLocale());
+    }
+
+    /**
+     * Tests the setting and getting the enabled mod names.
+     * @covers ::getEnabledModNames
+     * @covers ::setEnabledModNames
+     */
+    public function testSetAndGetEnabledModNames(): void
+    {
+        $enabledModNames = ['abc', 'def'];
+        $options = new Options();
+
+        $this->assertSame($options, $options->setEnabledModNames($enabledModNames));
+        $this->assertSame($enabledModNames, $options->getEnabledModNames());
+    }
+
+    /**
+     * Tests the setting and getting the authorization token.
+     * @covers ::getAuthorizationToken
+     * @covers ::setAuthorizationToken
+     */
+    public function testSetAndGetAuthorizationToken(): void
+    {
+        $authorizationToken = 'abc';
+        $options = new Options();
+
+        $this->assertSame($options, $options->setAuthorizationToken($authorizationToken));
+        $this->assertSame($authorizationToken, $options->getAuthorizationToken());
     }
 }

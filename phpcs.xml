@@ -2,6 +2,7 @@
 <ruleset>
     <file>./src</file>
     <file>./test/asset</file>
+    <file>./test/serializer</file>
     <file>./test/src</file>
 
     <rule ref="PSR2" />

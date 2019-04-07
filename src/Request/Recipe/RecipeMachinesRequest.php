@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Recipe;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
-use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
 
 /**
  * The request of the recipe machines.
@@ -40,10 +37,19 @@ class RecipeMachinesRequest implements RequestInterface
      * @param string $name
      * @return $this
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * Returns the name of the recipe.
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -51,10 +57,19 @@ class RecipeMachinesRequest implements RequestInterface
      * @param int $numberOfResults
      * @return $this
      */
-    public function setNumberOfResults(int $numberOfResults)
+    public function setNumberOfResults(int $numberOfResults): self
     {
         $this->numberOfResults = $numberOfResults;
         return $this;
+    }
+
+    /**
+     * Returns the number of results to return.
+     * @return int
+     */
+    public function getNumberOfResults(): int
+    {
+        return $this->numberOfResults;
     }
 
     /**
@@ -62,41 +77,18 @@ class RecipeMachinesRequest implements RequestInterface
      * @param int $indexOfFirstResult
      * @return $this
      */
-    public function setIndexOfFirstResult(int $indexOfFirstResult)
+    public function setIndexOfFirstResult(int $indexOfFirstResult): self
     {
         $this->indexOfFirstResult = $indexOfFirstResult;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the 0-based index of the first result to return.
+     * @return int
      */
-    public function getRequestPath(): string
+    public function getIndexOfFirstResult(): int
     {
-        return '/recipe/machines';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'name' => $this->name,
-            'numberOfResults' => $this->numberOfResults,
-            'indexOfFirstResult' => $this->indexOfFirstResult
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new RecipeMachinesResponse($pendingResponse);
+        return $this->indexOfFirstResult;
     }
 }

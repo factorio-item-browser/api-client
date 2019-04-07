@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Generic;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Icon;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the generic icon request.
@@ -15,36 +13,42 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class GenericIconResponse extends AbstractResponse
+class GenericIconResponse implements ResponseInterface
 {
     /**
      * The icons of the entities.
      * @var array|Icon[]
      */
-    protected $icons;
+    protected $icons = [];
+
+    /**
+     * Sets the icons of the entities.
+     * @param array|Icon[] $icons
+     * @return $this
+     */
+    public function setIcons(array $icons): self
+    {
+        $this->icons = $icons;
+        return $this;
+    }
+
+    /**
+     * Adds an icon of the entities.
+     * @param Icon $icon
+     * @return $this
+     */
+    public function addIcon(Icon $icon): self
+    {
+        $this->icons[] = $icon;
+        return $this;
+    }
 
     /**
      * Returns the icons of the entities.
      * @return array|Icon[]
-     * @throws ApiClientException
      */
     public function getIcons(): array
     {
-        $this->checkPendingResponse();
         return $this->icons;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->icons = [];
-        foreach ($responseData->getObjectArray('icons') as $iconData) {
-            $this->icons[] = (new Icon())->readData($iconData);
-        }
-        return $this;
     }
 }

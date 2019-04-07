@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Request\Item;
 
 use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
-use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,47 +17,72 @@ use PHPUnit\Framework\TestCase;
 class ItemIngredientRequestTest extends TestCase
 {
     /**
-     * Tests getting the request path.
-     * @covers ::getRequestPath
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetRequestPath()
+    public function testConstruct(): void
     {
         $request = new ItemIngredientRequest();
-        $this->assertSame('/item/ingredient', $request->getRequestPath());
+
+        $this->assertSame('', $request->getType());
+        $this->assertSame('', $request->getName());
+        $this->assertSame(10, $request->getNumberOfResults());
+        $this->assertSame(0, $request->getIndexOfFirstResult());
     }
 
     /**
-     * Tests getting the request data.
-     * @covers ::getRequestData
+     * Tests the setting and getting the type.
+     * @covers ::getType
      * @covers ::setType
+     */
+    public function testSetAndGetType(): void
+    {
+        $type = 'abc';
+        $request = new ItemIngredientRequest();
+
+        $this->assertSame($request, $request->setType($type));
+        $this->assertSame($type, $request->getType());
+    }
+
+    /**
+     * Tests the setting and getting the name.
+     * @covers ::getName
      * @covers ::setName
+     */
+    public function testSetAndGetName(): void
+    {
+        $name = 'abc';
+        $request = new ItemIngredientRequest();
+
+        $this->assertSame($request, $request->setName($name));
+        $this->assertSame($name, $request->getName());
+    }
+
+    /**
+     * Tests the setting and getting the number of results.
+     * @covers ::getNumberOfResults
      * @covers ::setNumberOfResults
+     */
+    public function testSetAndGetNumberOfResults(): void
+    {
+        $numberOfResults = 42;
+        $request = new ItemIngredientRequest();
+
+        $this->assertSame($request, $request->setNumberOfResults($numberOfResults));
+        $this->assertSame($numberOfResults, $request->getNumberOfResults());
+    }
+
+    /**
+     * Tests the setting and getting the index of first result.
+     * @covers ::getIndexOfFirstResult
      * @covers ::setIndexOfFirstResult
      */
-    public function testGetRequestData()
+    public function testSetAndGetIndexOfFirstResult(): void
     {
+        $indexOfFirstResult = 42;
         $request = new ItemIngredientRequest();
-        $this->assertSame($request, $request->setType('abc'));
-        $this->assertSame($request, $request->setName('def'));
-        $this->assertSame($request, $request->setNumberOfResults(42));
-        $this->assertSame($request, $request->setIndexOfFirstResult(21));
 
-        $expectedData = [
-            'type' => 'abc',
-            'name' => 'def',
-            'numberOfResults' => 42,
-            'indexOfFirstResult' => 21
-        ];
-        $this->assertEquals($expectedData, $request->getRequestData());
-    }
-
-    /**
-     * Tests creating the response.
-     * @covers ::createResponse
-     */
-    public function testCreateResponse()
-    {
-        $request = new ItemIngredientRequest();
-        $this->assertInstanceOf(ItemIngredientResponse::class, $request->createResponse(new TestPendingResponse()));
+        $this->assertSame($request, $request->setIndexOfFirstResult($indexOfFirstResult));
+        $this->assertSame($indexOfFirstResult, $request->getIndexOfFirstResult());
     }
 }

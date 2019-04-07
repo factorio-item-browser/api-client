@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Entity;
 
-use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Constant\EntityType;
+use FactorioItemBrowser\Common\Constant\EntityType;
 
 /**
  * The entity representing a recipe.
@@ -53,7 +52,7 @@ class Recipe extends GenericEntity
      * @param string $mode
      * @return $this Implementing fluent interface.
      */
-    public function setMode(string $mode)
+    public function setMode(string $mode): self
     {
         $this->mode = $mode;
         return $this;
@@ -73,11 +72,9 @@ class Recipe extends GenericEntity
      * @param array|Item[] $ingredients
      * @return $this Implementing fluent interface.
      */
-    public function setIngredients(array $ingredients)
+    public function setIngredients(array $ingredients): self
     {
-        $this->ingredients = array_values(array_filter($ingredients, function ($ingredient): bool {
-            return $ingredient instanceof Item;
-        }));
+        $this->ingredients = $ingredients;
         return $this;
     }
 
@@ -86,7 +83,7 @@ class Recipe extends GenericEntity
      * @param Item $ingredient
      * @return $this
      */
-    public function addIngredient(Item $ingredient)
+    public function addIngredient(Item $ingredient): self
     {
         $this->ingredients[] = $ingredient;
         return $this;
@@ -106,11 +103,9 @@ class Recipe extends GenericEntity
      * @param array|Item[] $products
      * @return $this Implementing fluent interface.
      */
-    public function setProducts(array $products)
+    public function setProducts(array $products): self
     {
-        $this->products = array_values(array_filter($products, function ($product): bool {
-            return $product instanceof Item;
-        }));
+        $this->products = $products;
         return $this;
     }
 
@@ -119,7 +114,7 @@ class Recipe extends GenericEntity
      * @param Item $product
      * @return $this
      */
-    public function addProduct(Item $product)
+    public function addProduct(Item $product): self
     {
         $this->products[] = $product;
         return $this;
@@ -139,7 +134,7 @@ class Recipe extends GenericEntity
      * @param float $craftingTime
      * @return $this Implementing fluent interface.
      */
-    public function setCraftingTime(float $craftingTime)
+    public function setCraftingTime(float $craftingTime): self
     {
         $this->craftingTime = $craftingTime;
         return $this;
@@ -152,46 +147,5 @@ class Recipe extends GenericEntity
     public function getCraftingTime(): float
     {
         return $this->craftingTime;
-    }
-
-    /**
-     * Writes the entity data to an array.
-     * @return array
-     */
-    public function writeData(): array
-    {
-        $data = array_merge(parent::writeData(), [
-            'mode' => $this->mode,
-            'ingredients' => array_map(function (Item $ingredient): array {
-                return $ingredient->writeData();
-            }, $this->ingredients),
-            'products' => array_map(function (Item $product): array {
-                return $product->writeData();
-            }, $this->products),
-            'craftingTime' => $this->craftingTime
-        ]);
-        unset($data['type']);
-        return $data;
-    }
-
-    /**
-     * Reads the entity data.
-     * @param DataContainer $data
-     * @return $this
-     */
-    public function readData(DataContainer $data)
-    {
-        parent::readData($data);
-        $this->mode = $data->getString('mode');
-        $this->ingredients = [];
-        foreach ($data->getObjectArray('ingredients') as $ingredientData) {
-            $this->ingredients[] = (new Item())->readData($ingredientData);
-        }
-        $this->products = [];
-        foreach ($data->getObjectArray('products') as $productData) {
-            $this->products[] = (new Item())->readData($productData);
-        }
-        $this->craftingTime = $data->getFloat('craftingTime');
-        return $this;
     }
 }

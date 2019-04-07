@@ -6,8 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Response\Recipe;
 
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe details response class.
@@ -19,24 +20,37 @@ use PHPUnit\Framework\TestCase;
 class RecipeDetailsResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the recipes.
-     * @covers ::getRecipes
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetRecipes()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'recipes' => [
-                ['name' => 'abc'],
-                ['name' => 'def']
-            ]
-        ];
-        $recipe1 = new RecipeWithExpensiveVersion();
-        $recipe1->setName('abc');
-        $recipe2 = new RecipeWithExpensiveVersion();
-        $recipe2->setName('def');
+        $response = new RecipeDetailsResponse();
 
-        $response = new RecipeDetailsResponse(new TestPendingResponse($responseData));
-        $this->assertEquals([$recipe1, $recipe2], $response->getRecipes());
+        $this->assertSame([], $response->getRecipes());
+    }
+
+    /**
+     * Tests setting, adding and getting the recipes.
+     * @throws ReflectionException
+     * @covers ::addRecipe
+     * @covers ::setRecipes
+     * @covers ::getRecipes
+     */
+    public function testSetAddAndGetRecipes(): void
+    {
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe1 */
+        $recipe1 = $this->createMock(RecipeWithExpensiveVersion::class);
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe2 */
+        $recipe2 = $this->createMock(RecipeWithExpensiveVersion::class);
+        /* @var RecipeWithExpensiveVersion&MockObject $recipe3 */
+        $recipe3 = $this->createMock(RecipeWithExpensiveVersion::class);
+
+        $response = new RecipeDetailsResponse();
+        $this->assertSame($response, $response->setRecipes([$recipe1, $recipe2]));
+        $this->assertSame([$recipe1, $recipe2], $response->getRecipes());
+
+        $this->assertSame($response, $response->addRecipe($recipe3));
+        $this->assertSame([$recipe1, $recipe2, $recipe3], $response->getRecipes());
     }
 }

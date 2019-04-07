@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.0 - 2019-04-07
+
+### Added
+
+- Configuration for Zend Expressive projects.
+
+### Changed
+
+- Refactored the whole client to use JMS serializer and the Guzzle HTTP client.
+- The API client now resolves the pending responses instead of the response classes. See README example for new usage.
+
 ## 1.1.0 - 2018-07-21
 
 ### Added

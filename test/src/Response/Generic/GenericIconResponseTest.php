@@ -6,8 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Response\Generic;
 
 use FactorioItemBrowser\Api\Client\Entity\Icon;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericIconResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the generic icon response class.
@@ -19,24 +20,37 @@ use PHPUnit\Framework\TestCase;
 class GenericIconResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the icons.
-     * @covers ::getIcons
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetIcons()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'icons' => [
-                ['content' => 'abc'],
-                ['content' => 'def']
-            ]
-        ];
-        $icon1 = new Icon();
-        $icon1->setContent('abc');
-        $icon2 = new Icon();
-        $icon2->setContent('def');
+        $response = new GenericIconResponse();
 
-        $response = new GenericIconResponse(new TestPendingResponse($responseData));
-        $this->assertEquals([$icon1, $icon2], $response->getIcons());
+        $this->assertSame([], $response->getIcons());
+    }
+
+    /**
+     * Tests setting, adding and getting the icons.
+     * @throws ReflectionException
+     * @covers ::addIcon
+     * @covers ::setIcons
+     * @covers ::getIcons
+     */
+    public function testSetAddAndGetIcons(): void
+    {
+        /* @var Icon&MockObject $icon1 */
+        $icon1 = $this->createMock(Icon::class);
+        /* @var Icon&MockObject $icon2 */
+        $icon2 = $this->createMock(Icon::class);
+        /* @var Icon&MockObject $icon3 */
+        $icon3 = $this->createMock(Icon::class);
+
+        $response = new GenericIconResponse();
+        $this->assertSame($response, $response->setIcons([$icon1, $icon2]));
+        $this->assertSame([$icon1, $icon2], $response->getIcons());
+
+        $this->assertSame($response, $response->addIcon($icon3));
+        $this->assertSame([$icon1, $icon2, $icon3], $response->getIcons());
     }
 }

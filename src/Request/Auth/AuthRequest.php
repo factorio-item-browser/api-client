@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Auth;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\Auth\AuthResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
 /**
  * The request of the authorization token.
@@ -40,10 +37,19 @@ class AuthRequest implements RequestInterface
      * @param string $agent
      * @return $this
      */
-    public function setAgent(string $agent)
+    public function setAgent(string $agent): self
     {
         $this->agent = $agent;
         return $this;
+    }
+
+    /**
+     * Returns the the agent to use for the API.
+     * @return string
+     */
+    public function getAgent(): string
+    {
+        return $this->agent;
     }
 
     /**
@@ -51,10 +57,19 @@ class AuthRequest implements RequestInterface
      * @param string $accessKey
      * @return $this
      */
-    public function setAccessKey(string $accessKey)
+    public function setAccessKey(string $accessKey): self
     {
         $this->accessKey = $accessKey;
         return $this;
+    }
+
+    /**
+     * Returns the the access key to the API.
+     * @return string
+     */
+    public function getAccessKey(): string
+    {
+        return $this->accessKey;
     }
 
     /**
@@ -62,41 +77,18 @@ class AuthRequest implements RequestInterface
      * @param array|string[] $enabledModNames
      * @return $this
      */
-    public function setEnabledModNames(array $enabledModNames)
+    public function setEnabledModNames(array $enabledModNames): self
     {
         $this->enabledModNames = $enabledModNames;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the the internal names of the mods to enable.
+     * @return array|string[]
      */
-    public function getRequestPath(): string
+    public function getEnabledModNames()
     {
-        return '/auth';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'agent' => $this->agent,
-            'accessKey' => $this->accessKey,
-            'enabledModNames' => array_values(array_filter(array_map('strval', $this->enabledModNames)))
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new AuthResponse($pendingResponse);
+        return $this->enabledModNames;
     }
 }

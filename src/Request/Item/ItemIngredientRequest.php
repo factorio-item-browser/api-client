@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Item;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
 /**
  * The request of recipes using an item as ingredient.
@@ -46,10 +43,19 @@ class ItemIngredientRequest implements RequestInterface
      * @param string $type
      * @return $this
      */
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->type = $type;
         return $this;
+    }
+
+    /**
+     * Returns the the type of the item.
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     /**
@@ -57,10 +63,19 @@ class ItemIngredientRequest implements RequestInterface
      * @param string $name
      * @return $this
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * Returns the the name of the item.
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -68,10 +83,19 @@ class ItemIngredientRequest implements RequestInterface
      * @param int $numberOfResults
      * @return $this
      */
-    public function setNumberOfResults(int $numberOfResults)
+    public function setNumberOfResults(int $numberOfResults): self
     {
         $this->numberOfResults = $numberOfResults;
         return $this;
+    }
+
+    /**
+     * Returns the the number of results to return.
+     * @return int
+     */
+    public function getNumberOfResults(): int
+    {
+        return $this->numberOfResults;
     }
 
     /**
@@ -79,42 +103,18 @@ class ItemIngredientRequest implements RequestInterface
      * @param int $indexOfFirstResult
      * @return $this
      */
-    public function setIndexOfFirstResult(int $indexOfFirstResult)
+    public function setIndexOfFirstResult(int $indexOfFirstResult): self
     {
         $this->indexOfFirstResult = $indexOfFirstResult;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the the 0-based index of the first result to return.
+     * @return int
      */
-    public function getRequestPath(): string
+    public function getIndexOfFirstResult(): int
     {
-        return '/item/ingredient';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'type' => $this->type,
-            'name' => $this->name,
-            'numberOfResults' => $this->numberOfResults,
-            'indexOfFirstResult' => $this->indexOfFirstResult
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new ItemIngredientResponse($pendingResponse);
+        return $this->indexOfFirstResult;
     }
 }

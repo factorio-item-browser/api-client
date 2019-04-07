@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Auth;
 
-use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the auth request.
@@ -13,13 +12,24 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class AuthResponse extends AbstractResponse
+class AuthResponse implements ResponseInterface
 {
     /**
      * The authorization token to use in the other requests.
      * @var string
      */
-    protected $authorizationToken;
+    protected $authorizationToken = '';
+
+    /**
+     * Sets the the authorization token to use in the other requests.
+     * @param string $authorizationToken
+     * @return $this
+     */
+    public function setAuthorizationToken(string $authorizationToken): self
+    {
+        $this->authorizationToken = $authorizationToken;
+        return $this;
+    }
 
     /**
      * Returns the authorization token to use in the other requests.
@@ -27,18 +37,6 @@ class AuthResponse extends AbstractResponse
      */
     public function getAuthorizationToken(): string
     {
-        $this->checkPendingResponse();
         return $this->authorizationToken;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->authorizationToken = $responseData->getString('authorizationToken');
-        return $this;
     }
 }

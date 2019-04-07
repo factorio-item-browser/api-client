@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Search;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the search query request.
@@ -14,19 +13,41 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class SearchQueryResponse extends AbstractResponse
+class SearchQueryResponse implements ResponseInterface
 {
     /**
      * The results of the search.
      * @var array|GenericEntityWithRecipes[]
      */
-    protected $results;
+    protected $results = [];
 
     /**
      * The total number of results of the search.
      * @var int
      */
-    protected $totalNumberOfResults;
+    protected $totalNumberOfResults = 0;
+
+    /**
+     * Sets the results of the search.
+     * @param array|GenericEntityWithRecipes[] $results
+     * @return $this
+     */
+    public function setResults(array $results): self
+    {
+        $this->results = $results;
+        return $this;
+    }
+
+    /**
+     * Adds a result of the search
+     * @param GenericEntityWithRecipes $result
+     * @return $this
+     */
+    public function addResult(GenericEntityWithRecipes $result): self
+    {
+        $this->results[] = $result;
+        return $this;
+    }
 
     /**
      * Returns the results of the search.
@@ -34,8 +55,18 @@ class SearchQueryResponse extends AbstractResponse
      */
     public function getResults(): array
     {
-        $this->checkPendingResponse();
         return $this->results;
+    }
+
+    /**
+     * Sets the total number of results of the search.
+     * @param int $totalNumberOfResults
+     * @return $this
+     */
+    public function setTotalNumberOfResults(int $totalNumberOfResults): self
+    {
+        $this->totalNumberOfResults = $totalNumberOfResults;
+        return $this;
     }
 
     /**
@@ -44,22 +75,6 @@ class SearchQueryResponse extends AbstractResponse
      */
     public function getTotalNumberOfResults(): int
     {
-        $this->checkPendingResponse();
         return $this->totalNumberOfResults;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->results = [];
-        foreach ($responseData->getObjectArray('results') as $resultData) {
-            $this->results[] = (new GenericEntityWithRecipes())->readData($resultData);
-        }
-        $this->totalNumberOfResults = $responseData->getInteger('totalNumberOfResults');
-        return $this;
     }
 }

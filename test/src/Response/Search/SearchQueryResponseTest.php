@@ -6,8 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Response\Search;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the search query response class.
@@ -19,39 +20,53 @@ use PHPUnit\Framework\TestCase;
 class SearchQueryResponseTest extends TestCase
 {
     /**
-     * Tests mapping and getting the results.
-     * @covers ::getResults
-     * @covers ::mapResponse
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetResults()
+    public function testConstruct(): void
     {
-        $responseData = [
-            'results' => [
-                ['name' => 'abc'],
-                ['name' => 'def']
-            ]
-        ];
-        $entity1 = new GenericEntityWithRecipes();
-        $entity1->setName('abc');
-        $entity2 = new GenericEntityWithRecipes();
-        $entity2->setName('def');
+        $response = new SearchQueryResponse();
 
-        $response = new SearchQueryResponse(new TestPendingResponse($responseData));
-        $this->assertEquals([$entity1, $entity2], $response->getResults());
+        $this->assertSame([], $response->getResults());
+        $this->assertSame(0, $response->getTotalNumberOfResults());
+    }
+
+
+    /**
+     * Tests setting, adding and getting the results.
+     * @throws ReflectionException
+     * @covers ::addResult
+     * @covers ::setResults
+     * @covers ::getResults
+     */
+    public function testSetAddAndGetResults(): void
+    {
+        /* @var GenericEntityWithRecipes&MockObject $result1 */
+        $result1 = $this->createMock(GenericEntityWithRecipes::class);
+        /* @var GenericEntityWithRecipes&MockObject $result2 */
+        $result2 = $this->createMock(GenericEntityWithRecipes::class);
+        /* @var GenericEntityWithRecipes&MockObject $result3 */
+        $result3 = $this->createMock(GenericEntityWithRecipes::class);
+
+        $response = new SearchQueryResponse();
+        $this->assertSame($response, $response->setResults([$result1, $result2]));
+        $this->assertSame([$result1, $result2], $response->getResults());
+
+        $this->assertSame($response, $response->addResult($result3));
+        $this->assertSame([$result1, $result2, $result3], $response->getResults());
     }
 
     /**
-     * Tests mapping and getting the total number of results.
+     * Tests the setting and getting the total number of results.
      * @covers ::getTotalNumberOfResults
-     * @covers ::mapResponse
+     * @covers ::setTotalNumberOfResults
      */
-    public function testGetTotalNumberOfResults()
+    public function testSetAndGetTotalNumberOfResults(): void
     {
-        $responseData = [
-            'totalNumberOfResults' => 42
-        ];
+        $totalNumberOfResults = 42;
+        $response = new SearchQueryResponse();
 
-        $response = new SearchQueryResponse(new TestPendingResponse($responseData));
-        $this->assertEquals(42, $response->getTotalNumberOfResults());
+        $this->assertSame($response, $response->setTotalNumberOfResults($totalNumberOfResults));
+        $this->assertSame($totalNumberOfResults, $response->getTotalNumberOfResults());
     }
 }

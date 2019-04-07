@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Request\Generic;
 
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericDetailsRequest;
-use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the generic details request class.
@@ -19,42 +20,38 @@ use PHPUnit\Framework\TestCase;
 class GenericDetailsRequestTest extends TestCase
 {
     /**
-     * Tests getting the request path.
-     * @covers ::getRequestPath
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetRequestPath()
+    public function testConstruct(): void
     {
         $request = new GenericDetailsRequest();
-        $this->assertSame('/generic/details', $request->getRequestPath());
+
+        $this->assertSame([], $request->getEntities());
     }
 
     /**
-     * Tests getting the request data.
-     * @covers ::getRequestData
+     * Tests the setting and getting the entities.
+     * @throws ReflectionException
      * @covers ::addEntity
+     * @covers ::getEntities
+     * @covers ::setEntities
      */
-    public function testGetRequestData()
+    public function testSetAddAndGetEntities(): void
     {
-        $request = new GenericDetailsRequest();
-        $this->assertSame($request, $request->addEntity('abc', 'def'));
-        $this->assertSame($request, $request->addEntity('ghi', 'jkl'));
+        /* @var Entity&MockObject $entity1 */
+        $entity1 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity2 */
+        $entity2 = $this->createMock(Entity::class);
+        /* @var Entity&MockObject $entity3 */
+        $entity3 = $this->createMock(Entity::class);
 
-        $expectedData = [
-            'entities' => [
-                ['type' => 'abc', 'name' => 'def'],
-                ['type' => 'ghi', 'name' => 'jkl']
-            ]
-        ];
-        $this->assertEquals($expectedData, $request->getRequestData());
-    }
-
-    /**
-     * Tests creating the response.
-     * @covers ::createResponse
-     */
-    public function testCreateResponse()
-    {
+        $entities = [$entity1, $entity2];
         $request = new GenericDetailsRequest();
-        $this->assertInstanceOf(GenericDetailsResponse::class, $request->createResponse(new TestPendingResponse()));
+
+        $this->assertSame($request, $request->setEntities($entities));
+        $this->assertSame($entities, $request->getEntities());
+        $this->assertSame($request, $request->addEntity($entity3));
+        $this->assertSame([$entity1, $entity2, $entity3], $request->getEntities());
     }
 }

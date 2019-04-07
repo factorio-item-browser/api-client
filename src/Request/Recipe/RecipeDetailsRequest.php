@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Recipe;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
-use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 
 /**
  * The request of the recipe details.
@@ -46,32 +43,11 @@ class RecipeDetailsRequest implements RequestInterface
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the the internal names of the recipe to return the details of.
+     * @return array|string[]
      */
-    public function getRequestPath(): string
+    public function getNames()
     {
-        return '/recipe/details';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'names' => array_values(array_filter(array_map('strval', $this->names)))
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new RecipeDetailsResponse($pendingResponse);
+        return $this->names;
     }
 }

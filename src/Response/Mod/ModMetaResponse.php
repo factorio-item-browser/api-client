@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Mod;
 
-use BluePsyduck\Common\Data\DataContainer;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the mod meta request.
@@ -13,19 +12,30 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModMetaResponse extends AbstractResponse
+class ModMetaResponse implements ResponseInterface
 {
     /**
      * The number of mods available in the browser.
      * @var int
      */
-    protected $numberOfAvailableMods;
+    protected $numberOfAvailableMods = 0;
 
     /**
      * The number of currently enabled mods.
      * @var int
      */
-    protected $numberOfEnabledMods;
+    protected $numberOfEnabledMods = 0;
+
+    /**
+     * Sets the number of mods available in the browser.
+     * @param int $numberOfAvailableMods
+     * @return $this
+     */
+    public function setNumberOfAvailableMods(int $numberOfAvailableMods): self
+    {
+        $this->numberOfAvailableMods = $numberOfAvailableMods;
+        return $this;
+    }
 
     /**
      * Returns the number of mods available in the browser.
@@ -33,8 +43,18 @@ class ModMetaResponse extends AbstractResponse
      */
     public function getNumberOfAvailableMods(): int
     {
-        $this->checkPendingResponse();
         return $this->numberOfAvailableMods;
+    }
+
+    /**
+     * Sets the number of currently enabled mods.
+     * @param int $numberOfEnabledMods
+     * @return $this
+     */
+    public function setNumberOfEnabledMods(int $numberOfEnabledMods): self
+    {
+        $this->numberOfEnabledMods = $numberOfEnabledMods;
+        return $this;
     }
 
     /**
@@ -43,19 +63,6 @@ class ModMetaResponse extends AbstractResponse
      */
     public function getNumberOfEnabledMods(): int
     {
-        $this->checkPendingResponse();
         return $this->numberOfEnabledMods;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->numberOfAvailableMods = $responseData->getInteger('numberOfAvailableMods');
-        $this->numberOfEnabledMods = $responseData->getInteger('numberOfEnabledMods');
-        return $this;
     }
 }

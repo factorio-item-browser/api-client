@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Item;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
 
 /**
  * The request of random items.
@@ -34,10 +31,19 @@ class ItemRandomRequest implements RequestInterface
      * @param int $numberOfResults
      * @return $this
      */
-    public function setNumberOfResults(int $numberOfResults)
+    public function setNumberOfResults(int $numberOfResults): self
     {
         $this->numberOfResults = $numberOfResults;
         return $this;
+    }
+
+    /**
+     * Returns the number of results to return.
+     * @return int
+     */
+    public function getNumberOfResults(): int
+    {
+        return $this->numberOfResults;
     }
 
     /**
@@ -45,40 +51,18 @@ class ItemRandomRequest implements RequestInterface
      * @param int $numberOfRecipesPerResult
      * @return $this
      */
-    public function setNumberOfRecipesPerResult(int $numberOfRecipesPerResult)
+    public function setNumberOfRecipesPerResult(int $numberOfRecipesPerResult): self
     {
         $this->numberOfRecipesPerResult = $numberOfRecipesPerResult;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the the number of recipes to return for each result.
+     * @return int
      */
-    public function getRequestPath(): string
+    public function getNumberOfRecipesPerResult(): int
     {
-        return '/item/random';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'numberOfResults' => $this->numberOfResults,
-            'numberOfRecipesPerResult' => $this->numberOfRecipesPerResult
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new ItemRandomResponse($pendingResponse);
+        return $this->numberOfRecipesPerResult;
     }
 }

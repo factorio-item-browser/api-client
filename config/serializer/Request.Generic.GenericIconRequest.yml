@@ -1,0 +1,6 @@
+FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    entities:
+      type: array<FactorioItemBrowser\Api\Client\Entity\Entity>

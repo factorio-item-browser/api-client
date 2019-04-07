@@ -39,9 +39,6 @@ class ExceptionFactory
             case 404:
                 $exception = new NotFoundException($message, $request, $response);
                 break;
-            case 408:
-                $exception = new TimeoutException($request);
-                break;
             default:
                 $exception = new ApiClientException($message, $statusCode, $request, $response);
                 break;

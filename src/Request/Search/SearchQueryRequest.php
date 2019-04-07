@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Request\Search;
 
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
-use FactorioItemBrowser\Api\Client\Response\PendingResponse;
-use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
 
 /**
  * The request for the search query.
@@ -36,7 +33,7 @@ class SearchQueryRequest implements RequestInterface
     protected $indexOfFirstResult = 0;
 
     /**
-     * The number pf recipes to return for each result.
+     * The number of recipes to return for each result.
      * @var int
      */
     protected $numberOfRecipesPerResult = 3;
@@ -46,10 +43,19 @@ class SearchQueryRequest implements RequestInterface
      * @param string $query
      * @return $this
      */
-    public function setQuery(string $query)
+    public function setQuery(string $query): self
     {
         $this->query = $query;
         return $this;
+    }
+
+    /**
+     * Returns the query to search for.
+     * @return string
+     */
+    public function getQuery(): string
+    {
+        return $this->query;
     }
 
     /**
@@ -57,10 +63,19 @@ class SearchQueryRequest implements RequestInterface
      * @param int $numberOfResults
      * @return $this
      */
-    public function setNumberOfResults(int $numberOfResults)
+    public function setNumberOfResults(int $numberOfResults): self
     {
         $this->numberOfResults = $numberOfResults;
         return $this;
+    }
+
+    /**
+     * Returns the number of results to return.
+     * @return int
+     */
+    public function getNumberOfResults(): int
+    {
+        return $this->numberOfResults;
     }
 
     /**
@@ -68,10 +83,19 @@ class SearchQueryRequest implements RequestInterface
      * @param int $indexOfFirstResult
      * @return $this
      */
-    public function setIndexOfFirstResult(int $indexOfFirstResult)
+    public function setIndexOfFirstResult(int $indexOfFirstResult): self
     {
         $this->indexOfFirstResult = $indexOfFirstResult;
         return $this;
+    }
+
+    /**
+     * Returns the 0-based index of the first result to return.
+     * @return int
+     */
+    public function getIndexOfFirstResult(): int
+    {
+        return $this->indexOfFirstResult;
     }
 
     /**
@@ -79,42 +103,18 @@ class SearchQueryRequest implements RequestInterface
      * @param int $numberOfRecipesPerResult
      * @return $this
      */
-    public function setNumberOfRecipesPerResult(int $numberOfRecipesPerResult)
+    public function setNumberOfRecipesPerResult(int $numberOfRecipesPerResult): self
     {
         $this->numberOfRecipesPerResult = $numberOfRecipesPerResult;
         return $this;
     }
 
     /**
-     * Returns the path of the request, relative to the API URL.
-     * @return string
+     * Returns the number of recipes to return for each result.
+     * @return int
      */
-    public function getRequestPath(): string
+    public function getNumberOfRecipesPerResult(): int
     {
-        return '/search/query';
-    }
-
-    /**
-     * Returns the actual data of the request.
-     * @return array
-     */
-    public function getRequestData(): array
-    {
-        return [
-            'query' => $this->query,
-            'numberOfResults' => $this->numberOfResults,
-            'indexOfFirstResult' => $this->indexOfFirstResult,
-            'numberOfRecipesPerResult' => $this->numberOfRecipesPerResult
-        ];
-    }
-
-    /**
-     * Creates the response instance matching the request.
-     * @param PendingResponse $pendingResponse
-     * @return AbstractResponse
-     */
-    public function createResponse(PendingResponse $pendingResponse): AbstractResponse
-    {
-        return new SearchQueryResponse($pendingResponse);
+        return $this->numberOfRecipesPerResult;
     }
 }

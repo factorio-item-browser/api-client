@@ -37,11 +37,29 @@ class Options
     protected $timeout = 0;
 
     /**
+     * The locale to use.
+     * @var string
+     */
+    protected $locale = 'en';
+
+    /**
+     * The mod names to enable.
+     * @var array|string[]
+     */
+    protected $enabledModNames = [];
+
+    /**
+     * The already fetched authorization token.
+     * @var string
+     */
+    protected $authorizationToken = '';
+
+    /**
      * Sets the URL to the API.
      * @param string $apiUrl
-     * @return $this Implementing fluent interface.
+     * @return $this
      */
-    public function setApiUrl(string $apiUrl)
+    public function setApiUrl(string $apiUrl): self
     {
         $this->apiUrl = $apiUrl;
         return $this;
@@ -59,9 +77,9 @@ class Options
     /**
      * Sets the agent to use for authorization.
      * @param string $agent
-     * @return $this Implementing fluent interface.
+     * @return $this
      */
-    public function setAgent(string $agent)
+    public function setAgent(string $agent): self
     {
         $this->agent = $agent;
         return $this;
@@ -79,9 +97,9 @@ class Options
     /**
      * Sets the access key required for authorization.
      * @param string $accessKey
-     * @return $this Implementing fluent interface.
+     * @return $this
      */
-    public function setAccessKey(string $accessKey)
+    public function setAccessKey(string $accessKey): self
     {
         $this->accessKey = $accessKey;
         return $this;
@@ -99,9 +117,9 @@ class Options
     /**
      * Sets the timeout to use on requests, in seconds. 0 to not set a timeout.
      * @param int $timeout
-     * @return $this Implementing fluent interface.
+     * @return $this
      */
-    public function setTimeout(int $timeout)
+    public function setTimeout(int $timeout): self
     {
         $this->timeout = $timeout;
         return $this;
@@ -114,5 +132,65 @@ class Options
     public function getTimeout(): int
     {
         return $this->timeout;
+    }
+
+    /**
+     * Sets the locale to use.
+     * @param string $locale
+     * @return $this
+     */
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+    /**
+     * Returns the locale to use.
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Sets the mod names to enable.
+     * @param array|string[] $enabledModNames
+     * @return $this
+     */
+    public function setEnabledModNames(array $enabledModNames)
+    {
+        $this->enabledModNames = $enabledModNames;
+        return $this;
+    }
+
+    /**
+     * Returns the mod names to enable.
+     * @return array|string[]
+     */
+    public function getEnabledModNames(): array
+    {
+        return $this->enabledModNames;
+    }
+
+    /**
+     * Sets the already fetched authorization token.
+     * @param string $authorizationToken
+     * @return $this
+     */
+    public function setAuthorizationToken(string $authorizationToken): self
+    {
+        $this->authorizationToken = $authorizationToken;
+        return $this;
+    }
+
+    /**
+     * Returns the already fetched authorization token.
+     * @return string
+     */
+    public function getAuthorizationToken(): string
+    {
+        return $this->authorizationToken;
     }
 }

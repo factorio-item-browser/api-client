@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Recipe;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the recipe details request.
@@ -15,36 +13,42 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RecipeDetailsResponse extends AbstractResponse
+class RecipeDetailsResponse implements ResponseInterface
 {
     /**
      * The recipes details.
      * @var array|RecipeWithExpensiveVersion[]
      */
-    protected $recipes;
+    protected $recipes = [];
 
     /**
-     * Returns the recipe details.
-     * @return array|RecipeWithExpensiveVersion[]
-     * @throws ApiClientException
+     * Sets the recipes details.
+     * @param array|RecipeWithExpensiveVersion[] $recipes
+     * @return $this
      */
-    public function getRecipes()
+    public function setRecipes(array $recipes): self
     {
-        $this->checkPendingResponse();
-        return $this->recipes;
+        $this->recipes = $recipes;
+        return $this;
     }
 
     /**
-     * Maps the response data.
-     * @param DataContainer $responseData
+     * Adds recipe details.
+     * @param RecipeWithExpensiveVersion $recipe
      * @return $this
      */
-    protected function mapResponse(DataContainer $responseData)
+    public function addRecipe(RecipeWithExpensiveVersion $recipe): self
     {
-        $this->recipes = [];
-        foreach ($responseData->getObjectArray('recipes') as $recipeData) {
-            $this->recipes[] = (new RecipeWithExpensiveVersion())->readData($recipeData);
-        }
+        $this->recipes[] = $recipe;
         return $this;
+    }
+
+    /**
+     * Returns the recipes details.
+     * @return array|RecipeWithExpensiveVersion[]
+     */
+    public function getRecipes(): array
+    {
+        return $this->recipes;
     }
 }

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Mod;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the mod list request.
@@ -15,36 +13,42 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModListResponse extends AbstractResponse
+class ModListResponse implements ResponseInterface
 {
     /**
      * The list of available mods.
      * @var array|Mod[]
      */
-    protected $mods;
+    protected $mods = [];
+
+    /**
+     * Sets the list of available mods.
+     * @param array|Mod[] $mods
+     * @return $this
+     */
+    public function setMods(array $mods): self
+    {
+        $this->mods = $mods;
+        return $this;
+    }
+
+    /**
+     * Adds a mod to the list of available mods.
+     * @param Mod $mod
+     * @return $this
+     */
+    public function addMod(Mod $mod): self
+    {
+        $this->mods[] = $mod;
+        return $this;
+    }
 
     /**
      * Returns the list of available mods.
      * @return array|Mod[]
-     * @throws ApiClientException
      */
     public function getMods(): array
     {
-        $this->checkPendingResponse();
         return $this->mods;
-    }
-
-    /**
-     * Maps the response data.
-     * @param DataContainer $responseData
-     * @return $this
-     */
-    protected function mapResponse(DataContainer $responseData)
-    {
-        $this->mods = [];
-        foreach ($responseData->getObjectArray('mods') as $modData) {
-            $this->mods[] = (new Mod())->readData($modData);
-        }
-        return $this;
     }
 }

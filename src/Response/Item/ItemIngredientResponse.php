@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Item;
 
-use BluePsyduck\Common\Data\DataContainer;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the item ingredient request.
@@ -15,7 +13,7 @@ use FactorioItemBrowser\Api\Client\Response\AbstractResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemIngredientResponse extends AbstractResponse
+class ItemIngredientResponse implements ResponseInterface
 {
     /**
      * The details of the requested item.
@@ -24,24 +22,30 @@ class ItemIngredientResponse extends AbstractResponse
     protected $item;
 
     /**
-     * Returns the details of the requested item.
-     * @return GenericEntityWithRecipes
-     * @throws ApiClientException
+     * Initializes the response.
      */
-    public function getItem(): GenericEntityWithRecipes
+    public function __construct()
     {
-        $this->checkPendingResponse();
-        return $this->item;
+        $this->item = new GenericEntityWithRecipes();
     }
 
     /**
-     * Maps the response data.
-     * @param DataContainer $responseData
+     * Sets the details of the requested item.
+     * @param GenericEntityWithRecipes $item
      * @return $this
      */
-    protected function mapResponse(DataContainer $responseData)
+    public function setItem(GenericEntityWithRecipes $item): self
     {
-        $this->item = (new GenericEntityWithRecipes())->readData($responseData->getObject('item'));
+        $this->item = $item;
         return $this;
+    }
+
+    /**
+     * Returns the details of the requested item.
+     * @return GenericEntityWithRecipes
+     */
+    public function getItem(): GenericEntityWithRecipes
+    {
+        return $this->item;
     }
 }

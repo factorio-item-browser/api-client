@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Request\Recipe;
 
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
-use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
-use FactorioItemBrowserTestAsset\Api\Client\Response\TestPendingResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,40 +17,30 @@ use PHPUnit\Framework\TestCase;
 class RecipeDetailsRequestTest extends TestCase
 {
     /**
-     * Tests getting the request path.
-     * @covers ::getRequestPath
+     * Tests the constructing.
+     * @coversNothing
      */
-    public function testGetRequestPath()
+    public function testConstruct(): void
     {
         $request = new RecipeDetailsRequest();
-        $this->assertSame('/recipe/details', $request->getRequestPath());
+
+        $this->assertSame([], $request->getNames());
     }
 
     /**
-     * Tests getting the request data.
-     * @covers ::getRequestData
-     * @covers ::setNames
+     * Tests the setting and getting the names.
      * @covers ::addName
+     * @covers ::getNames
+     * @covers ::setNames
      */
-    public function testGetRequestData()
+    public function testSetAddAndGetNames(): void
     {
+        $names = ['abc', 'def'];
         $request = new RecipeDetailsRequest();
-        $this->assertSame($request, $request->setNames(['abc', '', 'def']));
+
+        $this->assertSame($request, $request->setNames($names));
+        $this->assertSame($names, $request->getNames());
         $this->assertSame($request, $request->addName('ghi'));
-
-        $expectedData = [
-            'names' => ['abc', 'def', 'ghi']
-        ];
-        $this->assertEquals($expectedData, $request->getRequestData());
-    }
-
-    /**
-     * Tests creating the response.
-     * @covers ::createResponse
-     */
-    public function testCreateResponse()
-    {
-        $request = new RecipeDetailsRequest();
-        $this->assertInstanceOf(RecipeDetailsResponse::class, $request->createResponse(new TestPendingResponse()));
+        $this->assertSame(['abc', 'def', 'ghi'], $request->getNames());
     }
 }

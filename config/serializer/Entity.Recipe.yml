@@ -1,0 +1,12 @@
+FactorioItemBrowser\Api\Client\Entity\Recipe:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    mode:
+      type: string
+    ingredients:
+      type: array<FactorioItemBrowser\Api\Client\Entity\Item>
+    products:
+      type: array<FactorioItemBrowser\Api\Client\Entity\Item>
+    craftingTime:
+      type: float

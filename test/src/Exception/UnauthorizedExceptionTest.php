@@ -6,7 +6,9 @@ namespace FactorioItemBrowserTest\Api\Client\Exception;
 
 use Exception;
 use FactorioItemBrowser\Api\Client\Exception\UnauthorizedException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * The PHPUnit test of the unauthorized exception class.
@@ -19,20 +21,22 @@ class UnauthorizedExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
+     * @throws ReflectionException
      * @covers ::__construct
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $message = 'abc';
-        $code = 401;
         $request = 'def';
         $response = 'ghi';
-        $previous = new Exception('jkl');
+
+        /* @var Exception&MockObject $previous */
+        $previous = $this->createMock(Exception::class);
 
         $exception = new UnauthorizedException($message, $request, $response, $previous);
 
         $this->assertSame($message, $exception->getMessage());
-        $this->assertSame($code, $exception->getCode());
+        $this->assertSame(401, $exception->getCode());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
         $this->assertSame($previous, $exception->getPrevious());
