@@ -6,3 +6,5 @@ FactorioItemBrowser\Api\Client\Entity\Icon:
       type: array<FactorioItemBrowser\Api\Client\Entity\Entity>
     content:
       type: base64
+    size:
+      type: int
