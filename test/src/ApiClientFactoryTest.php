@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client;
 
-use BluePsyduck\Common\Test\ReflectionTrait;
+use BluePsyduck\TestHelper\ReflectionTrait;
 use FactorioItemBrowser\Api\Client\ApiClient;
 use FactorioItemBrowser\Api\Client\ApiClientFactory;
 use FactorioItemBrowser\Api\Client\Client\Options;

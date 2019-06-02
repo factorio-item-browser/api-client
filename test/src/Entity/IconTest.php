@@ -29,6 +29,7 @@ class IconTest extends TestCase
 
         $this->assertSame([], $icon->getEntities());
         $this->assertSame('', $icon->getContent());
+        $this->assertSame(0, $icon->getSize());
     }
 
     /**
@@ -67,5 +68,19 @@ class IconTest extends TestCase
 
         $this->assertSame($entity, $entity->setContent($content));
         $this->assertSame($content, $entity->getContent());
+    }
+
+    /**
+     * Tests the setting and getting the size.
+     * @covers ::getSize
+     * @covers ::setSize
+     */
+    public function testSetAndGetSize(): void
+    {
+        $size = 42;
+        $entity = new Icon();
+
+        $this->assertSame($entity, $entity->setSize($size));
+        $this->assertSame($size, $entity->getSize());
     }
 }

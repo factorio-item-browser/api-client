@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="FactorioItemBrowser\Api\Client">
+        <testsuite name="unit-test">
             <directory>test/src</directory>
         </testsuite>
-        <testsuite name="FactorioItemBrowser\Api\Client Serializer">
+        <testsuite name="serializer-test">
             <directory>test/serializer</directory>
         </testsuite>
     </testsuites>
