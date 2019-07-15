@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 - 2019-07-15
+
+### Added
+
+- Attribute `size` to the generic icon response.
+
 ## 2.0.0 - 2019-04-07
 
 ### Added
