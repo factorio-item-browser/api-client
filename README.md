@@ -125,7 +125,7 @@ $apiClient->sendRequest($modListRequest); // Non-blocking
 /* @var  ItemRandomResponse $randomItemsResponse */
 $randomItemsResponse = $apiClient->fetchResponse($randomItemRequest); // Blocking 
 /* @var ModListResponse $modListResponse */
-$modListResponse = $apiClient->fetchResponse($modListRequest); // Non-blocking
+$modListResponse = $apiClient->fetchResponse($modListRequest); // Blocking
 
 // Do something with the received data.
 var_dump($randomItemsResponse->getItems());

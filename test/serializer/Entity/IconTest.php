@@ -33,7 +33,8 @@ class IconTest extends SerializerTestCase
 
         $result = new Icon();
         $result->setEntities([$entity1, $entity2])
-               ->setContent('mno');
+               ->setContent('mno')
+               ->setSize(42);
 
         return $result;
     }
@@ -56,6 +57,7 @@ class IconTest extends SerializerTestCase
                 ],
             ],
             'content' => 'bW5v',
+            'size' => 42,
         ];
     }
 }

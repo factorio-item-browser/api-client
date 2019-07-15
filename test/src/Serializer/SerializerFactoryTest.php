@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Serializer;
 
-use BluePsyduck\Common\Test\ReflectionTrait;
+use BluePsyduck\TestHelper\ReflectionTrait;
 use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use FactorioItemBrowser\Api\Client\Serializer\ContextFactory;
 use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Service;
 
-use BluePsyduck\Common\Test\ReflectionTrait;
+use BluePsyduck\TestHelper\ReflectionTrait;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
 use FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException;
 use FactorioItemBrowser\Api\Client\Request\RequestInterface;

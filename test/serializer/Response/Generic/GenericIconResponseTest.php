@@ -24,10 +24,12 @@ class GenericIconResponseTest extends SerializerTestCase
     protected function getObject(): object
     {
         $icon1 = new Icon();
-        $icon1->setContent('abc');
+        $icon1->setContent('abc')
+              ->setSize(42);
 
         $icon2 = new Icon();
-        $icon2->setContent('def');
+        $icon2->setContent('def')
+              ->setSize(1337);
 
         $result = new GenericIconResponse();
         $result->setIcons([$icon1, $icon2]);
@@ -46,10 +48,12 @@ class GenericIconResponseTest extends SerializerTestCase
                 [
                     'entities' => [],
                     'content' => 'YWJj',
+                    'size' => 42,
                 ],
                 [
                     'entities' => [],
                     'content' => 'ZGVm',
+                    'size' => 1337,
                 ],
             ],
         ];
