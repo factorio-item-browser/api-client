@@ -56,7 +56,7 @@ class SerializerFactoryTest extends TestCase
 
         /* @var SerializerFactory&MockObject $factory */
         $factory = $this->getMockBuilder(SerializerFactory::class)
-                        ->setMethods(['addCacheDirectory'])
+                        ->onlyMethods(['addCacheDirectory'])
                         ->getMock();
         $factory->expects($this->once())
                 ->method('addCacheDirectory')

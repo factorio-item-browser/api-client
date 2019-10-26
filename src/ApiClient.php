@@ -98,9 +98,9 @@ class ApiClient implements ApiClientInterface
      * Sets the mod names to enabled on authorization.
      * @param array|string[] $enabledModNames
      */
-    public function setEnabledModNames(array $enabledModNames): void
+    public function setModNames(array $enabledModNames): void
     {
-        $this->options->setEnabledModNames($enabledModNames);
+        $this->options->setModNames($enabledModNames);
     }
 
     /**
@@ -252,9 +252,8 @@ class ApiClient implements ApiClientInterface
         $result = $this->options->getAuthorizationToken();
         if ($result === '') {
             $authRequest = new AuthRequest();
-            $authRequest->setAgent($this->options->getAgent())
-                        ->setAccessKey($this->options->getAccessKey())
-                        ->setEnabledModNames($this->options->getEnabledModNames());
+            $authRequest->setAccessKey($this->options->getAccessKey())
+                        ->setModNames($this->options->getModNames());
 
             $authResponse = $this->fetchResponse($authRequest);
             if ($authResponse instanceof AuthResponse) {

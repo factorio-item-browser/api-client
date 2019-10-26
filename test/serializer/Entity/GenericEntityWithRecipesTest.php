@@ -92,19 +92,19 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
         return [
             'type' => 'uvw',
             'name' => 'xyz',
-            'label'=> 'cba',
+            'label' => 'cba',
             'description' => 'fed',
             'recipes' => [
                 [
                     'name' => 'ijk',
-                    'label'=> 'lmn',
+                    'label' => 'lmn',
                     'description' => 'opq',
                     'mode' => 'rst',
                     'ingredients' => [
                         [
                             'type' => 'mno',
                             'name' => 'pqr',
-                            'label'=> 'stu',
+                            'label' => 'stu',
                             'description' => 'vwx',
                             'amount' => 2.3,
                         ],
@@ -113,7 +113,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                         [
                             'type' => 'klm',
                             'name' => 'nop',
-                            'label'=> 'qrs',
+                            'label' => 'qrs',
                             'description' => 'tuv',
                             'amount' => 4.5,
                         ],
@@ -121,14 +121,14 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                     'craftingTime' => 73.31,
                     'expensiveVersion' => [
                         'name' => 'wxy',
-                        'label'=> 'zab',
+                        'label' => 'zab',
                         'description' => 'cde',
                         'mode' => 'fgh',
                         'ingredients' => [
                             [
                                 'type' => 'abc',
                                 'name' => 'def',
-                                'label'=> 'ghi',
+                                'label' => 'ghi',
                                 'description' => 'jkl',
                                 'amount' => 1.2,
                             ],
@@ -137,7 +137,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                             [
                                 'type' => 'yza',
                                 'name' => 'bcd',
-                                'label'=> 'efg',
+                                'label' => 'efg',
                                 'description' => 'hij',
                                 'amount' => 3.4,
                             ],

@@ -43,7 +43,7 @@ class ItemProductResponseTest extends SerializerTestCase
     protected function getData(): array
     {
         return [
-            'item' =>[
+            'item' => [
                 'type' => 'abc',
                 'name' => 'def',
                 'label' => 'ghi',

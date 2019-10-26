@@ -74,7 +74,6 @@ class ApiClientTest extends TestCase
 
     /**
      * Sets up the test case.
-     * @throws ReflectionException
      */
     protected function setUp(): void
     {
@@ -118,19 +117,19 @@ class ApiClientTest extends TestCase
     }
 
     /**
-     * Tests the setEnabledModNames method.
-     * @covers ::setEnabledModNames
+     * Tests the setModNames method.
+     * @covers ::setModNames
      */
-    public function testSetEnabledModNames(): void
+    public function testSetModNames(): void
     {
         $enabledModNames = ['abc', 'def'];
 
         $this->options->expects($this->once())
-                      ->method('setEnabledModNames')
+                      ->method('setModNames')
                       ->with($this->identicalTo($enabledModNames));
 
         $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
-        $apiClient->setEnabledModNames($enabledModNames);
+        $apiClient->setModNames($enabledModNames);
     }
 
     /**
@@ -208,7 +207,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getRequestId', 'createPromiseForRequest'])
+                          ->onlyMethods(['getRequestId', 'createPromiseForRequest'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -265,7 +264,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getRequestId', 'createPromiseForRequest'])
+                          ->onlyMethods(['getRequestId', 'createPromiseForRequest'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -320,7 +319,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getRequestId', 'createPromiseForRequest'])
+                          ->onlyMethods(['getRequestId', 'createPromiseForRequest'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -378,7 +377,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getRequestId', 'createPromiseForRequest'])
+                          ->onlyMethods(['getRequestId', 'createPromiseForRequest'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -487,7 +486,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods([
+                          ->onlyMethods([
                               'createClientRequest',
                               'processResponse',
                               'processException',
@@ -575,7 +574,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods([
+                          ->onlyMethods([
                               'createClientRequest',
                               'processResponse',
                               'processException',
@@ -644,7 +643,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getRequestHeaders'])
+                          ->onlyMethods(['getRequestHeaders'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -695,7 +694,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['requestAuthorizationToken'])
+                          ->onlyMethods(['requestAuthorizationToken'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -738,7 +737,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['requestAuthorizationToken'])
+                          ->onlyMethods(['requestAuthorizationToken'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -762,14 +761,12 @@ class ApiClientTest extends TestCase
     public function testRequestAuthorizationTokenWithoutExistingToken(): void
     {
         $authorizationToken = 'abc';
-        $agent = 'def';
-        $accessKey = 'ghi';
-        $enabledModNames = ['jkl', 'mno'];
+        $accessKey = 'def';
+        $modNames = ['ghi', 'jkl'];
 
         $expectedRequest = new AuthRequest();
-        $expectedRequest->setAgent($agent)
-                        ->setAccessKey($accessKey)
-                        ->setEnabledModNames($enabledModNames);
+        $expectedRequest->setAccessKey($accessKey)
+                        ->setModNames($modNames);
 
         /* @var AuthResponse&MockObject $response */
         $response = $this->createMock(AuthResponse::class);
@@ -781,21 +778,18 @@ class ApiClientTest extends TestCase
                       ->method('getAuthorizationToken')
                       ->willReturn('');
         $this->options->expects($this->once())
-                      ->method('getAgent')
-                      ->willReturn($agent);
-        $this->options->expects($this->once())
                       ->method('getAccessKey')
                       ->willReturn($accessKey);
         $this->options->expects($this->once())
-                      ->method('getEnabledModNames')
-                      ->willReturn($enabledModNames);
+                      ->method('getModNames')
+                      ->willReturn($modNames);
         $this->options->expects($this->once())
                       ->method('setAuthorizationToken')
                       ->with($this->identicalTo($authorizationToken));
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['fetchResponse'])
+                          ->onlyMethods(['fetchResponse'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -828,7 +822,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['fetchResponse'])
+                          ->onlyMethods(['fetchResponse'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -886,7 +880,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getContentsFromMessage'])
+                          ->onlyMethods(['getContentsFromMessage'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -951,7 +945,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getContentsFromMessage'])
+                          ->onlyMethods(['getContentsFromMessage'])
                           ->setConstructorArgs([
                               $this->endpointService,
                               $this->guzzleClient,
@@ -992,7 +986,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['getContentsFromMessage'])
+                          ->onlyMethods(['getContentsFromMessage'])
                           ->disableOriginalConstructor()
                           ->getMock();
         $apiClient->expects($this->exactly(2))
@@ -1039,7 +1033,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods([
+                          ->onlyMethods([
                               'getContentsFromMessage',
                               'extractMessageFromErrorResponse',
                               'createApiClientException'
@@ -1096,7 +1090,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods([
+                          ->onlyMethods([
                               'getContentsFromMessage',
                               'extractMessageFromErrorResponse',
                               'createApiClientException'
@@ -1300,7 +1294,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['clearAuthorizationToken', 'createPromiseForRequest'])
+                          ->onlyMethods(['clearAuthorizationToken', 'createPromiseForRequest'])
                           ->disableOriginalConstructor()
                           ->getMock();
         $apiClient->expects($this->once())
@@ -1331,7 +1325,7 @@ class ApiClientTest extends TestCase
 
         /* @var ApiClient&MockObject $apiClient */
         $apiClient = $this->getMockBuilder(ApiClient::class)
-                          ->setMethods(['createPromiseForRequest'])
+                          ->onlyMethods(['createPromiseForRequest'])
                           ->disableOriginalConstructor()
                           ->getMock();
         $apiClient->expects($this->never())

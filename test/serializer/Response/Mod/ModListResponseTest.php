@@ -56,7 +56,7 @@ class ModListResponseTest extends SerializerTestCase
             'mods' => [
                 [
                     'name' => 'abc',
-                    'label'=> 'def',
+                    'label' => 'def',
                     'description' => 'ghi',
                     'author' => 'jkl',
                     'version' => '1.2.3',
@@ -64,7 +64,7 @@ class ModListResponseTest extends SerializerTestCase
                 ],
                 [
                     'name' => 'mno',
-                    'label'=> 'pqr',
+                    'label' => 'pqr',
                     'description' => 'stu',
                     'author' => 'vwx',
                     'version' => '4.5.6',

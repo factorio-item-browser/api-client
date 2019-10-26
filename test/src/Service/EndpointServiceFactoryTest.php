@@ -57,7 +57,7 @@ class EndpointServiceFactoryTest extends TestCase
 
         /* @var EndpointServiceFactory&MockObject $factory */
         $factory = $this->getMockBuilder(EndpointServiceFactory::class)
-                        ->setMethods(['createEndpoints'])
+                        ->onlyMethods(['createEndpoints'])
                         ->getMock();
         $factory->expects($this->once())
                 ->method('createEndpoints')

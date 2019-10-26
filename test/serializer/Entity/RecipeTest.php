@@ -71,21 +71,21 @@ class RecipeTest extends SerializerTestCase
     {
         return [
             'name' => 'wxy',
-            'label'=> 'zab',
+            'label' => 'zab',
             'description' => 'cde',
             'mode' => 'fgh',
             'ingredients' => [
                 [
                     'type' => 'abc',
                     'name' => 'def',
-                    'label'=> 'ghi',
+                    'label' => 'ghi',
                     'description' => 'jkl',
                     'amount' => 1.2,
                 ],
                 [
                     'type' => 'mno',
                     'name' => 'pqr',
-                    'label'=> 'stu',
+                    'label' => 'stu',
                     'description' => 'vwx',
                     'amount' => 2.3,
                 ],
@@ -94,14 +94,14 @@ class RecipeTest extends SerializerTestCase
                 [
                     'type' => 'yza',
                     'name' => 'bcd',
-                    'label'=> 'efg',
+                    'label' => 'efg',
                     'description' => 'hij',
                     'amount' => 3.4,
                 ],
                 [
                     'type' => 'klm',
                     'name' => 'nop',
-                    'label'=> 'qrs',
+                    'label' => 'qrs',
                     'description' => 'tuv',
                     'amount' => 4.5,
                 ],

@@ -2,13 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * The interface of the API client class.
- *
- * @author BluePsyduck <bluepsyduck@gmx.com>
- * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- */
-
 namespace FactorioItemBrowser\Api\Client;
 
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
@@ -16,7 +9,7 @@ use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
- * The API client class.
+ * The interface of the API client class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
@@ -33,7 +26,7 @@ interface ApiClientInterface
      * Sets the mod names to enabled on authorization.
      * @param array|string[] $enabledModNames
      */
-    public function setEnabledModNames(array $enabledModNames): void;
+    public function setModNames(array $enabledModNames): void;
 
     /**
      * Sets the authorization token to use for the requests.

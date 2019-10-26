@@ -11,7 +11,6 @@ use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the GuzzleClientFactory class.
@@ -24,7 +23,6 @@ class GuzzleClientFactoryTest extends TestCase
 {
     /**
      * Tests the invoking.
-     * @throws ReflectionException
      * @covers ::__invoke
      */
     public function testInvoke(): void

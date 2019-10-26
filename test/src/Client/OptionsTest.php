@@ -23,11 +23,10 @@ class OptionsTest extends TestCase
         $options = new Options();
 
         $this->assertSame('', $options->getApiUrl());
-        $this->assertSame('', $options->getAgent());
         $this->assertSame('', $options->getAccessKey());
         $this->assertSame(0, $options->getTimeout());
         $this->assertSame('en', $options->getLocale());
-        $this->assertSame([], $options->getEnabledModNames());
+        $this->assertSame([], $options->getModNames());
         $this->assertSame('', $options->getAuthorizationToken());
     }
 
@@ -43,20 +42,6 @@ class OptionsTest extends TestCase
 
         $this->assertSame($options, $options->setApiUrl($apiUrl));
         $this->assertSame($apiUrl, $options->getApiUrl());
-    }
-
-    /**
-     * Tests the setting and getting the agent.
-     * @covers ::getAgent
-     * @covers ::setAgent
-     */
-    public function testSetAndGetAgent(): void
-    {
-        $agent = 'abc';
-        $option = new Options();
-
-        $this->assertSame($option, $option->setAgent($agent));
-        $this->assertSame($agent, $option->getAgent());
     }
 
     /**
@@ -102,17 +87,17 @@ class OptionsTest extends TestCase
     }
 
     /**
-     * Tests the setting and getting the enabled mod names.
-     * @covers ::getEnabledModNames
-     * @covers ::setEnabledModNames
+     * Tests the setting and getting the mod names.
+     * @covers ::getModNames
+     * @covers ::setModNames
      */
-    public function testSetAndGetEnabledModNames(): void
+    public function testSetAndGetModNames(): void
     {
-        $enabledModNames = ['abc', 'def'];
+        $modNames = ['abc', 'def'];
         $options = new Options();
 
-        $this->assertSame($options, $options->setEnabledModNames($enabledModNames));
-        $this->assertSame($enabledModNames, $options->getEnabledModNames());
+        $this->assertSame($options, $options->setModNames($modNames));
+        $this->assertSame($modNames, $options->getModNames());
     }
 
     /**

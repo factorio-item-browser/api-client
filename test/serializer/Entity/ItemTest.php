@@ -40,7 +40,7 @@ class ItemTest extends SerializerTestCase
         return [
             'type' => 'abc',
             'name' => 'def',
-            'label'=> 'ghi',
+            'label' => 'ghi',
             'description' => 'jkl',
             'amount' => 13.37,
         ];

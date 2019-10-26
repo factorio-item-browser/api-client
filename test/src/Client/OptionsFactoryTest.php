@@ -10,7 +10,6 @@ use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the OptionsFactory class.
@@ -23,7 +22,6 @@ class OptionsFactoryTest extends TestCase
 {
     /**
      * Tests the invoking.
-     * @throws ReflectionException
      * @covers ::__invoke
      */
     public function testInvoke(): void
@@ -33,8 +31,7 @@ class OptionsFactoryTest extends TestCase
                 ConfigKey::API_CLIENT => [
                     ConfigKey::OPTIONS => [
                         ConfigKey::OPTION_API_URL => 'abc',
-                        ConfigKey::OPTION_AGENT => 'def',
-                        ConfigKey::OPTION_ACCESS_KEY => 'ghi',
+                        ConfigKey::OPTION_ACCESS_KEY => 'def',
                         ConfigKey::OPTION_TIMEOUT => 42,
                     ],
                 ],
@@ -43,8 +40,7 @@ class OptionsFactoryTest extends TestCase
 
         $expectedResult = new Options();
         $expectedResult->setApiUrl('abc')
-                       ->setAgent('def')
-                       ->setAccessKey('ghi')
+                       ->setAccessKey('def')
                        ->setTimeout(42);
 
         /* @var ContainerInterface&MockObject $container */

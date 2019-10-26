@@ -24,7 +24,6 @@ return [
                 Endpoint\Item\ItemProductEndpoint::class,
                 Endpoint\Item\ItemRandomEndpoint::class,
                 Endpoint\Mod\ModListEndpoint::class,
-                Endpoint\Mod\ModMetaEndpoint::class,
                 Endpoint\Recipe\RecipeDetailsEndpoint::class,
                 Endpoint\Recipe\RecipeMachinesEndpoint::class,
                 Endpoint\Search\SearchQueryEndpoint::class,

@@ -64,7 +64,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
             'machines' => [
                 [
                     'name' => 'abc',
-                    'label'=> 'def',
+                    'label' => 'def',
                     'description' => 'ghi',
                     'craftingSpeed' => 13.37,
                     'numberOfItemSlots' => 12,
@@ -76,7 +76,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
                 ],
                 [
                     'name' => 'mno',
-                    'label'=> 'pqr',
+                    'label' => 'pqr',
                     'description' => 'stu',
                     'craftingSpeed' => 73.31,
                     'numberOfItemSlots' => 56,

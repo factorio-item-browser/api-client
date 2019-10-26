@@ -28,7 +28,6 @@ return [
             Endpoint\Item\ItemProductEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemRandomEndpoint::class => InvokableFactory::class,
             Endpoint\Mod\ModListEndpoint::class => InvokableFactory::class,
-            Endpoint\Mod\ModMetaEndpoint::class => InvokableFactory::class,
             Endpoint\Recipe\RecipeDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Recipe\RecipeMachinesEndpoint::class => InvokableFactory::class,
             Endpoint\Search\SearchQueryEndpoint::class => InvokableFactory::class,

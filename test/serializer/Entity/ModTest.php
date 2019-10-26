@@ -41,7 +41,7 @@ class ModTest extends SerializerTestCase
     {
         return [
             'name' => 'abc',
-            'label'=> 'def',
+            'label' => 'def',
             'description' => 'ghi',
             'author' => 'jkl',
             'version' => '1.2.3',

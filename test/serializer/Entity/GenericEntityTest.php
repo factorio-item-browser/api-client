@@ -40,7 +40,7 @@ class GenericEntityTest extends SerializerTestCase
         return [
             'type' => 'abc',
             'name' => 'def',
-            'label'=> 'ghi',
+            'label' => 'ghi',
             'description' => 'jkl',
         ];
     }

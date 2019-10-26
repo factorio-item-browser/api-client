@@ -52,13 +52,13 @@ class GenericDetailsResponseTest extends SerializerTestCase
                 [
                     'type' => 'abc',
                     'name' => 'def',
-                    'label'=> 'ghi',
+                    'label' => 'ghi',
                     'description' => 'jkl',
                 ],
                 [
                     'type' => 'mno',
                     'name' => 'pqr',
-                    'label'=> 'stu',
+                    'label' => 'stu',
                     'description' => 'vwx',
                 ],
             ],

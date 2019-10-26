@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- `enabledModNames` to `modNames` in the `auth` request and the client itself.
+
+### Removed
+
+- No longer required `agent` from the `/auth` request and the client itself.
+- No longer supported `/mod/meta` request.
+
 ## 2.1.0 - 2019-07-15
 
 ### Added

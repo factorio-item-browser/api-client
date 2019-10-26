@@ -3,4 +3,4 @@ FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse:
   exclusion_policy: all
   properties:
     entities:
-      type: array<FactorioItembrowser\Api\Client\Entity\GenericEntity>
+      type: array<FactorioItemBrowser\Api\Client\Entity\GenericEntity>

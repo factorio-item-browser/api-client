@@ -23,9 +23,8 @@ class AuthRequestTest extends SerializerTestCase
     protected function getObject(): object
     {
         $result = new AuthRequest();
-        $result->setAgent('abc')
-               ->setAccessKey('def')
-               ->setEnabledModNames(['ghi', 'jkl']);
+        $result->setAccessKey('abc')
+               ->setModNames(['def', 'ghi']);
         return $result;
     }
 
@@ -36,9 +35,8 @@ class AuthRequestTest extends SerializerTestCase
     protected function getData(): array
     {
         return [
-            'agent' => 'abc',
-            'accessKey' => 'def',
-            'enabledModNames' => ['ghi', 'jkl'],
+            'accessKey' => 'abc',
+            'modNames' => ['def', 'ghi'],
         ];
     }
 }
