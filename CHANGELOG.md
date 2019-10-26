@@ -2,9 +2,13 @@
 
 ## Unreleased
 
+### Added
+
+- New `/export/status` and `/export/create` requests.
+
 ### Changed
 
-- `enabledModNames` to `modNames` in the `auth` request and the client itself.
+- `enabledModNames` to `modNames` in the `/auth` request and the client itself.
 
 ### Removed
 

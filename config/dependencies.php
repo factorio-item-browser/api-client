@@ -22,6 +22,8 @@ return [
             Client\Options::class => Client\OptionsFactory::class,
 
             Endpoint\Auth\AuthEndpoint::class => InvokableFactory::class,
+            Endpoint\Export\ExportCreateEndpoint::class => InvokableFactory::class,
+            Endpoint\Export\ExportStatusEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericIconEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemIngredientEndpoint::class => InvokableFactory::class,

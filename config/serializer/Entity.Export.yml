@@ -1,0 +1,12 @@
+FactorioItemBrowser\Api\Client\Entity\Export:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    status:
+      type: string
+    creationTime:
+      type: DateTime<'Y-m-d\TH:i:sP'>
+    exportTime:
+      type: DateTime<'Y-m-d\TH:i:sP'>
+    importTime:
+      type: DateTime<'Y-m-d\TH:i:sP'>
