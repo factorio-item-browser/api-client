@@ -19,6 +19,17 @@ use PHPUnit\Framework\TestCase;
 class ExportStatusResponseTest extends TestCase
 {
     /**
+     * Tests the constructing.
+     * @covers ::__construct
+     */
+    public function testConstruct(): void
+    {
+        $entity = new ExportStatusResponse();
+
+        $this->assertEquals(new Export(), $entity->getExport());
+    }
+
+    /**
      * Tests the setting and getting the export.
      * @covers ::getExport
      * @covers ::setExport
