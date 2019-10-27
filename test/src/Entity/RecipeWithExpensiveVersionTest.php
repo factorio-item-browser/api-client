@@ -9,7 +9,6 @@ use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Common\Constant\EntityType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe with expensive version class.
@@ -41,7 +40,6 @@ class RecipeWithExpensiveVersionTest extends TestCase
 
     /**
      * Tests setting and getting the expensive version.
-     * @throws ReflectionException
      * @covers ::getExpensiveVersion
      * @covers ::hasExpensiveVersion
      * @covers ::setExpensiveVersion

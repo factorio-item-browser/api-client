@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the item product response class.
@@ -32,7 +31,6 @@ class ItemProductResponseTest extends TestCase
 
     /**
      * Tests the setting and getting the item.
-     * @throws ReflectionException
      * @covers ::getItem
      * @covers ::setItem
      */

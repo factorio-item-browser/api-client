@@ -9,7 +9,6 @@ use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Common\Constant\EntityType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe class.
@@ -54,7 +53,6 @@ class RecipeTest extends TestCase
 
     /**
      * Tests setting, adding and getting the ingredients.
-     * @throws ReflectionException
      * @covers ::addIngredient
      * @covers ::setIngredients
      * @covers ::getIngredients
@@ -78,7 +76,6 @@ class RecipeTest extends TestCase
 
     /**
      * Tests setting, adding and getting the products.
-     * @throws ReflectionException
      * @covers ::addProduct
      * @covers ::setProducts
      * @covers ::getProducts

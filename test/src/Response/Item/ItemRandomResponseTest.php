@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the item random response class.
@@ -32,7 +31,6 @@ class ItemRandomResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the items.
-     * @throws ReflectionException
      * @covers ::addItem
      * @covers ::setItems
      * @covers ::getItems

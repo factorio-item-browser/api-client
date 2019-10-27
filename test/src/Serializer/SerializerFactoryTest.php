@@ -31,7 +31,6 @@ class SerializerFactoryTest extends TestCase
 
     /**
      * Tests the invoking.
-     * @throws ReflectionException
      * @covers ::__invoke
      */
     public function testInvoke(): void
@@ -74,7 +73,7 @@ class SerializerFactoryTest extends TestCase
      */
     public function testAddCacheDirectory(): void
     {
-        $cacheDir = 'test/log';
+        $cacheDir = 'test/coverage';
         $config = [
             ConfigKey::PROJECT => [
                 ConfigKey::API_CLIENT => [

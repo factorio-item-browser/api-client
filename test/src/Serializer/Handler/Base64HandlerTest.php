@@ -10,7 +10,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the Base64Handler class.
@@ -48,7 +47,6 @@ class Base64HandlerTest extends TestCase
 
     /**
      * Tests the serializeBase64 method.
-     * @throws ReflectionException
      * @covers ::serializeBase64
      */
     public function testSerializeBase64(): void
@@ -73,7 +71,6 @@ class Base64HandlerTest extends TestCase
 
     /**
      * Tests the deserializeBase64 method.
-     * @throws ReflectionException
      * @covers ::deserializeBase64
      */
     public function testDeserializeBase64(): void

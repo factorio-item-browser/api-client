@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe details response class.
@@ -32,7 +31,6 @@ class RecipeDetailsResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
-     * @throws ReflectionException
      * @covers ::addRecipe
      * @covers ::setRecipes
      * @covers ::getRecipes

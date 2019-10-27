@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\Machine;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the recipe machines response class.
@@ -33,7 +32,6 @@ class RecipeMachinesResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the machines.
-     * @throws ReflectionException
      * @covers ::addMachine
      * @covers ::setMachines
      * @covers ::getMachines

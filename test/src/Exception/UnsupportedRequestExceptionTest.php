@@ -8,7 +8,6 @@ use Exception;
 use FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the UnsupportedRequestException class.
@@ -21,7 +20,6 @@ class UnsupportedRequestExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @throws ReflectionException
      * @covers ::__construct
      */
     public function testConstruct(): void

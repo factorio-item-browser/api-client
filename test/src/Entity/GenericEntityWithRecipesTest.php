@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the generic entity with recipes class.
@@ -37,7 +36,6 @@ class GenericEntityWithRecipesTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
-     * @throws ReflectionException
      * @covers ::setRecipes
      * @covers ::addRecipe
      * @covers ::getRecipes

@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the mod list response class.
@@ -32,7 +31,6 @@ class ModListResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the mods.
-     * @throws ReflectionException
      * @covers ::addMod
      * @covers ::setMods
      * @covers ::getMods

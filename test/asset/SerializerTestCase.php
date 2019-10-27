@@ -22,7 +22,6 @@ abstract class SerializerTestCase extends TestCase
     /**
      * Creates and returns the serializer.
      * @return SerializerInterface
-     * @throws ReflectionException
      */
     protected function createSerializer(): SerializerInterface
     {
