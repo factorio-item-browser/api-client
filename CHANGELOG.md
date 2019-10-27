@@ -9,6 +9,7 @@
 ### Changed
 
 - `enabledModNames` to `modNames` in the `/auth` request and the client itself.
+- Version of `jms/serializer` to 3.2 or newer. 
 
 ### Removed
 
