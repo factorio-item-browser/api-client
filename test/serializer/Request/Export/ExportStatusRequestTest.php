@@ -22,13 +22,12 @@ class ExportStatusRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new ExportStatusRequest();
-        return $result;
+        return new ExportStatusRequest();
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {

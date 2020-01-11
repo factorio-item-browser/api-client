@@ -23,7 +23,7 @@ class ExceptionFactoryTest extends TestCase
 {
     /**
      * Provides the data for the create test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideCreate(): array
     {
@@ -40,11 +40,11 @@ class ExceptionFactoryTest extends TestCase
     /**
      * Tests the create method.
      * @param int $statusCode
-     * @param string $expectedExceptionClass
+     * @param class-string<ApiClientException> $expectedExceptionClass
      * @covers ::create
      * @dataProvider provideCreate
      */
-    public function testCreate(int $statusCode, string $expectedExceptionClass): void
+    public function testCreate(int $statusCode, $expectedExceptionClass): void
     {
         $exception = ExceptionFactory::create($statusCode, 'abc', 'def', 'ghi');
         $this->assertInstanceOf($expectedExceptionClass, $exception);

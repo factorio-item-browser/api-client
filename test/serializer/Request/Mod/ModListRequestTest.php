@@ -22,13 +22,12 @@ class ModListRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new ModListRequest();
-        return $result;
+        return new ModListRequest();
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {

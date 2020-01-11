@@ -22,7 +22,7 @@ class ApiClientFactory implements FactoryInterface
      * Creates the API client.
      * @param  ContainerInterface $container
      * @param  string $requestedName
-     * @param  null|array $options
+     * @param  array<mixed>|null $options
      * @return ApiClient
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApiClient

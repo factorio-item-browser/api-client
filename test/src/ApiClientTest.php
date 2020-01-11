@@ -448,7 +448,7 @@ class ApiClientTest extends TestCase
                  ->method('then')
                  ->with(
                      $this->isNull(),
-                     $this->callback(function ($callback) use ($apiClientException, $response2) {
+                     $this->callback(function ($callback) use ($apiClientException, $response2): bool {
                          $this->assertIsCallable($callback);
 
                          $result = $callback($apiClientException);
@@ -463,14 +463,14 @@ class ApiClientTest extends TestCase
         $promise1->expects($this->once())
                  ->method('then')
                  ->with(
-                     $this->callback(function ($callback) use ($clientResponse, $response1) {
+                     $this->callback(function ($callback) use ($clientResponse, $response1): bool {
                          $this->assertIsCallable($callback);
 
                          $result = $callback($clientResponse);
                          $this->assertSame($response1, $result);
                          return true;
                      }),
-                     $this->callback(function ($callback) use ($requestException) {
+                     $this->callback(function ($callback) use ($requestException): bool {
                          $this->assertIsCallable($callback);
 
                          $callback($requestException);
@@ -551,14 +551,14 @@ class ApiClientTest extends TestCase
         $promise1->expects($this->once())
                  ->method('then')
                  ->with(
-                     $this->callback(function ($callback) use ($clientResponse, $response) {
+                     $this->callback(function ($callback) use ($clientResponse, $response): bool {
                          $this->assertIsCallable($callback);
 
                          $result = $callback($clientResponse);
                          $this->assertSame($response, $result);
                          return true;
                      }),
-                     $this->callback(function ($callback) use ($requestException) {
+                     $this->callback(function ($callback) use ($requestException): bool {
                          $this->assertIsCallable($callback);
 
                          $callback($requestException);
@@ -1242,7 +1242,7 @@ class ApiClientTest extends TestCase
 
     /**
      * Provides the data for the createApiClientException test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideCreateApiClientException(): array
     {
@@ -1259,12 +1259,12 @@ class ApiClientTest extends TestCase
     /**
      * Tests the createApiClientException method.
      * @param int $statusCode
-     * @param string $expectedClass
+     * @param class-string<ApiClientException> $expectedClass
      * @throws ReflectionException
      * @covers ::createApiClientException
      * @dataProvider provideCreateApiClientException
      */
-    public function testCreateApiClientException(int $statusCode, string $expectedClass): void
+    public function testCreateApiClientException(int $statusCode, $expectedClass): void
     {
         $apiClient = new ApiClient($this->endpointService, $this->guzzleClient, $this->options, $this->serializer);
         $result = $this->invokeMethod($apiClient, 'createApiClientException', $statusCode, 'abc', 'def', 'ghi');

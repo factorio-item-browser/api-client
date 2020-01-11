@@ -21,7 +21,7 @@ class GuzzleClientFactory implements FactoryInterface
      * Creates the Guzzle client.
      * @param  ContainerInterface $container
      * @param  string $requestedName
-     * @param  null|array $options
+     * @param  array<mixed>|null $options
      * @return ClientInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ClientInterface

@@ -22,13 +22,12 @@ class ExportCreateRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new ExportCreateRequest();
-        return $result;
+        return new ExportCreateRequest();
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
