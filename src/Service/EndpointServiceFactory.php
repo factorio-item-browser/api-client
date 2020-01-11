@@ -7,7 +7,7 @@ namespace FactorioItemBrowser\Api\Client\Service;
 use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the endpoint service.

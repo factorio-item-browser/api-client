@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client;
 
 use FactorioItemBrowser\Api\Client\Constant\ServiceName;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'dependencies' => [

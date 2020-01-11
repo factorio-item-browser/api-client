@@ -12,12 +12,12 @@
     }
   ],
   "require": {
-    "php": "^7.2",
+    "php": "^7.3",
     "factorio-item-browser/common": "^1.0",
     "guzzlehttp/guzzle": "^6.3",
     "jms/serializer": "^3.2",
-    "symfony/yaml": "^4.2",
-    "zendframework/zend-servicemanager": "^3.0"
+    "laminas/laminas-servicemanager": "^3.0",
+    "symfony/yaml": "^4.2"
   },
   "require-dev": {
     "ext-json": "*",
@@ -39,11 +39,6 @@
       "FactorioItemBrowserTest\\Api\\Client\\": "test/src/",
       "FactorioItemBrowserTestAsset\\Api\\Client\\": "test/asset/",
       "FactorioItemBrowserTestSerializer\\Api\\Client\\": "test/serializer/"
-    }
-  },
-  "extra": {
-    "zf": {
-      "config-provider": "FactorioItemBrowser\\Api\\Client\\ConfigProvider"
     }
   },
   "scripts": {

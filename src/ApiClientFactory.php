@@ -8,7 +8,7 @@ use FactorioItemBrowser\Api\Client\Client\Options;
 use FactorioItemBrowser\Api\Client\Constant\ServiceName;
 use FactorioItemBrowser\Api\Client\Service\EndpointService;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the API client.

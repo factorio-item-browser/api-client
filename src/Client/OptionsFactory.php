@@ -6,7 +6,7 @@ namespace FactorioItemBrowser\Api\Client\Client;
 
 use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the options.

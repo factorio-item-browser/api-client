@@ -7,7 +7,7 @@ namespace FactorioItemBrowser\Api\Client\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the Guzzle client.
