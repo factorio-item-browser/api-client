@@ -81,7 +81,7 @@ class ApiClient implements ApiClientInterface
     ) {
         $this->endpointService = $endpointService;
         $this->guzzleClient = $guzzleClient;
-        $this->options = $options;
+        $this->options = clone($options);
         $this->serializer = $serializer;
     }
 

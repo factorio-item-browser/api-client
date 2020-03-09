@@ -96,7 +96,8 @@ class ApiClientTest extends TestCase
 
         $this->assertSame($this->endpointService, $this->extractProperty($apiClient, 'endpointService'));
         $this->assertSame($this->guzzleClient, $this->extractProperty($apiClient, 'guzzleClient'));
-        $this->assertSame($this->options, $this->extractProperty($apiClient, 'options'));
+        $this->assertEquals($this->options, $this->extractProperty($apiClient, 'options'));
+        $this->assertNotSame($this->options, $this->extractProperty($apiClient, 'options'));
         $this->assertSame($this->serializer, $this->extractProperty($apiClient, 'serializer'));
     }
 
