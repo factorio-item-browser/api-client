@@ -27,8 +27,7 @@ class ModTest extends SerializerTestCase
                ->setLabel('def')
                ->setDescription('ghi')
                ->setAuthor('jkl')
-               ->setVersion('1.2.3')
-               ->setIsEnabled(true);
+               ->setVersion('1.2.3');
 
         return $result;
     }
@@ -45,7 +44,6 @@ class ModTest extends SerializerTestCase
             'description' => 'ghi',
             'author' => 'jkl',
             'version' => '1.2.3',
-            'isEnabled' => true,
         ];
     }
 }

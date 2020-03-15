@@ -31,7 +31,6 @@ class ModTest extends TestCase
         $this->assertSame('', $mod->getDescription());
         $this->assertSame('', $mod->getAuthor());
         $this->assertSame('', $mod->getVersion());
-        $this->assertFalse($mod->getIsEnabled());
     }
 
     /**
@@ -60,19 +59,5 @@ class ModTest extends TestCase
 
         $this->assertSame($entity, $entity->setVersion($version));
         $this->assertSame($version, $entity->getVersion());
-    }
-
-    /**
-     * Tests the setting and getting the is enabled.
-     * @covers ::getIsEnabled
-     * @covers ::setIsEnabled
-     */
-    public function testSetAndGetIsEnabled(): void
-    {
-        $isEnabled = true;
-        $entity = new Mod();
-
-        $this->assertSame($entity, $entity->setIsEnabled($isEnabled));
-        $this->assertTrue($entity->getIsEnabled());
     }
 }

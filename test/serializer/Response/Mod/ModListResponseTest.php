@@ -28,16 +28,14 @@ class ModListResponseTest extends SerializerTestCase
              ->setLabel('def')
              ->setDescription('ghi')
              ->setAuthor('jkl')
-             ->setVersion('1.2.3')
-             ->setIsEnabled(true);
+             ->setVersion('1.2.3');
 
         $mod2 = new Mod();
         $mod2->setName('mno')
              ->setLabel('pqr')
              ->setDescription('stu')
              ->setAuthor('vwx')
-             ->setVersion('4.5.6')
-             ->setIsEnabled(false);
+             ->setVersion('4.5.6');
 
 
         $result = new ModListResponse();
@@ -60,7 +58,6 @@ class ModListResponseTest extends SerializerTestCase
                     'description' => 'ghi',
                     'author' => 'jkl',
                     'version' => '1.2.3',
-                    'isEnabled' => true,
                 ],
                 [
                     'name' => 'mno',
@@ -68,7 +65,6 @@ class ModListResponseTest extends SerializerTestCase
                     'description' => 'stu',
                     'author' => 'vwx',
                     'version' => '4.5.6',
-                    'isEnabled' => false,
                 ],
             ]
         ];
