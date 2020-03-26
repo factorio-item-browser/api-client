@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Auth;
 
 use FactorioItemBrowser\Api\Client\Request\Auth\AuthRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the AuthRequest class.

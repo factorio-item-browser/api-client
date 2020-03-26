@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Generic;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the GenericDetailsResponse class.

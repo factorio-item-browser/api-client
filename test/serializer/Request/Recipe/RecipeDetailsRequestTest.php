@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Recipe;
 
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the RecipeDetailsRequest class.

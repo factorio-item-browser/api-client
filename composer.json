@@ -37,7 +37,6 @@
   "autoload-dev": {
     "psr-4": {
       "FactorioItemBrowserTest\\Api\\Client\\": "test/src/",
-      "FactorioItemBrowserTestAsset\\Api\\Client\\": "test/asset/",
       "FactorioItemBrowserTestSerializer\\Api\\Client\\": "test/serializer/"
     }
   },

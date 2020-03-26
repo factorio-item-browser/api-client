@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the GenericEntity class.

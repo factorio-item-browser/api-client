@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response;
 
 use FactorioItemBrowser\Api\Client\Entity\Error;
 use FactorioItemBrowser\Api\Client\Response\ErrorResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the ErrorResponse class.

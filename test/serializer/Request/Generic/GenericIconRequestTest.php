@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Generic;
 
 use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the GenericIconRequest class.

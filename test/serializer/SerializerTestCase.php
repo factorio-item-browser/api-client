@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestAsset\Api\Client;
+namespace FactorioItemBrowserTestSerializer\Api\Client;
 
 use FactorioItemBrowser\Api\Client\Serializer\SerializerFactory;
 use Interop\Container\ContainerInterface;

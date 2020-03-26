@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Mod;
 
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the ModListResponse class.

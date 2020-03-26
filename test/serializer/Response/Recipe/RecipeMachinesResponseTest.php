@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Recipe;
 
 use FactorioItemBrowser\Api\Client\Entity\Machine;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the RecipeMachinesResponse class.

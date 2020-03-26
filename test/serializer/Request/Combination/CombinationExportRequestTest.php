@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Combination;
 
 use FactorioItemBrowser\Api\Client\Request\Combination\CombinationExportRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the CombinationExportRequest class.

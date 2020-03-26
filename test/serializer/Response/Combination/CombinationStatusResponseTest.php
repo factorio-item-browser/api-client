@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Combination;
 
 use FactorioItemBrowser\Api\Client\Entity\ExportJob;
 use FactorioItemBrowser\Api\Client\Response\Combination\CombinationStatusResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the CombinationStatusResponse class.

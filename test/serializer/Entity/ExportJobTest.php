@@ -7,7 +7,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 use DateTime;
 use Exception;
 use FactorioItemBrowser\Api\Client\Entity\ExportJob;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the Export class.
