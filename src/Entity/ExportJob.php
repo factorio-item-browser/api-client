@@ -7,12 +7,12 @@ namespace FactorioItemBrowser\Api\Client\Entity;
 use DateTimeInterface;
 
 /**
- * The class representing an export with its status.
+ * The class representing an actual export job.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class Export
+class ExportJob
 {
     /**
      * The current status of the export process.
@@ -37,6 +37,12 @@ class Export
      * @var DateTimeInterface|null
      */
     protected $importTime;
+
+    /**
+     * The error message in case the status is "error".
+     * @var string
+     */
+    protected $errorMessage = '';
 
     /**
      * Sets the current status of the export process.
@@ -116,5 +122,25 @@ class Export
     public function getImportTime(): ?DateTimeInterface
     {
         return $this->importTime;
+    }
+
+    /**
+     * Sets the error message in case the status is "error".
+     * @param string $errorMessage
+     * @return $this
+     */
+    public function setErrorMessage(string $errorMessage): self
+    {
+        $this->errorMessage = $errorMessage;
+        return $this;
+    }
+
+    /**
+     * Returns the error message in case the status is "error".
+     * @return string
+     */
+    public function getErrorMessage(): string
+    {
+        return $this->errorMessage;
     }
 }

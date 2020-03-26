@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTest\Api\Client\Endpoint\Export;
+namespace FactorioItemBrowserTest\Api\Client\Endpoint\Combination;
 
-use FactorioItemBrowser\Api\Client\Endpoint\Export\ExportStatusEndpoint;
-use FactorioItemBrowser\Api\Client\Request\Export\ExportStatusRequest;
-use FactorioItemBrowser\Api\Client\Response\Export\ExportStatusResponse;
+use FactorioItemBrowser\Api\Client\Endpoint\Combination\CombinationExportEndpoint;
+use FactorioItemBrowser\Api\Client\Request\Combination\CombinationExportRequest;
+use FactorioItemBrowser\Api\Client\Response\Combination\CombinationStatusResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
- * The PHPUnit test of the ExportStatusEndpoint class.
+ * The PHPUnit test of the CombinationExportEndpoint class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Export\ExportStatusEndpoint
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Combination\CombinationExportEndpoint
  */
-class ExportStatusEndpointTest extends TestCase
+class CombinationExportEndpointTest extends TestCase
 {
     /**
      * Tests the getSupportedRequestClass method.
@@ -24,10 +24,10 @@ class ExportStatusEndpointTest extends TestCase
      */
     public function testGetSupportedRequestClass(): void
     {
-        $endpoint = new ExportStatusEndpoint();
+        $endpoint = new CombinationExportEndpoint();
         $result = $endpoint->getSupportedRequestClass();
 
-        $this->assertSame(ExportStatusRequest::class, $result);
+        $this->assertSame(CombinationExportRequest::class, $result);
     }
 
     /**
@@ -36,7 +36,7 @@ class ExportStatusEndpointTest extends TestCase
      */
     public function testRequiresAuthorizationToken(): void
     {
-        $endpoint = new ExportStatusEndpoint();
+        $endpoint = new CombinationExportEndpoint();
         $result = $endpoint->requiresAuthorizationToken();
 
         $this->assertTrue($result);
@@ -48,10 +48,10 @@ class ExportStatusEndpointTest extends TestCase
      */
     public function testGetRequestPath(): void
     {
-        $endpoint = new ExportStatusEndpoint();
+        $endpoint = new CombinationExportEndpoint();
         $result = $endpoint->getRequestPath();
 
-        $this->assertSame('export/status', $result);
+        $this->assertSame('combination/export', $result);
     }
 
     /**
@@ -60,9 +60,9 @@ class ExportStatusEndpointTest extends TestCase
      */
     public function testGetResponseClass(): void
     {
-        $endpoint = new ExportStatusEndpoint();
+        $endpoint = new CombinationExportEndpoint();
         $result = $endpoint->getResponseClass();
 
-        $this->assertSame(ExportStatusResponse::class, $result);
+        $this->assertSame(CombinationStatusResponse::class, $result);
     }
 }

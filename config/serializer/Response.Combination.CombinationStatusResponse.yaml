@@ -1,0 +1,12 @@
+FactorioItemBrowser\Api\Client\Response\Combination\CombinationStatusResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    id:
+      type: string
+    modNames:
+      type: array<string>
+    latestExportJob:
+      type: FactorioItemBrowser\Api\Client\Entity\ExportJob
+    latestSuccessfulExportJob:
+      type: FactorioItemBrowser\Api\Client\Entity\ExportJob

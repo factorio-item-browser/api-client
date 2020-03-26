@@ -18,8 +18,8 @@ return [
         ConfigKey::API_CLIENT => [
             ConfigKey::ENDPOINTS => [
                 Endpoint\Auth\AuthEndpoint::class,
-                Endpoint\Export\ExportCreateEndpoint::class,
-                Endpoint\Export\ExportStatusEndpoint::class,
+                Endpoint\Combination\CombinationExportEndpoint::class,
+                Endpoint\Combination\CombinationStatusEndpoint::class,
                 Endpoint\Generic\GenericDetailsEndpoint::class,
                 Endpoint\Generic\GenericIconEndpoint::class,
                 Endpoint\Item\ItemIngredientEndpoint::class,

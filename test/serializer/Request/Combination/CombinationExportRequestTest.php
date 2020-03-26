@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Export;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Combination;
 
-use FactorioItemBrowser\Api\Client\Request\Export\ExportCreateRequest;
+use FactorioItemBrowser\Api\Client\Request\Combination\CombinationExportRequest;
 use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the ExportCreateRequest class.
+ * The PHPUnit test of serializing the CombinationExportRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  * @coversNothing
  */
-class ExportCreateRequestTest extends SerializerTestCase
+class CombinationExportRequestTest extends SerializerTestCase
 {
     /**
      * Returns the object to be serialized or deserialized.
@@ -22,7 +22,7 @@ class ExportCreateRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        return new ExportCreateRequest();
+        return new CombinationExportRequest();
     }
 
     /**

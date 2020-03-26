@@ -4,7 +4,7 @@
 
 ### Added
 
-- New `/export/status` and `/export/create` requests.
+- New `/combination/status` and `/combination/export` requests.
 
 ### Changed
 

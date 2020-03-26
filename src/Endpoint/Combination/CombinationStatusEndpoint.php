@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowser\Api\Client\Endpoint\Export;
+namespace FactorioItemBrowser\Api\Client\Endpoint\Combination;
 
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
-use FactorioItemBrowser\Api\Client\Request\Export\ExportCreateRequest;
-use FactorioItemBrowser\Api\Client\Response\Export\ExportCreateResponse;
+use FactorioItemBrowser\Api\Client\Request\Combination\CombinationStatusRequest;
+use FactorioItemBrowser\Api\Client\Response\Combination\CombinationStatusResponse;
 
 /**
- * The endpoint of the export create request.
+ * The endpoint of the combination status request.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ExportCreateEndpoint implements EndpointInterface
+class CombinationStatusEndpoint implements EndpointInterface
 {
     /**
      * Returns the request class supported by the endpoint.
@@ -22,7 +22,7 @@ class ExportCreateEndpoint implements EndpointInterface
      */
     public function getSupportedRequestClass(): string
     {
-        return ExportCreateRequest::class;
+        return CombinationStatusRequest::class;
     }
 
     /**
@@ -40,7 +40,7 @@ class ExportCreateEndpoint implements EndpointInterface
      */
     public function getRequestPath(): string
     {
-        return 'export/create';
+        return 'combination/status';
     }
 
     /**
@@ -49,6 +49,6 @@ class ExportCreateEndpoint implements EndpointInterface
      */
     public function getResponseClass(): string
     {
-        return ExportCreateResponse::class;
+        return CombinationStatusResponse::class;
     }
 }

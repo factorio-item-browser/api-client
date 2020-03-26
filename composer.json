@@ -50,8 +50,8 @@
     "test-serialize": "phpunit --testsuite serializer-test --colors=always",
     "test": [
       "@test-unit",
-      "@test-serialize",
       "@coverage-check",
+      "@test-serialize",
       "@phpcs",
       "@phpstan"
     ]

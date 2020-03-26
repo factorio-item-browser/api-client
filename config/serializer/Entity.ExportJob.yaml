@@ -1,4 +1,4 @@
-FactorioItemBrowser\Api\Client\Entity\Export:
+FactorioItemBrowser\Api\Client\Entity\ExportJob:
   access_type: public_method
   exclusion_policy: all
   properties:
@@ -10,3 +10,5 @@ FactorioItemBrowser\Api\Client\Entity\Export:
       type: DateTime<'Y-m-d\TH:i:sP'>
     importTime:
       type: DateTime<'Y-m-d\TH:i:sP'>
+    errorMessage:
+      type: string
