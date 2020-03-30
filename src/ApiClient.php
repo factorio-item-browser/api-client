@@ -95,12 +95,12 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
-     * Sets the mod names to enabled on authorization.
-     * @param array|string[] $enabledModNames
+     * Sets the mod names to use on authorization.
+     * @param array|string[] $modNames
      */
-    public function setModNames(array $enabledModNames): void
+    public function setModNames(array $modNames): void
     {
-        $this->options->setModNames($enabledModNames);
+        $this->options->setModNames($modNames);
     }
 
     /**

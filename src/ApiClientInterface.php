@@ -23,10 +23,10 @@ interface ApiClientInterface
     public function setLocale(string $locale): void;
 
     /**
-     * Sets the mod names to enabled on authorization.
-     * @param array|string[] $enabledModNames
+     * Sets the mod names to use on authorization.
+     * @param array|string[] $modNames
      */
-    public function setModNames(array $enabledModNames): void;
+    public function setModNames(array $modNames): void;
 
     /**
      * Sets the authorization token to use for the requests.
