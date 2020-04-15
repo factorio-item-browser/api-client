@@ -24,23 +24,8 @@ class AuthRequestTest extends TestCase
     {
         $request = new AuthRequest();
 
-        $this->assertSame('', $request->getAgent());
         $this->assertSame('', $request->getAccessKey());
-        $this->assertSame([], $request->getEnabledModNames());
-    }
-
-    /**
-     * Tests the setting and getting the agent.
-     * @covers ::getAgent
-     * @covers ::setAgent
-     */
-    public function testSetAndGetAgent(): void
-    {
-        $agent = 'abc';
-        $request = new AuthRequest();
-
-        $this->assertSame($request, $request->setAgent($agent));
-        $this->assertSame($agent, $request->getAgent());
+        $this->assertSame([], $request->getModNames());
     }
 
     /**
@@ -58,16 +43,16 @@ class AuthRequestTest extends TestCase
     }
 
     /**
-     * Tests the setting and getting the enabled mod names.
-     * @covers ::getEnabledModNames
-     * @covers ::setEnabledModNames
+     * Tests the setting and getting the mod names.
+     * @covers ::getModNames
+     * @covers ::setModNames
      */
-    public function testSetAndGetEnabledModNames(): void
+    public function testSetAndGetModNames(): void
     {
-        $enabledModNames = ['abc', 'def'];
+        $modNames = ['abc', 'def'];
         $request = new AuthRequest();
 
-        $this->assertSame($request, $request->setEnabledModNames($enabledModNames));
-        $this->assertSame($enabledModNames, $request->getEnabledModNames());
+        $this->assertSame($request, $request->setModNames($modNames));
+        $this->assertSame($modNames, $request->getModNames());
     }
 }

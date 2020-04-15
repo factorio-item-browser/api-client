@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\Mod;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the Mod class.
@@ -27,25 +27,23 @@ class ModTest extends SerializerTestCase
                ->setLabel('def')
                ->setDescription('ghi')
                ->setAuthor('jkl')
-               ->setVersion('1.2.3')
-               ->setIsEnabled(true);
+               ->setVersion('1.2.3');
 
         return $result;
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
             'name' => 'abc',
-            'label'=> 'def',
+            'label' => 'def',
             'description' => 'ghi',
             'author' => 'jkl',
             'version' => '1.2.3',
-            'isEnabled' => true,
         ];
     }
 }

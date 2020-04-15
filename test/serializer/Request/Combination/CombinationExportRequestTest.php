@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Mod;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Combination;
 
-use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowser\Api\Client\Request\Combination\CombinationExportRequest;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the ModMetaRequest class.
+ * The PHPUnit test of serializing the CombinationExportRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  * @coversNothing
  */
-class ModMetaRequestTest extends SerializerTestCase
+class CombinationExportRequestTest extends SerializerTestCase
 {
     /**
      * Returns the object to be serialized or deserialized.
@@ -22,13 +22,12 @@ class ModMetaRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new ModMetaRequest();
-        return $result;
+        return new CombinationExportRequest();
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {

@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the Recipe class.
@@ -65,27 +65,27 @@ class RecipeTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
             'name' => 'wxy',
-            'label'=> 'zab',
+            'label' => 'zab',
             'description' => 'cde',
             'mode' => 'fgh',
             'ingredients' => [
                 [
                     'type' => 'abc',
                     'name' => 'def',
-                    'label'=> 'ghi',
+                    'label' => 'ghi',
                     'description' => 'jkl',
                     'amount' => 1.2,
                 ],
                 [
                     'type' => 'mno',
                     'name' => 'pqr',
-                    'label'=> 'stu',
+                    'label' => 'stu',
                     'description' => 'vwx',
                     'amount' => 2.3,
                 ],
@@ -94,14 +94,14 @@ class RecipeTest extends SerializerTestCase
                 [
                     'type' => 'yza',
                     'name' => 'bcd',
-                    'label'=> 'efg',
+                    'label' => 'efg',
                     'description' => 'hij',
                     'amount' => 3.4,
                 ],
                 [
                     'type' => 'klm',
                     'name' => 'nop',
-                    'label'=> 'qrs',
+                    'label' => 'qrs',
                     'description' => 'tuv',
                     'amount' => 4.5,
                 ],

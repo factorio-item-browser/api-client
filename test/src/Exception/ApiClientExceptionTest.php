@@ -8,7 +8,6 @@ use Exception;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the API client exception class.
@@ -21,7 +20,6 @@ class ApiClientExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @throws ReflectionException
      * @covers ::__construct
      * @covers ::getRequest
      * @covers ::getResponse

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTest\Api\Client\Endpoint\Mod;
+namespace FactorioItemBrowserTest\Api\Client\Endpoint\Combination;
 
-use FactorioItemBrowser\Api\Client\Endpoint\Mod\ModMetaEndpoint;
-use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
-use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
+use FactorioItemBrowser\Api\Client\Endpoint\Combination\CombinationStatusEndpoint;
+use FactorioItemBrowser\Api\Client\Request\Combination\CombinationStatusRequest;
+use FactorioItemBrowser\Api\Client\Response\Combination\CombinationStatusResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
- * The PHPUnit test of the ModMetaEndpoint class.
+ * The PHPUnit test of the CombinationStatusEndpoint class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Mod\ModMetaEndpoint
+ * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Combination\CombinationStatusEndpoint
  */
-class ModMetaEndpointTest extends TestCase
+class CombinationStatusEndpointTest extends TestCase
 {
     /**
      * Tests the getSupportedRequestClass method.
@@ -24,10 +24,10 @@ class ModMetaEndpointTest extends TestCase
      */
     public function testGetSupportedRequestClass(): void
     {
-        $endpoint = new ModMetaEndpoint();
+        $endpoint = new CombinationStatusEndpoint();
         $result = $endpoint->getSupportedRequestClass();
 
-        $this->assertSame(ModMetaRequest::class, $result);
+        $this->assertSame(CombinationStatusRequest::class, $result);
     }
 
     /**
@@ -36,7 +36,7 @@ class ModMetaEndpointTest extends TestCase
      */
     public function testRequiresAuthorizationToken(): void
     {
-        $endpoint = new ModMetaEndpoint();
+        $endpoint = new CombinationStatusEndpoint();
         $result = $endpoint->requiresAuthorizationToken();
 
         $this->assertTrue($result);
@@ -48,10 +48,10 @@ class ModMetaEndpointTest extends TestCase
      */
     public function testGetRequestPath(): void
     {
-        $endpoint = new ModMetaEndpoint();
+        $endpoint = new CombinationStatusEndpoint();
         $result = $endpoint->getRequestPath();
 
-        $this->assertSame('mod/meta', $result);
+        $this->assertSame('combination/status', $result);
     }
 
     /**
@@ -60,9 +60,9 @@ class ModMetaEndpointTest extends TestCase
      */
     public function testGetResponseClass(): void
     {
-        $endpoint = new ModMetaEndpoint();
+        $endpoint = new CombinationStatusEndpoint();
         $result = $endpoint->getResponseClass();
 
-        $this->assertSame(ModMetaResponse::class, $result);
+        $this->assertSame(CombinationStatusResponse::class, $result);
     }
 }

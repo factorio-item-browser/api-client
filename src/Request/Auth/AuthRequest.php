@@ -15,42 +15,16 @@ use FactorioItemBrowser\Api\Client\Request\RequestInterface;
 class AuthRequest implements RequestInterface
 {
     /**
-     * The agent to use for the API.
-     * @var string
-     */
-    protected $agent = '';
-
-    /**
      * The access key to the API.
      * @var string
      */
     protected $accessKey = '';
 
     /**
-     * The internal names of the mods to enable.
+     * The names of the mods to enable.
      * @var array|string[]
      */
-    protected $enabledModNames = [];
-
-    /**
-     * Sets the agent to use for the API.
-     * @param string $agent
-     * @return $this
-     */
-    public function setAgent(string $agent): self
-    {
-        $this->agent = $agent;
-        return $this;
-    }
-
-    /**
-     * Returns the the agent to use for the API.
-     * @return string
-     */
-    public function getAgent(): string
-    {
-        return $this->agent;
-    }
+    protected $modNames = [];
 
     /**
      * Sets the access key to the API.
@@ -73,22 +47,22 @@ class AuthRequest implements RequestInterface
     }
 
     /**
-     * Sets the internal names of the mods to enable.
-     * @param array|string[] $enabledModNames
+     * Sets the names of the mods to enable.
+     * @param array|string[] $modNames
      * @return $this
      */
-    public function setEnabledModNames(array $enabledModNames): self
+    public function setModNames(array $modNames): self
     {
-        $this->enabledModNames = $enabledModNames;
+        $this->modNames = $modNames;
         return $this;
     }
 
     /**
-     * Returns the the internal names of the mods to enable.
+     * Returns the names of the mods to enable.
      * @return array|string[]
      */
-    public function getEnabledModNames()
+    public function getModNames()
     {
-        return $this->enabledModNames;
+        return $this->modNames;
     }
 }

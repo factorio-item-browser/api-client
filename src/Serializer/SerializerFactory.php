@@ -11,7 +11,7 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory for the JMS serializer.
@@ -25,7 +25,7 @@ class SerializerFactory implements FactoryInterface
      * Creates the serializer.
      * @param ContainerInterface $container
      * @param string $requestedName
-     * @param array|null $options
+     * @param  array<mixed>|null $options
      * @return SerializerInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): SerializerInterface

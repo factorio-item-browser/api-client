@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Entity\Icon;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the icon class.
@@ -34,7 +33,6 @@ class IconTest extends TestCase
 
     /**
      * Tests setting, adding and getting the recipes.
-     * @throws ReflectionException
      * @covers ::addEntity
      * @covers ::setEntities
      * @covers ::getEntities

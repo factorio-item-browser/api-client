@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Mod;
 
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the ModListResponse class.
@@ -28,16 +28,14 @@ class ModListResponseTest extends SerializerTestCase
              ->setLabel('def')
              ->setDescription('ghi')
              ->setAuthor('jkl')
-             ->setVersion('1.2.3')
-             ->setIsEnabled(true);
+             ->setVersion('1.2.3');
 
         $mod2 = new Mod();
         $mod2->setName('mno')
              ->setLabel('pqr')
              ->setDescription('stu')
              ->setAuthor('vwx')
-             ->setVersion('4.5.6')
-             ->setIsEnabled(false);
+             ->setVersion('4.5.6');
 
 
         $result = new ModListResponse();
@@ -48,7 +46,7 @@ class ModListResponseTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
@@ -56,19 +54,17 @@ class ModListResponseTest extends SerializerTestCase
             'mods' => [
                 [
                     'name' => 'abc',
-                    'label'=> 'def',
+                    'label' => 'def',
                     'description' => 'ghi',
                     'author' => 'jkl',
                     'version' => '1.2.3',
-                    'isEnabled' => true,
                 ],
                 [
                     'name' => 'mno',
-                    'label'=> 'pqr',
+                    'label' => 'pqr',
                     'description' => 'stu',
                     'author' => 'vwx',
                     'version' => '4.5.6',
-                    'isEnabled' => false,
                 ],
             ]
         ];

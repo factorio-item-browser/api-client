@@ -1,0 +1,6 @@
+FactorioItemBrowser\Api\Client\Response\Export\ExportCreateResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    export:
+      type: FactorioItemBrowser\Api\Client\Entity\Export

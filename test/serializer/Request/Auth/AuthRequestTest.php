@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Auth;
 
 use FactorioItemBrowser\Api\Client\Request\Auth\AuthRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the AuthRequest class.
@@ -23,22 +23,20 @@ class AuthRequestTest extends SerializerTestCase
     protected function getObject(): object
     {
         $result = new AuthRequest();
-        $result->setAgent('abc')
-               ->setAccessKey('def')
-               ->setEnabledModNames(['ghi', 'jkl']);
+        $result->setAccessKey('abc')
+               ->setModNames(['def', 'ghi']);
         return $result;
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
-            'agent' => 'abc',
-            'accessKey' => 'def',
-            'enabledModNames' => ['ghi', 'jkl'],
+            'accessKey' => 'abc',
+            'modNames' => ['def', 'ghi'],
         ];
     }
 }

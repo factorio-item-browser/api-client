@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the generic icon request class.
@@ -32,7 +31,6 @@ class GenericIconRequestTest extends TestCase
 
     /**
      * Tests the setting and getting the entities.
-     * @throws ReflectionException
      * @covers ::addEntity
      * @covers ::getEntities
      * @covers ::setEntities

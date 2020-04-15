@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Item;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the ItemIngredientResponse class.
@@ -38,12 +38,12 @@ class ItemIngredientResponseTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
-            'item' =>[
+            'item' => [
                 'type' => 'abc',
                 'name' => 'def',
                 'label' => 'ghi',

@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/factorio-item-browser/api-client/v/stable)](https://packagist.org/packages/factorio-item-browser/api-client) 
 [![License](https://poser.pugx.org/factorio-item-browser/api-client/license)](https://packagist.org/packages/factorio-item-browser/api-client) 
-[![Build Status](https://travis-ci.org/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.org/factorio-item-browser/api-client) 
+[![Build Status](https://travis-ci.com/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.com/factorio-item-browser/api-client) 
 [![codecov](https://codecov.io/gh/factorio-item-browser/api-client/branch/master/graph/badge.svg)](https://codecov.io/gh/factorio-item-browser/api-client)
 
 This library implements a PHP client to the API of the Factorio Item Browser to access the data of the browser.
@@ -61,10 +61,8 @@ return [
             ConfigKey::OPTIONS => [
                 // The URL to the API server, including a trailing slash.
                 ConfigKey::OPTION_API_URL => 'https://www.factorio-item-browser.com/api/',
-                // The agent to use for authorizing at the API server.
-                ConfigKey::OPTION_AGENT => 'demo',
                 // The access key of the agent.
-                ConfigKey::OPTION_ACCESS_KEY => 'factorio-item-browser',
+                ConfigKey::OPTION_ACCESS_KEY => 'demo',
                 // The timeout in seconds to use for the requests.
                 ConfigKey::OPTION_TIMEOUT => 10,
             ],
@@ -93,7 +91,7 @@ $apiClient = $container->get(ApiClientInterface::class);
 
 // Set the names of the mods to be enabled. Whenever the authorization token times out,
 // these mods will be used to re-create it.
-$apiClient->setEnabledModNames(['base']);
+$apiClient->setModNames(['base']);
 
 // The API will translate names and descriptions, as long as the mods are providing them.
 // The locale codes are the same as in the game.

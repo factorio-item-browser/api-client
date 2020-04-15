@@ -81,7 +81,7 @@ class ApiClient implements ApiClientInterface
     ) {
         $this->endpointService = $endpointService;
         $this->guzzleClient = $guzzleClient;
-        $this->options = $options;
+        $this->options = clone($options);
         $this->serializer = $serializer;
     }
 
@@ -95,12 +95,12 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
-     * Sets the mod names to enabled on authorization.
-     * @param array|string[] $enabledModNames
+     * Sets the mod names to use on authorization.
+     * @param array|string[] $modNames
      */
-    public function setEnabledModNames(array $enabledModNames): void
+    public function setModNames(array $modNames): void
     {
-        $this->options->setEnabledModNames($enabledModNames);
+        $this->options->setModNames($modNames);
     }
 
     /**
@@ -252,9 +252,8 @@ class ApiClient implements ApiClientInterface
         $result = $this->options->getAuthorizationToken();
         if ($result === '') {
             $authRequest = new AuthRequest();
-            $authRequest->setAgent($this->options->getAgent())
-                        ->setAccessKey($this->options->getAccessKey())
-                        ->setEnabledModNames($this->options->getEnabledModNames());
+            $authRequest->setAccessKey($this->options->getAccessKey())
+                        ->setModNames($this->options->getModNames());
 
             $authResponse = $this->fetchResponse($authRequest);
             if ($authResponse instanceof AuthResponse) {
@@ -281,8 +280,11 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->endpointService->getEndpointForRequest($request);
         $responseContents = $this->getContentsFromMessage($clientResponse);
 
+        /** @var class-string<ResponseInterface> $responseClass */
+        $responseClass = $endpoint->getResponseClass();
+
         try {
-            $result = $this->serializer->deserialize($responseContents, $endpoint->getResponseClass(), 'json');
+            $result = $this->serializer->deserialize($responseContents, $responseClass, 'json');
         } catch (Exception $e) {
             $requestContents = $this->getContentsFromMessage($clientRequest);
             throw new InvalidResponseException($e->getMessage(), $requestContents, $responseContents, $e);
@@ -324,11 +326,9 @@ class ApiClient implements ApiClientInterface
     {
         $result = $fallbackMessage;
         try {
+            /* @var ErrorResponse $errorResponse */
             $errorResponse = $this->serializer->deserialize($responseContents, ErrorResponse::class, 'json');
-
-            if ($errorResponse instanceof ErrorResponse) {
-                $result = $errorResponse->getError()->getMessage();
-            }
+            $result = $errorResponse->getError()->getMessage();
         } catch (Exception $e) {
             // Failed to decode error response.
         }

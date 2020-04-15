@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\Error;
 use FactorioItemBrowser\Api\Client\Response\ErrorResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the ErrorResponse class.
@@ -32,7 +31,6 @@ class ErrorResponseTest extends TestCase
 
     /**
      * Tests the setting and getting the error.
-     * @throws ReflectionException
      * @covers ::getError
      * @covers ::setError
      */

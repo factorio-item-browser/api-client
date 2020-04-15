@@ -27,12 +27,6 @@ class Mod extends GenericEntity
     protected $version = '';
 
     /**
-     * Whether the mod is currently enabled.
-     * @var bool
-     */
-    protected $isEnabled = false;
-
-    /**
      * Returns the type of the entity.
      * @return string
      */
@@ -79,25 +73,5 @@ class Mod extends GenericEntity
     public function getVersion(): string
     {
         return $this->version;
-    }
-
-    /**
-     * Sets whether the mod is currently enabled.
-     * @param bool $isEnabled
-     * @return $this Implementing fluent interface.
-     */
-    public function setIsEnabled(bool $isEnabled): self
-    {
-        $this->isEnabled = $isEnabled;
-        return $this;
-    }
-
-    /**
-     * Returns whether the mod is currently enabled.
-     * @return bool
-     */
-    public function getIsEnabled(): bool
-    {
-        return $this->isEnabled;
     }
 }

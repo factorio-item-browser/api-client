@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the generic details response class.
@@ -32,7 +31,6 @@ class GenericDetailsResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the entities.
-     * @throws ReflectionException
      * @covers ::addEntity
      * @covers ::setEntities
      * @covers ::getEntities

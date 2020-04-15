@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Entity;
 
 use FactorioItemBrowser\Api\Client\Entity\Machine;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the Machine class.
@@ -39,13 +39,13 @@ class MachineTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
             'name' => 'abc',
-            'label'=> 'def',
+            'label' => 'def',
             'description' => 'ghi',
             'craftingSpeed' => 13.37,
             'numberOfItemSlots' => 12,

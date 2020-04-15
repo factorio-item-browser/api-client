@@ -8,7 +8,6 @@ use Exception;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the not found exception class.
@@ -21,7 +20,6 @@ class NotFoundExceptionTest extends TestCase
 {
     /**
      * Tests the constructing.
-     * @throws ReflectionException
      * @covers ::__construct
      */
     public function testConstruct(): void

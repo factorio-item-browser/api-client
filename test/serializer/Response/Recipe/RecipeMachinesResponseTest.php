@@ -6,7 +6,7 @@ namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Recipe;
 
 use FactorioItemBrowser\Api\Client\Entity\Machine;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the RecipeMachinesResponse class.
@@ -56,7 +56,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
@@ -64,7 +64,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
             'machines' => [
                 [
                     'name' => 'abc',
-                    'label'=> 'def',
+                    'label' => 'def',
                     'description' => 'ghi',
                     'craftingSpeed' => 13.37,
                     'numberOfItemSlots' => 12,
@@ -76,7 +76,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
                 ],
                 [
                     'name' => 'mno',
-                    'label'=> 'pqr',
+                    'label' => 'pqr',
                     'description' => 'stu',
                     'craftingSpeed' => 73.31,
                     'numberOfItemSlots' => 56,

@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the search query response class.
@@ -34,7 +33,6 @@ class SearchQueryResponseTest extends TestCase
 
     /**
      * Tests setting, adding and getting the results.
-     * @throws ReflectionException
      * @covers ::addResult
      * @covers ::setResults
      * @covers ::getResults

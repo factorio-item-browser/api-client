@@ -43,11 +43,6 @@ interface ConfigKey
     public const OPTION_API_URL = 'api-url';
 
     /**
-     * The key for the agent option.
-     */
-    public const OPTION_AGENT = 'agent';
-
-    /**
      * The key for the access key option.
      */
     public const OPTION_ACCESS_KEY = 'access-key';

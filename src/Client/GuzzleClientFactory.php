@@ -7,7 +7,7 @@ namespace FactorioItemBrowser\Api\Client\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the Guzzle client.
@@ -21,7 +21,7 @@ class GuzzleClientFactory implements FactoryInterface
      * Creates the Guzzle client.
      * @param  ContainerInterface $container
      * @param  string $requestedName
-     * @param  null|array $options
+     * @param  array<mixed>|null $options
      * @return ClientInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ClientInterface

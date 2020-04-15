@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Mod;
 
 use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the ModListRequest class.
@@ -22,13 +22,12 @@ class ModListRequestTest extends SerializerTestCase
      */
     protected function getObject(): object
     {
-        $result = new ModListRequest();
-        return $result;
+        return new ModListRequest();
     }
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {

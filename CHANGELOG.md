@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.0.0 - 2020-04-15
+
+### Added
+
+- New `/combination/status` and `/combination/export` requests.
+
+### Changed
+
+- `enabledModNames` to `modNames` in the `/auth` request and the client itself.
+- Version of `jms/serializer` to 3.2 or newer. 
+
+### Removed
+
+- No longer required `agent` from the `/auth` request and the client itself.
+- No longer supported `/mod/meta` request.
+- No longer supported `isEnabled` flag from the `Mod` entity.
+
 ## 2.1.0 - 2019-07-15
 
 ### Added

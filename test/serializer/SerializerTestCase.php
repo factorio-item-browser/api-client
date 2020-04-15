@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestAsset\Api\Client;
+namespace FactorioItemBrowserTestSerializer\Api\Client;
 
 use FactorioItemBrowser\Api\Client\Serializer\SerializerFactory;
 use Interop\Container\ContainerInterface;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The test case for the serializing and deserializing of objects.
@@ -22,7 +21,6 @@ abstract class SerializerTestCase extends TestCase
     /**
      * Creates and returns the serializer.
      * @return SerializerInterface
-     * @throws ReflectionException
      */
     protected function createSerializer(): SerializerInterface
     {
@@ -35,7 +33,6 @@ abstract class SerializerTestCase extends TestCase
 
     /**
      * Tests the serializing.
-     * @throws ReflectionException
      */
     public function testSerialize(): void
     {
@@ -50,7 +47,6 @@ abstract class SerializerTestCase extends TestCase
 
     /**
      * Tests the deserializing.
-     * @throws ReflectionException
      */
     public function testDeserialize(): void
     {
@@ -71,7 +67,7 @@ abstract class SerializerTestCase extends TestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     abstract protected function getData(): array;
 }

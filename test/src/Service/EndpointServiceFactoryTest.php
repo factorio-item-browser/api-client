@@ -27,7 +27,6 @@ class EndpointServiceFactoryTest extends TestCase
 
     /**
      * Tests the invoking.
-     * @throws ReflectionException
      * @covers ::__invoke
      */
     public function testInvoke(): void
@@ -57,7 +56,7 @@ class EndpointServiceFactoryTest extends TestCase
 
         /* @var EndpointServiceFactory&MockObject $factory */
         $factory = $this->getMockBuilder(EndpointServiceFactory::class)
-                        ->setMethods(['createEndpoints'])
+                        ->onlyMethods(['createEndpoints'])
                         ->getMock();
         $factory->expects($this->once())
                 ->method('createEndpoints')

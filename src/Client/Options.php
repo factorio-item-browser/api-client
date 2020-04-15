@@ -19,12 +19,6 @@ class Options
     protected $apiUrl = '';
 
     /**
-     * The agent to use for authorization.
-     * @var string
-     */
-    protected $agent = '';
-
-    /**
      * The access key required for authorization.
      * @var string
      */
@@ -46,7 +40,7 @@ class Options
      * The mod names to enable.
      * @var array|string[]
      */
-    protected $enabledModNames = [];
+    protected $modNames = [];
 
     /**
      * The already fetched authorization token.
@@ -72,26 +66,6 @@ class Options
     public function getApiUrl(): string
     {
         return $this->apiUrl;
-    }
-
-    /**
-     * Sets the agent to use for authorization.
-     * @param string $agent
-     * @return $this
-     */
-    public function setAgent(string $agent): self
-    {
-        $this->agent = $agent;
-        return $this;
-    }
-
-    /**
-     * Returns the agent to use for authorization.
-     * @return string
-     */
-    public function getAgent(): string
-    {
-        return $this->agent;
     }
 
     /**
@@ -156,12 +130,12 @@ class Options
 
     /**
      * Sets the mod names to enable.
-     * @param array|string[] $enabledModNames
+     * @param array|string[] $modNames
      * @return $this
      */
-    public function setEnabledModNames(array $enabledModNames)
+    public function setModNames(array $modNames)
     {
-        $this->enabledModNames = $enabledModNames;
+        $this->modNames = $modNames;
         return $this;
     }
 
@@ -169,9 +143,9 @@ class Options
      * Returns the mod names to enable.
      * @return array|string[]
      */
-    public function getEnabledModNames(): array
+    public function getModNames(): array
     {
-        return $this->enabledModNames;
+        return $this->modNames;
     }
 
     /**

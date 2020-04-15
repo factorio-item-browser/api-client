@@ -31,7 +31,7 @@ class ConstantTypeExclusionStrategyTest extends TestCase
 
     /**
      * Provides the data for the shouldSkipClass test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideShouldSkipClass(): array
     {
@@ -46,13 +46,13 @@ class ConstantTypeExclusionStrategyTest extends TestCase
 
     /**
      * Tests the shouldSkipClass method.
-     * @param string $className
+     * @param class-string $className
      * @param bool $expectedIsCurrentlyExcluded
      * @throws ReflectionException
      * @covers ::shouldSkipClass
      * @dataProvider provideShouldSkipClass
      */
-    public function testShouldSkipClass(string $className, bool $expectedIsCurrentlyExcluded): void
+    public function testShouldSkipClass($className, bool $expectedIsCurrentlyExcluded): void
     {
         $metaData = new ClassMetadata($className);
 
@@ -68,7 +68,7 @@ class ConstantTypeExclusionStrategyTest extends TestCase
 
     /**
      * Provides the data for the shouldSkipProperty test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideShouldSkipProperty(): array
     {

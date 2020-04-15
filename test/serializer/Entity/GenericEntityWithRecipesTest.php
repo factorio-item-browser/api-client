@@ -8,7 +8,7 @@ use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Entity\Item;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
-use FactorioItemBrowserTestAsset\Api\Client\SerializerTestCase;
+use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
  * The PHPUnit test of serializing the GenericEntityWithRecipes class.
@@ -85,26 +85,26 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
 
     /**
      * Returns the serialized data.
-     * @return array
+     * @return array<mixed>
      */
     protected function getData(): array
     {
         return [
             'type' => 'uvw',
             'name' => 'xyz',
-            'label'=> 'cba',
+            'label' => 'cba',
             'description' => 'fed',
             'recipes' => [
                 [
                     'name' => 'ijk',
-                    'label'=> 'lmn',
+                    'label' => 'lmn',
                     'description' => 'opq',
                     'mode' => 'rst',
                     'ingredients' => [
                         [
                             'type' => 'mno',
                             'name' => 'pqr',
-                            'label'=> 'stu',
+                            'label' => 'stu',
                             'description' => 'vwx',
                             'amount' => 2.3,
                         ],
@@ -113,7 +113,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                         [
                             'type' => 'klm',
                             'name' => 'nop',
-                            'label'=> 'qrs',
+                            'label' => 'qrs',
                             'description' => 'tuv',
                             'amount' => 4.5,
                         ],
@@ -121,14 +121,14 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                     'craftingTime' => 73.31,
                     'expensiveVersion' => [
                         'name' => 'wxy',
-                        'label'=> 'zab',
+                        'label' => 'zab',
                         'description' => 'cde',
                         'mode' => 'fgh',
                         'ingredients' => [
                             [
                                 'type' => 'abc',
                                 'name' => 'def',
-                                'label'=> 'ghi',
+                                'label' => 'ghi',
                                 'description' => 'jkl',
                                 'amount' => 1.2,
                             ],
@@ -137,7 +137,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                             [
                                 'type' => 'yza',
                                 'name' => 'bcd',
-                                'label'=> 'efg',
+                                'label' => 'efg',
                                 'description' => 'hij',
                                 'amount' => 3.4,
                             ],
