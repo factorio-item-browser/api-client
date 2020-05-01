@@ -27,10 +27,12 @@ return [
             Endpoint\Generic\GenericDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericIconEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemIngredientEndpoint::class => InvokableFactory::class,
+            Endpoint\Item\ItemListEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemProductEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemRandomEndpoint::class => InvokableFactory::class,
             Endpoint\Mod\ModListEndpoint::class => InvokableFactory::class,
             Endpoint\Recipe\RecipeDetailsEndpoint::class => InvokableFactory::class,
+            Endpoint\Recipe\RecipeListEndpoint::class => InvokableFactory::class,
             Endpoint\Recipe\RecipeMachinesEndpoint::class => InvokableFactory::class,
             Endpoint\Search\SearchQueryEndpoint::class => InvokableFactory::class,
 

@@ -1,0 +1,8 @@
+FactorioItemBrowser\Api\Client\Response\Recipe\RecipeListResponse:
+  access_type: public_method
+  exclusion_policy: all
+  properties:
+    recipes:
+      type: array<FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion>
+    totalNumberOfResults:
+      type: integer
