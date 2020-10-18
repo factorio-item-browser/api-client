@@ -24,6 +24,7 @@ return [
             Endpoint\Auth\AuthEndpoint::class => InvokableFactory::class,
             Endpoint\Combination\CombinationExportEndpoint::class => InvokableFactory::class,
             Endpoint\Combination\CombinationStatusEndpoint::class => InvokableFactory::class,
+            Endpoint\Combination\CombinationValidateEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericIconEndpoint::class => InvokableFactory::class,
             Endpoint\Item\ItemIngredientEndpoint::class => InvokableFactory::class,
