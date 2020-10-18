@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response\Combination;
 
 use FactorioItemBrowser\Api\Client\Entity\ValidatedMod;
+use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
 
 /**
  * The response of the combination validate request.
@@ -12,7 +13,7 @@ use FactorioItemBrowser\Api\Client\Entity\ValidatedMod;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class CombinationValidateResponse
+class CombinationValidateResponse implements ResponseInterface
 {
     /**
      * Whether the combination of mods is valid.
