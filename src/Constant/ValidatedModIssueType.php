@@ -13,9 +13,9 @@ namespace FactorioItemBrowser\Api\Client\Constant;
 interface ValidatedModIssueType
 {
     /**
-     * The mod does not have any issues.
+     * The mod is in conflict with another mod.
      */
-    public const NONE = 'none';
+    public const CONFLICT = 'conflict';
 
     /**
      * The mod is missing a mandatory dependency.
@@ -23,9 +23,14 @@ interface ValidatedModIssueType
     public const MISSING_DEPENDENCY = 'missing-dependency';
 
     /**
-     * The mod is in conflict with another mod.
+     * The mod is missing a valid release which can be used.
      */
-    public const CONFLICT = 'conflict';
+    public const MISSING_RELEASE = 'missing-release';
+
+    /**
+     * The mod does not have any issues.
+     */
+    public const NONE = 'none';
 
     /**
      * The mod was not found in the mod portal.
