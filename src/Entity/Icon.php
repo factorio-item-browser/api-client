@@ -60,7 +60,7 @@ class Icon
     {
         return $this->entities;
     }
-    
+
     /**
      * Sets the contents of the icon file.
      * @param string $content

@@ -72,7 +72,7 @@ class ExportJobTest extends TestCase
         $this->assertSame($entity, $entity->setImportTime($importTime));
         $this->assertSame($importTime, $entity->getImportTime());
     }
-    
+
     /**
      * Tests the setting and getting the error message.
      * @covers ::getErrorMessage
@@ -82,7 +82,7 @@ class ExportJobTest extends TestCase
     {
         $errorMessage = 'abc';
         $entity = new ExportJob();
-    
+
         $this->assertSame($entity, $entity->setErrorMessage($errorMessage));
         $this->assertSame($errorMessage, $entity->getErrorMessage());
     }
