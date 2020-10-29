@@ -23,6 +23,11 @@ interface ValidatedModIssueType
     public const MISSING_DEPENDENCY = 'missing-dependency';
 
     /**
+     * The mod is missing on the mod portal.
+     */
+    public const MISSING_MOD = 'missing-mod';
+
+    /**
      * The mod is missing a valid release which can be used.
      */
     public const MISSING_RELEASE = 'missing-release';
@@ -31,9 +36,4 @@ interface ValidatedModIssueType
      * The mod does not have any issues.
      */
     public const NONE = 'none';
-
-    /**
-     * The mod was not found in the mod portal.
-     */
-    public const NOT_FOUND = 'not-found';
 }
