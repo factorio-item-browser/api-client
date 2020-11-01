@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0 - 2020-11-01
+
+### Added
+
+- New `/combination/validate` request.
+
 ## 3.1.0 - 2020-05-02
 
 ### Added
