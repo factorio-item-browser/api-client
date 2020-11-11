@@ -1,9 +1,11 @@
-# Factorio Item Browser - API Client
+![Factorio Item Browser](https://raw.githubusercontent.com/factorio-item-browser/documentation/master/asset/image/logo.png) 
 
-[![Latest Stable Version](https://poser.pugx.org/factorio-item-browser/api-client/v/stable)](https://packagist.org/packages/factorio-item-browser/api-client) 
-[![License](https://poser.pugx.org/factorio-item-browser/api-client/license)](https://packagist.org/packages/factorio-item-browser/api-client) 
-[![Build Status](https://travis-ci.com/factorio-item-browser/api-client.svg?branch=master)](https://travis-ci.com/factorio-item-browser/api-client) 
-[![codecov](https://codecov.io/gh/factorio-item-browser/api-client/branch/master/graph/badge.svg)](https://codecov.io/gh/factorio-item-browser/api-client)
+# API Client Library
+
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/factorio-item-browser/api-client)](https://github.com/factorio-item-browser/api-client/releases)
+[![GitHub](https://img.shields.io/github/license/factorio-item-browser/api-client)](LICENSE.md)
+[![build](https://img.shields.io/github/workflow/status/factorio-item-browser/api-client/CI?logo=github)](https://github.com/factorio-item-browser/api-client/actions)
+[![Codecov](https://img.shields.io/codecov/c/gh/factorio-item-browser/api-client?logo=codecov)](https://codecov.io/gh/factorio-item-browser/api-client)
 
 This library implements a PHP client to the API of the Factorio Item Browser to access the data of the browser.
 
@@ -38,7 +40,7 @@ automatically if it has not been done yet for the request.
 
 ## Usage
 
-The client is set up to be used within a Zend Expressive project. Using it in another context requires an additional
+The client is set up to be used within a Laminas project. Using it in another context requires an additional
 setup which is not covered in this README.
 
 To use the client, add the `FactorioItemBrowser\Api\Client\ConfigProvider` to the config aggregator of your project.
