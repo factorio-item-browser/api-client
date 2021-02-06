@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Recipe\RecipeMachinesEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Recipe\RecipeMachinesEndpoint
  */
 class RecipeMachinesEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new RecipeMachinesEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new RecipeMachinesRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(RecipeMachinesRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new RecipeMachinesEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new RecipeMachinesEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('recipe/machines', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new RecipeMachinesEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(RecipeMachinesResponse::class, $result);
+        $instance = new RecipeMachinesEndpoint();
+        $this->assertSame(RecipeMachinesRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/recipe/machines', $instance->getRequestPath($request));
+        $this->assertSame(RecipeMachinesResponse::class, $instance->getResponseClass());
     }
 }

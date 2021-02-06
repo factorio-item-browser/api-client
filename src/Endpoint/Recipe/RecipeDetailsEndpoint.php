@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Endpoint\Recipe;
 
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
+use FactorioItemBrowser\Api\Client\Request\AbstractRequest;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 
@@ -13,40 +14,21 @@ use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ *
+ * @implements EndpointInterface<RecipeDetailsRequest, RecipeDetailsResponse>
  */
 class RecipeDetailsEndpoint implements EndpointInterface
 {
-    /**
-     * Returns the request class supported by the endpoint.
-     * @return string
-     */
-    public function getSupportedRequestClass(): string
+    public function getHandledRequestClass(): string
     {
         return RecipeDetailsRequest::class;
     }
 
-    /**
-     * Returns whether or not this endpoint requires an authorization token.
-     * @return bool
-     */
-    public function requiresAuthorizationToken(): bool
+    public function getRequestPath(AbstractRequest $request): string
     {
-        return true;
+        return "{$request->combinationId}/recipe/details";
     }
 
-    /**
-     * Returns the request path of the endpoint.
-     * @return string
-     */
-    public function getRequestPath(): string
-    {
-        return 'recipe/details';
-    }
-
-    /**
-     * Creates the response of the endpoint.
-     * @return string
-     */
     public function getResponseClass(): string
     {
         return RecipeDetailsResponse::class;

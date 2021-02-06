@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemListEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemListEndpoint
  */
 class ItemListEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new ItemListEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new ItemListRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(ItemListRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new ItemListEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new ItemListEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('item/list', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new ItemListEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(ItemListResponse::class, $result);
+        $instance = new ItemListEndpoint();
+        $this->assertSame(ItemListRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/item/list', $instance->getRequestPath($request));
+        $this->assertSame(ItemListResponse::class, $instance->getResponseClass());
     }
 }

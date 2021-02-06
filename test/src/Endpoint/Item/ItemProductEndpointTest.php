@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemProductEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemProductEndpoint
  */
 class ItemProductEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new ItemProductEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new ItemProductRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(ItemProductRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new ItemProductEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new ItemProductEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('item/product', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new ItemProductEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(ItemProductResponse::class, $result);
+        $instance = new ItemProductEndpoint();
+        $this->assertSame(ItemProductRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/item/product', $instance->getRequestPath($request));
+        $this->assertSame(ItemProductResponse::class, $instance->getResponseClass());
     }
 }

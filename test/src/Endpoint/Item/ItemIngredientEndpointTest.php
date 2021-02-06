@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemIngredientEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemIngredientEndpoint
  */
 class ItemIngredientEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new ItemIngredientEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new ItemIngredientRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(ItemIngredientRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new ItemIngredientEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new ItemIngredientEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('item/ingredient', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new ItemIngredientEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(ItemIngredientResponse::class, $result);
+        $instance = new ItemIngredientEndpoint();
+        $this->assertSame(ItemIngredientRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/item/ingredient', $instance->getRequestPath($request));
+        $this->assertSame(ItemIngredientResponse::class, $instance->getResponseClass());
     }
 }

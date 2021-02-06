@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Mod\ModListEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Mod\ModListEndpoint
  */
 class ModListEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new ModListEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new ModListRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(ModListRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new ModListEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new ModListEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('mod/list', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new ModListEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(ModListResponse::class, $result);
+        $instance = new ModListEndpoint();
+        $this->assertSame(ModListRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/mod/list', $instance->getRequestPath($request));
+        $this->assertSame(ModListResponse::class, $instance->getResponseClass());
     }
 }

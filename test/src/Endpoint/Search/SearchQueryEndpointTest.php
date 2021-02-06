@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Search\SearchQueryEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Search\SearchQueryEndpoint
  */
 class SearchQueryEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new SearchQueryEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new SearchQueryRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(SearchQueryRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new SearchQueryEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new SearchQueryEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('search/query', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new SearchQueryEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(SearchQueryResponse::class, $result);
+        $instance = new SearchQueryEndpoint();
+        $this->assertSame(SearchQueryRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/search/query', $instance->getRequestPath($request));
+        $this->assertSame(SearchQueryResponse::class, $instance->getResponseClass());
     }
 }
