@@ -8,7 +8,6 @@ use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,14 +15,10 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler
+ * @covers \FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler
  */
 class Base64HandlerTest extends TestCase
 {
-    /**
-     * Tests the getSubscribingMethods method.
-     * @covers ::getSubscribingMethods
-     */
     public function testGetSubscribingMethods(): void
     {
         $expectedResult = [
@@ -45,10 +40,6 @@ class Base64HandlerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * Tests the serializeBase64 method.
-     * @covers ::serializeBase64
-     */
     public function testSerializeBase64(): void
     {
         $data = 'abc';
@@ -56,23 +47,18 @@ class Base64HandlerTest extends TestCase
         $visitedString = 'def';
         $type = ['ghi'];
 
-        /* @var SerializationVisitorInterface&MockObject $visitor */
         $visitor = $this->createMock(SerializationVisitorInterface::class);
         $visitor->expects($this->once())
                 ->method('visitString')
                 ->with($this->identicalTo($encodedData), $this->identicalTo($type))
                 ->willReturn($visitedString);
 
-        $handler = new Base64Handler();
-        $result = $handler->serializeBase64($visitor, $data, $type);
+        $instance = new Base64Handler();
+        $result = $instance->serializeBase64($visitor, $data, $type);
 
         $this->assertSame($visitedString, $result);
     }
 
-    /**
-     * Tests the deserializeBase64 method.
-     * @covers ::deserializeBase64
-     */
     public function testDeserializeBase64(): void
     {
         $base64Data = 'abc';
@@ -80,7 +66,6 @@ class Base64HandlerTest extends TestCase
         $decodedString = 'def';
         $type = ['ghi'];
 
-        /* @var DeserializationVisitorInterface&MockObject $visitor */
         $visitor = $this->createMock(DeserializationVisitorInterface::class);
         $visitor->expects($this->once())
                 ->method('visitString')
@@ -88,8 +73,8 @@ class Base64HandlerTest extends TestCase
                 ->willReturn($visitedString);
 
 
-        $handler = new Base64Handler();
-        $result = $handler->deserializeBase64($visitor, $base64Data, $type);
+        $instance = new Base64Handler();
+        $result = $instance->deserializeBase64($visitor, $base64Data, $type);
 
         $this->assertSame($decodedString, $result);
     }

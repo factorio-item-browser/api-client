@@ -21,7 +21,7 @@ class Base64Handler implements SubscribingHandlerInterface
      * Returns the methods to subscribe to.
      * @return array<mixed>
      */
-    public static function getSubscribingMethods()
+    public static function getSubscribingMethods(): array
     {
         return [
             [
@@ -43,7 +43,7 @@ class Base64Handler implements SubscribingHandlerInterface
      * Serializes the data to base64.
      * @param SerializationVisitorInterface $visitor
      * @param string $data
-     * @param array|string[] $type
+     * @param array<mixed> $type
      * @return mixed
      */
     public function serializeBase64(SerializationVisitorInterface $visitor, string $data, array $type)
@@ -55,7 +55,7 @@ class Base64Handler implements SubscribingHandlerInterface
      * Deserializes the base64 string.
      * @param DeserializationVisitorInterface $visitor
      * @param mixed $base64
-     * @param array|string[] $type
+     * @param array<mixed> $type
      * @return string
      */
     public function deserializeBase64(DeserializationVisitorInterface $visitor, $base64, array $type): string

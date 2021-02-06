@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Exception;
 
 use Exception;
-use FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException;
-use PHPUnit\Framework\MockObject\MockObject;
+use FactorioItemBrowser\Api\Client\Exception\UnhandledRequestException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,23 +13,17 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Exception\UnsupportedRequestException
+ * @covers \FactorioItemBrowser\Api\Client\Exception\UnhandledRequestException
  */
-class UnsupportedRequestExceptionTest extends TestCase
+class UnhandledRequestExceptionTest extends TestCase
 {
-    /**
-     * Tests the constructing.
-     * @covers ::__construct
-     */
     public function testConstruct(): void
     {
         $requestClass = 'abc';
-        $expectedMessage = 'The request abc cannot be matched by any endpoint.';
-
-        /* @var Exception&MockObject $previous */
         $previous = $this->createMock(Exception::class);
+        $expectedMessage = 'The request abc is not handled by any endpoint.';
 
-        $exception = new UnsupportedRequestException($requestClass, $previous);
+        $exception = new UnhandledRequestException($requestClass, $previous);
 
         $this->assertSame($expectedMessage, $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

@@ -4,25 +4,23 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTest\Api\Client\Exception;
 
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Exception\BadRequestException;
-use FactorioItemBrowser\Api\Client\Exception\ExceptionFactory;
-use FactorioItemBrowser\Api\Client\Exception\ForbiddenException;
+use FactorioItemBrowser\Api\Client\Exception\ErrorResponseException;
+use FactorioItemBrowser\Api\Client\Exception\ErrorResponseExceptionFactory;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Exception\UnauthorizedException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * The PHPUnit test of the exception factory class.
+ * The PHPUnit test of the ErrorResponseExceptionFactory class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Exception\ExceptionFactory
+ * @covers \FactorioItemBrowser\Api\Client\Exception\ErrorResponseExceptionFactory
  */
-class ExceptionFactoryTest extends TestCase
+class ErrorResponseExceptionFactoryTest extends TestCase
 {
     /**
-     * Provides the data for the create test.
      * @return array<mixed>
      */
     public function provideCreate(): array
@@ -30,23 +28,20 @@ class ExceptionFactoryTest extends TestCase
         return [
             [400, BadRequestException::class],
             [401, UnauthorizedException::class],
-            [403, ForbiddenException::class],
             [404, NotFoundException::class],
-            [500, ApiClientException::class],
-            [0, ApiClientException::class],
+            [500, ErrorResponseException::class],
+            [0, ErrorResponseException::class],
         ];
     }
 
     /**
-     * Tests the create method.
      * @param int $statusCode
-     * @param class-string<ApiClientException> $expectedExceptionClass
-     * @covers ::create
+     * @param class-string $expectedExceptionClass
      * @dataProvider provideCreate
      */
-    public function testCreate(int $statusCode, $expectedExceptionClass): void
+    public function testCreate(int $statusCode, string $expectedExceptionClass): void
     {
-        $exception = ExceptionFactory::create($statusCode, 'abc', 'def', 'ghi');
+        $exception = ErrorResponseExceptionFactory::create($statusCode, 'abc', 'def', 'ghi');
         $this->assertInstanceOf($expectedExceptionClass, $exception);
     }
 }

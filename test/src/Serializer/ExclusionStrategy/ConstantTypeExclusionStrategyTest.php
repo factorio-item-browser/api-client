@@ -14,92 +14,53 @@ use FactorioItemBrowser\Api\Client\Serializer\ExclusionStrategy\ConstantTypeExcl
 use JMS\Serializer\Context;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\Serializer\Metadata\PropertyMetadata;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * The PHPUnit test of the ConstantTypeExclusionStrategy class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Serializer\ExclusionStrategy\ConstantTypeExclusionStrategy
+ * @covers \FactorioItemBrowser\Api\Client\Serializer\ExclusionStrategy\ConstantTypeExclusionStrategy
  */
 class ConstantTypeExclusionStrategyTest extends TestCase
 {
     use ReflectionTrait;
 
     /**
-     * Provides the data for the shouldSkipClass test.
      * @return array<mixed>
      */
-    public function provideShouldSkipClass(): array
+    public function provideShouldSkip(): array
     {
         return [
-            [Entity::class, false],
-            [Item::class, false],
-            [Machine::class, true],
-            [Recipe::class, true],
-            [RecipeWithExpensiveVersion::class, true],
+            [Entity::class, 'name', false],
+            [Entity::class, 'type', false],
+            [Item::class, 'name', false],
+            [Item::class, 'type', false],
+            [Machine::class, 'name', false],
+            [Machine::class, 'type', true],
+            [Recipe::class, 'name', false],
+            [Recipe::class, 'type', true],
+            [RecipeWithExpensiveVersion::class, 'name', false],
+            [RecipeWithExpensiveVersion::class, 'type', true],
         ];
     }
 
     /**
-     * Tests the shouldSkipClass method.
-     * @param class-string $className
-     * @param bool $expectedIsCurrentlyExcluded
-     * @throws ReflectionException
-     * @covers ::shouldSkipClass
-     * @dataProvider provideShouldSkipClass
-     */
-    public function testShouldSkipClass($className, bool $expectedIsCurrentlyExcluded): void
-    {
-        $metaData = new ClassMetadata($className);
-
-        /* @var Context&MockObject $context */
-        $context = $this->createMock(Context::class);
-
-        $strategy = new ConstantTypeExclusionStrategy();
-        $result = $strategy->shouldSkipClass($metaData, $context);
-
-        $this->assertFalse($result);
-        $this->assertSame($expectedIsCurrentlyExcluded, $this->extractProperty($strategy, 'isCurrentlyExcluded'));
-    }
-
-    /**
-     * Provides the data for the shouldSkipProperty test.
-     * @return array<mixed>
-     */
-    public function provideShouldSkipProperty(): array
-    {
-        return [
-            [false, 'abc', false],
-            [true, 'abc', false],
-            [false, 'type', false],
-            [true, 'type', true],
-        ];
-    }
-
-    /**
-     * Tests the shouldSkipProperty method.
-     * @param bool $isCurrentlyExcluded
+     * @param string $className
      * @param string $propertyName
      * @param bool $expectedResult
-     * @throws ReflectionException
-     * @covers ::shouldSkipProperty
-     * @dataProvider provideShouldSkipProperty
+     * @dataProvider provideShouldSkip
      */
-    public function testShouldSkipProperty(bool $isCurrentlyExcluded, string $propertyName, bool $expectedResult): void
+    public function testShouldSkip(string $className, string $propertyName, bool $expectedResult): void
     {
-        $metaData = new PropertyMetadata('foo', $propertyName);
+        $classMetaData = new ClassMetadata($className);
+        $propertyMetaData = new PropertyMetadata('foo', $propertyName);
 
-        /* @var Context&MockObject $context */
         $context = $this->createMock(Context::class);
 
-        $strategy = new ConstantTypeExclusionStrategy();
-        $this->injectProperty($strategy, 'isCurrentlyExcluded', $isCurrentlyExcluded);
-
-        $result = $strategy->shouldSkipProperty($metaData, $context);
-        $this->assertSame($expectedResult, $result);
+        $instance = new ConstantTypeExclusionStrategy();
+        $this->assertFalse($instance->shouldSkipClass($classMetaData, $context));
+        $this->assertSame($expectedResult, $instance->shouldSkipProperty($propertyMetaData, $context));
     }
 }

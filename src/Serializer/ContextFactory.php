@@ -16,14 +16,10 @@ use JMS\Serializer\SerializationContext;
  */
 class ContextFactory implements SerializationContextFactoryInterface
 {
-    /**
-     * Creates and returns the context for serialization.
-     * @return SerializationContext
-     */
     public function createSerializationContext(): SerializationContext
     {
-        $result = new SerializationContext();
-        $result->addExclusionStrategy(new ConstantTypeExclusionStrategy());
-        return $result;
+        $context = new SerializationContext();
+        $context->addExclusionStrategy(new ConstantTypeExclusionStrategy());
+        return $context;
     }
 }

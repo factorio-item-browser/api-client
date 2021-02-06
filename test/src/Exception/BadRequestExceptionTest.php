@@ -6,7 +6,6 @@ namespace FactorioItemBrowserTest\Api\Client\Exception;
 
 use Exception;
 use FactorioItemBrowser\Api\Client\Exception\BadRequestException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,26 +13,21 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Exception\BadRequestException
+ * @covers \FactorioItemBrowser\Api\Client\Exception\BadRequestException
  */
 class BadRequestExceptionTest extends TestCase
 {
-    /**
-     * Tests the constructing.
-     * @covers ::__construct
-     */
     public function testConstruct(): void
     {
         $message = 'abc';
         $request = 'def';
         $response = 'ghi';
-
-        /* @var Exception&MockObject $previous */
+        $expectedMessage = 'The request returned a status code 400: abc';
         $previous = $this->createMock(Exception::class);
 
         $exception = new BadRequestException($message, $request, $response, $previous);
 
-        $this->assertSame($message, $exception->getMessage());
+        $this->assertSame($expectedMessage, $exception->getMessage());
         $this->assertSame(400, $exception->getCode());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());

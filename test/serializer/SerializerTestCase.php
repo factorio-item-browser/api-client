@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client;
 
-use FactorioItemBrowser\Api\Client\Serializer\SerializerFactory;
-use Interop\Container\ContainerInterface;
+use FactorioItemBrowser\Api\Client\Serializer\ContextFactory;
+use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;
+use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
+use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -21,10 +24,18 @@ abstract class SerializerTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $container = $this->createMock(ContainerInterface::class);
+        $builder = new SerializerBuilder();
+        $builder->setMetadataDirs([
+                    'FactorioItemBrowser\Api\Client' => __DIR__ . '/../../config/serializer',
+                ])
+                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
+                ->setSerializationContextFactory(new ContextFactory())
+                ->addDefaultHandlers()
+                ->configureHandlers(function (HandlerRegistry $registry): void {
+                    $registry->registerSubscribingHandler(new Base64Handler());
+                });
 
-        $serializerFactory = new SerializerFactory();
-        $this->serializer = $serializerFactory($container, SerializerInterface::class);
+        $this->serializer = $builder->build();
     }
 
     public function testSerialize(): void
