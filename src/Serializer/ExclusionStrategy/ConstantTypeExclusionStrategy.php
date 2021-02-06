@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Serializer\ExclusionStrategy;
 
-use FactorioItemBrowser\Api\Client\Entity\Machine;
-use FactorioItemBrowser\Api\Client\Entity\Mod;
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
-use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+use FactorioItemBrowser\Api\Client\Transfer\Machine;
+use FactorioItemBrowser\Api\Client\Transfer\Mod;
+use FactorioItemBrowser\Api\Client\Transfer\Recipe;
+use FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion;
 use JMS\Serializer\Context;
 use JMS\Serializer\Exclusion\ExclusionStrategyInterface;
 use JMS\Serializer\Metadata\ClassMetadata;

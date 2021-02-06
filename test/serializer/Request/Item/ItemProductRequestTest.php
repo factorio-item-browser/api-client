@@ -8,32 +8,24 @@ use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the ItemProductRequest class.
+ * The serializer test of the ItemProductRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class ItemProductRequestTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
-        $result = new ItemProductRequest();
-        $result->setType('abc')
-               ->setName('def')
-               ->setNumberOfResults(42)
-               ->setIndexOfFirstResult(21);
-        return $result;
+        $object = new ItemProductRequest();
+        $object->type = 'abc';
+        $object->name = 'def';
+        $object->numberOfResults = 42;
+        $object->indexOfFirstResult = 21;
+
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

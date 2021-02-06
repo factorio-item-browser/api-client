@@ -1,6 +1,5 @@
 FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse:
-  access_type: public_method
   exclusion_policy: all
   properties:
     mods:
-      type: array<FactorioItemBrowser\Api\Client\Entity\Mod>
+      type: array<FactorioItemBrowser\Api\Client\Transfer\Mod>

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace FactorioItemBrowserTest\Api\Client\Serializer\ExclusionStrategy;
 
 use BluePsyduck\TestHelper\ReflectionTrait;
-use FactorioItemBrowser\Api\Client\Entity\Entity;
-use FactorioItemBrowser\Api\Client\Entity\Item;
-use FactorioItemBrowser\Api\Client\Entity\Machine;
-use FactorioItemBrowser\Api\Client\Entity\Recipe;
-use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+use FactorioItemBrowser\Api\Client\Transfer\Entity;
+use FactorioItemBrowser\Api\Client\Transfer\Item;
+use FactorioItemBrowser\Api\Client\Transfer\Machine;
+use FactorioItemBrowser\Api\Client\Transfer\Recipe;
+use FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Serializer\ExclusionStrategy\ConstantTypeExclusionStrategy;
 use JMS\Serializer\Context;
 use JMS\Serializer\Metadata\ClassMetadata;

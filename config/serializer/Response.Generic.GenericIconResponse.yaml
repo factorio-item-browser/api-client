@@ -1,6 +1,5 @@
 FactorioItemBrowser\Api\Client\Response\Generic\GenericIconResponse:
-  access_type: public_method
   exclusion_policy: all
   properties:
     icons:
-      type: array<FactorioItemBrowser\Api\Client\Entity\Icon>
+      type: array<FactorioItemBrowser\Api\Client\Transfer\Icon>

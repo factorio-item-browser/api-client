@@ -1,0 +1,2 @@
+FactorioItemBrowser\Api\Client\Request\AbstractRequest:
+  exclusion_policy: all

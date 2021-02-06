@@ -8,32 +8,24 @@ use FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the SearchQueryRequest class.
+ * The serializer test of the SearchQueryRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class SearchQueryRequestTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
-        $result = new SearchQueryRequest();
-        $result->setQuery('abc')
-               ->setNumberOfResults(42)
-               ->setIndexOfFirstResult(21)
-               ->setNumberOfRecipesPerResult(1337);
-        return $result;
+        $object = new SearchQueryRequest();
+        $object->query = 'abc';
+        $object->numberOfResults = 42;
+        $object->indexOfFirstResult = 21;
+        $object->numberOfRecipesPerResult = 1337;
+
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

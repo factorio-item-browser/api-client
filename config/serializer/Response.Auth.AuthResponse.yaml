@@ -1,6 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Auth\AuthResponse:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    authorizationToken:
-      type: string

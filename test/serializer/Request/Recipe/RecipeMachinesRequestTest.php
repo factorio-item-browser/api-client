@@ -8,31 +8,23 @@ use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the RecipeMachinesRequest class.
+ * The serializer test of the RecipeMachinesRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class RecipeMachinesRequestTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
-        $result = new RecipeMachinesRequest();
-        $result->setName('abc')
-               ->setNumberOfResults(42)
-               ->setIndexOfFirstResult(21);
-        return $result;
+        $object = new RecipeMachinesRequest();
+        $object->name = 'abc';
+        $object->numberOfResults = 42;
+        $object->indexOfFirstResult = 21;
+
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

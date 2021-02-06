@@ -4,47 +4,38 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Generic;
 
-use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Transfer\GenericEntity;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the GenericDetailsResponse class.
+ * The serializer test of the GenericDetailsResponse class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class GenericDetailsResponseTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
         $entity1 = new GenericEntity();
-        $entity1->setType('abc')
-                ->setName('def')
-                ->setLabel('ghi')
-                ->setDescription('jkl');
+        $entity1->type = 'abc';
+        $entity1->name = 'def';
+        $entity1->label = 'ghi';
+        $entity1->description = 'jkl';
 
         $entity2 = new GenericEntity();
-        $entity2->setType('mno')
-                ->setName('pqr')
-                ->setLabel('stu')
-                ->setDescription('vwx');
+        $entity2->type = 'mno';
+        $entity2->name = 'pqr';
+        $entity2->label = 'stu';
+        $entity2->description = 'vwx';
 
-        $result = new GenericDetailsResponse();
-        $result->setEntities([$entity1, $entity2]);
+        $object = new GenericDetailsResponse();
+        $object->entities = [$entity1, $entity2];
 
-        return $result;
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [
