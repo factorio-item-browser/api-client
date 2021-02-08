@@ -241,8 +241,14 @@ class ClientTest extends TestCase
      */
     public function provideSendRequest(): array
     {
+        $errorResponse = [
+            'error' => [
+                'message' => 'response error',
+            ],
+        ];
+
         return [
-            [new Response(500, [], (string) json_encode(['message' => 'response error'])), 'response error'],
+            [new Response(500, [], (string) json_encode($errorResponse)), 'response error'],
             [new Response(500, [], (string) json_encode(['foo' => 'bar'])), 'test exception'],
             [new Response(500, [], '{invalid'), 'test exception'],
             [null, 'test exception'],

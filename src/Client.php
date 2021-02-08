@@ -153,7 +153,7 @@ class Client implements ClientInterface
     {
         try {
             $data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-            return $data['message'] ?? $exception->getMessage();
+            return $data['error']['message'] ?? $exception->getMessage();
         } catch (Exception $e) {
             return $exception->getMessage();
         }
