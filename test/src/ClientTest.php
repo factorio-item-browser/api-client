@@ -56,7 +56,8 @@ class ClientTest extends TestCase
     {
         $request = new TestRequest();
         $request->foo = 'abc';
-        $request->locale = 'foo';
+        $request->combinationId = 'foo';
+        $request->locale = 'bar';
         $response = new TestResponse();
         $response->foo = 'def';
         $serializedRequest = 'cba';
@@ -81,11 +82,11 @@ class ClientTest extends TestCase
 
         $expectedClientRequest = new Request(
             'POST',
-            'test',
+            'foo/test',
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Accept-Language' => 'foo',
+                'Accept-Language' => 'bar',
             ],
             $serializedRequest,
         );
@@ -102,6 +103,63 @@ class ClientTest extends TestCase
                      ->willReturn($promise);
 
         $client = new Client($guzzleClient, $serializer, [$endpoint]);
+        $result = $client->sendRequest($request)->wait();
+        $this->assertEquals($response, $result);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testSendRequestWithDefaults(): void
+    {
+        $request = new TestRequest();
+        $request->foo = 'abc';
+        $response = new TestResponse();
+        $response->foo = 'def';
+        $serializedRequest = 'cba';
+        $serializedResponse = 'fed';
+
+        $endpoint = new TestEndpoint();
+        /** @var EndpointInterface<AbstractRequest, object> $endpoint */
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $serializer->expects($this->once())
+                   ->method('serialize')
+                   ->with($this->identicalTo($request), $this->identicalTo('json'))
+                   ->willReturn($serializedRequest);
+        $serializer->expects($this->once())
+                   ->method('deserialize')
+                   ->with(
+                       $this->identicalTo($serializedResponse),
+                       $this->identicalTo(TestResponse::class),
+                       $this->identicalTo('json'),
+                   )
+                   ->willReturn($response);
+
+        $expectedClientRequest = new Request(
+            'POST',
+            'foo/test',
+            [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Accept-Language' => 'bar',
+            ],
+            $serializedRequest,
+        );
+
+        $promise = new FulfilledPromise(new Response(200, [], $serializedResponse));
+
+        $guzzleClient = $this->createMock(GuzzleClientInterface::class);
+        $guzzleClient->expects($this->once())
+                     ->method('sendAsync')
+                     ->with(new Callback(function ($request) use ($expectedClientRequest): bool {
+                         $this->assertRequestEquals($expectedClientRequest, $request);
+                         return true;
+                     }))
+                     ->willReturn($promise);
+
+        $client = new Client($guzzleClient, $serializer, [$endpoint]);
+        $client->setDefaults('foo', 'bar');
         $result = $client->sendRequest($request)->wait();
         $this->assertEquals($response, $result);
     }
@@ -136,7 +194,8 @@ class ClientTest extends TestCase
     {
         $request = new TestRequest();
         $request->foo = 'abc';
-        $request->locale = 'foo';
+        $request->combinationId = 'foo';
+        $request->locale = 'bar';
         $response = new TestResponse();
         $response->foo = 'def';
         $serializedRequest = 'cba';
@@ -161,11 +220,11 @@ class ClientTest extends TestCase
 
         $expectedClientRequest = new Request(
             'POST',
-            'test',
+            'foo/test',
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Accept-Language' => 'foo',
+                'Accept-Language' => 'bar',
             ],
             $serializedRequest,
         );
@@ -194,7 +253,8 @@ class ClientTest extends TestCase
     {
         $request = new TestRequest();
         $request->foo = 'abc';
-        $request->locale = 'foo';
+        $request->combinationId = 'foo';
+        $request->locale = 'bar';
         $serializedRequest = 'cba';
 
         $endpoint = new TestEndpoint();
@@ -210,11 +270,11 @@ class ClientTest extends TestCase
 
         $expectedClientRequest = new Request(
             'POST',
-            'test',
+            'foo/test',
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Accept-Language' => 'foo',
+                'Accept-Language' => 'bar',
             ],
             $serializedRequest,
         );
@@ -265,7 +325,8 @@ class ClientTest extends TestCase
     {
         $request = new TestRequest();
         $request->foo = 'abc';
-        $request->locale = 'foo';
+        $request->combinationId = 'foo';
+        $request->locale = 'bar';
         $serializedRequest = 'cba';
 
         $endpoint = new TestEndpoint();
@@ -281,11 +342,11 @@ class ClientTest extends TestCase
 
         $expectedClientRequest = new Request(
             'POST',
-            'test',
+            'foo/test',
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Accept-Language' => 'foo',
+                'Accept-Language' => 'bar',
             ],
             $serializedRequest,
         );

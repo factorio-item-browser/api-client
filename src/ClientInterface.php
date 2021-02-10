@@ -17,10 +17,17 @@ use GuzzleHttp\Promise\PromiseInterface;
 interface ClientInterface
 {
     /**
-     * Sends the request to the server
+     * Sends the request to the server, returning a promise fulfilled as soon as the request finishes.
      * @param AbstractRequest $request
      * @return PromiseInterface
      * @throws ClientException
      */
     public function sendRequest(AbstractRequest $request): PromiseInterface;
+
+    /**
+     * Sets the default values to use when the request does not provide those itself.
+     * @param string $combinationId
+     * @param string $locale
+     */
+    public function setDefaults(string $combinationId, string $locale): void;
 }

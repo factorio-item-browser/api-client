@@ -24,7 +24,7 @@ class TestEndpoint implements EndpointInterface
 
     public function getRequestPath(AbstractRequest $request): string
     {
-        return 'test';
+        return "{$request->combinationId}/test";
     }
 
     public function getResponseClass(): string

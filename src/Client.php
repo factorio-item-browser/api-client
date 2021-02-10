@@ -12,6 +12,7 @@ use FactorioItemBrowser\Api\Client\Exception\ErrorResponseExceptionFactory;
 use FactorioItemBrowser\Api\Client\Exception\InvalidResponseException;
 use FactorioItemBrowser\Api\Client\Exception\UnhandledRequestException;
 use FactorioItemBrowser\Api\Client\Request\AbstractRequest;
+use FactorioItemBrowser\Common\Constant\Defaults;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
@@ -37,6 +38,9 @@ class Client implements ClientInterface
     /** @var array<string, EndpointInterface<AbstractRequest, object>> */
     private array $endpoints = [];
 
+    private string $defaultCombinationId = Defaults::COMBINATION_ID;
+    private string $defaultLocale = Defaults::LOCALE;
+
     /**
      * @param GuzzleClientInterface $guzzleClient
      * @param SerializerInterface $serializer
@@ -50,6 +54,12 @@ class Client implements ClientInterface
         foreach ($endpoints as $endpoint) {
             $this->endpoints[$endpoint->getHandledRequestClass()] = $endpoint;
         }
+    }
+
+    public function setDefaults(string $combinationId, string $locale): void
+    {
+        $this->defaultCombinationId = $combinationId;
+        $this->defaultLocale = $locale;
     }
 
     public function sendRequest(AbstractRequest $request): PromiseInterface
@@ -77,6 +87,13 @@ class Client implements ClientInterface
      */
     private function createClientRequest(EndpointInterface $endpoint, AbstractRequest $request): RequestInterface
     {
+        if ($request->combinationId === '') {
+            $request->combinationId = $this->defaultCombinationId;
+        }
+        if ($request->locale === '') {
+            $request->locale = $this->defaultLocale;
+        }
+
         $requestBody = $this->serializer->serialize($request, 'json');
         $headers = [
             'Accept' => 'application/json',
