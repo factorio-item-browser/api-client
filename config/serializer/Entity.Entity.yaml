@@ -1,8 +1,0 @@
-FactorioItemBrowser\Api\Client\Entity\Entity:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    type:
-      type: string
-    name:
-      type: string

@@ -1,8 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Combination\CombinationValidateResponse:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    isValid:
-      type: bool
-    validatedMods:
-      type: array<FactorioItemBrowser\Api\Client\Entity\ValidatedMod>

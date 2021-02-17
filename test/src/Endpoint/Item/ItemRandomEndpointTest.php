@@ -14,55 +14,18 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemRandomEndpoint
+ * @covers \FactorioItemBrowser\Api\Client\Endpoint\Item\ItemRandomEndpoint
  */
 class ItemRandomEndpointTest extends TestCase
 {
-    /**
-     * Tests the getSupportedRequestClass method.
-     * @covers ::getSupportedRequestClass
-     */
-    public function testGetSupportedRequestClass(): void
+    public function test(): void
     {
-        $endpoint = new ItemRandomEndpoint();
-        $result = $endpoint->getSupportedRequestClass();
+        $request = new ItemRandomRequest();
+        $request->combinationId = 'abc';
 
-        $this->assertSame(ItemRandomRequest::class, $result);
-    }
-
-    /**
-     * Tests the requiresAuthorizationToken method.
-     * @covers ::requiresAuthorizationToken
-     */
-    public function testRequiresAuthorizationToken(): void
-    {
-        $endpoint = new ItemRandomEndpoint();
-        $result = $endpoint->requiresAuthorizationToken();
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests the getRequestPath method.
-     * @covers ::getRequestPath
-     */
-    public function testGetRequestPath(): void
-    {
-        $endpoint = new ItemRandomEndpoint();
-        $result = $endpoint->getRequestPath();
-
-        $this->assertSame('item/random', $result);
-    }
-
-    /**
-     * Tests the getResponseClass method.
-     * @covers ::getResponseClass
-     */
-    public function testGetResponseClass(): void
-    {
-        $endpoint = new ItemRandomEndpoint();
-        $result = $endpoint->getResponseClass();
-
-        $this->assertSame(ItemRandomResponse::class, $result);
+        $instance = new ItemRandomEndpoint();
+        $this->assertSame(ItemRandomRequest::class, $instance->getHandledRequestClass());
+        $this->assertSame('abc/item/random', $instance->getRequestPath($request));
+        $this->assertSame(ItemRandomResponse::class, $instance->getResponseClass());
     }
 }

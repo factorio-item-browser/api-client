@@ -1,4 +1,0 @@
-FactorioItemBrowser\Api\Client\Request\Combination\CombinationExportRequest:
-  access_type: public_method
-  exclusion_policy: all
-  properties: []

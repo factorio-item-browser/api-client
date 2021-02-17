@@ -1,0 +1,9 @@
+FactorioItemBrowser\Api\Client\Transfer\Icon:
+  exclusion_policy: all
+  properties:
+    entities:
+      type: array<FactorioItemBrowser\Api\Client\Transfer\Entity>
+    content:
+      type: base64
+    size:
+      type: int

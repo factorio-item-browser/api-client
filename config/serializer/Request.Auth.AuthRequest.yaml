@@ -1,8 +1,0 @@
-FactorioItemBrowser\Api\Client\Request\Auth\AuthRequest:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    accessKey:
-      type: string
-    modNames:
-      type: array<string>

@@ -1,0 +1,7 @@
+FactorioItemBrowser\Api\Client\Transfer\Entity:
+  exclusion_policy: all
+  properties:
+    type:
+      type: string
+    name:
+      type: string

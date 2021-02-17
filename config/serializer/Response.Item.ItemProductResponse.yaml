@@ -1,6 +1,5 @@
 FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse:
-  access_type: public_method
   exclusion_policy: all
   properties:
     item:
-      type: FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes
+      type: FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes

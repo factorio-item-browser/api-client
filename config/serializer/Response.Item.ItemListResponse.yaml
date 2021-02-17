@@ -1,8 +1,7 @@
 FactorioItemBrowser\Api\Client\Response\Item\ItemListResponse:
-  access_type: public_method
   exclusion_policy: all
   properties:
     items:
-      type: array<FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes>
+      type: array<FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes>
     totalNumberOfResults:
       type: integer

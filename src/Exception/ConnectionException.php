@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Exception;
 
-use Exception;
+use Throwable;
 
 /**
  * The exception thrown when the connection to the server could not be established or timed out.
@@ -12,16 +12,12 @@ use Exception;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ConnectionException extends ApiClientException
+class ConnectionException extends ClientException
 {
-    /**
-     * Initializes the exception.
-     * @param string $message
-     * @param string $request
-     * @param Exception $previous
-     */
-    public function __construct(string $message, string $request, Exception $previous = null)
+    private const MESSAGE = 'Failed to connect to the server: %s';
+
+    public function __construct(string $message, string $request, ?Throwable $previous = null)
     {
-        parent::__construct($message, 0, $request, '', $previous);
+        parent::__construct(sprintf(self::MESSAGE, $message), 0, $request, '', $previous);
     }
 }

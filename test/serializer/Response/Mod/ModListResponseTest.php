@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Mod;
 
-use FactorioItemBrowser\Api\Client\Entity\Mod;
+use FactorioItemBrowser\Api\Client\Transfer\Mod;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the ModListResponse class.
+ * The serializer test of the ModListResponse class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
@@ -17,37 +17,28 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ModListResponseTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
         $mod1 = new Mod();
-        $mod1->setName('abc')
-             ->setLabel('def')
-             ->setDescription('ghi')
-             ->setAuthor('jkl')
-             ->setVersion('1.2.3');
+        $mod1->name = 'abc';
+        $mod1->label = 'def';
+        $mod1->description = 'ghi';
+        $mod1->author = 'jkl';
+        $mod1->version = '1.2.3';
 
         $mod2 = new Mod();
-        $mod2->setName('mno')
-             ->setLabel('pqr')
-             ->setDescription('stu')
-             ->setAuthor('vwx')
-             ->setVersion('4.5.6');
+        $mod2->name = 'mno';
+        $mod2->label = 'pqr';
+        $mod2->description = 'stu';
+        $mod2->author = 'vwx';
+        $mod2->version = '4.5.6';
 
+        $object = new ModListResponse();
+        $object->mods = [$mod1, $mod2];
 
-        $result = new ModListResponse();
-        $result->setMods([$mod1, $mod2]);
-
-        return $result;
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

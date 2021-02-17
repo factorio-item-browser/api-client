@@ -1,8 +1,0 @@
-FactorioItemBrowser\Api\Client\Entity\Mod:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    author:
-      type: string
-    version:
-      type: string

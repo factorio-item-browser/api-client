@@ -4,50 +4,41 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Recipe;
 
-use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+use FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeListResponse;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the RecipeListResponse class.
+ * The serializer test of the RecipeListResponse class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class RecipeListResponseTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
         $recipe1 = new RecipeWithExpensiveVersion();
-        $recipe1->setName('abc')
-                ->setLabel('def')
-                ->setDescription('ghi')
-                ->setMode('jkl')
-                ->setCraftingTime(13.37);
+        $recipe1->name = 'abc';
+        $recipe1->label = 'def';
+        $recipe1->description = 'ghi';
+        $recipe1->mode = 'jkl';
+        $recipe1->craftingTime = 13.37;
 
         $recipe2 = new RecipeWithExpensiveVersion();
-        $recipe2->setName('mno')
-                ->setLabel('pqr')
-                ->setDescription('stu')
-                ->setMode('vwx')
-                ->setCraftingTime(4.2);
+        $recipe2->name = 'mno';
+        $recipe2->label = 'pqr';
+        $recipe2->description = 'stu';
+        $recipe2->mode = 'vwx';
+        $recipe2->craftingTime = 4.2;
 
-        $result = new RecipeListResponse();
-        $result->setRecipes([$recipe1, $recipe2])
-               ->setTotalNumberOfResults(42);
+        $object = new RecipeListResponse();
+        $object->recipes = [$recipe1, $recipe2];
+        $object->totalNumberOfResults = 42;
 
-        return $result;
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

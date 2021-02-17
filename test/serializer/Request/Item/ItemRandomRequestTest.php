@@ -8,30 +8,22 @@ use FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The PHPUnit test of serializing the ItemRandomRequest class.
+ * The serializer test of the ItemRandomRequest class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversNothing
  */
 class ItemRandomRequestTest extends SerializerTestCase
 {
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
     protected function getObject(): object
     {
-        $result = new ItemRandomRequest();
-        $result->setNumberOfResults(42)
-               ->setNumberOfRecipesPerResult(21);
-        return $result;
+        $object = new ItemRandomRequest();
+        $object->numberOfResults = 42;
+        $object->numberOfRecipesPerResult = 21;
+
+        return $object;
     }
 
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
     protected function getData(): array
     {
         return [

@@ -1,6 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\ErrorResponse:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    error:
-      type: FactorioItemBrowser\Api\Client\Entity\Error

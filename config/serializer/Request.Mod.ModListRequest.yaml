@@ -1,4 +1,2 @@
 FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest:
-  access_type: public_method
   exclusion_policy: all
-  properties: []

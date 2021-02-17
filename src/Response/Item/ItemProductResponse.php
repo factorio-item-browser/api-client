@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Response\Item;
 
-use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
+use FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes;
 
 /**
  * The response of the item product request.
@@ -13,39 +12,16 @@ use FactorioItemBrowser\Api\Client\Response\ResponseInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemProductResponse implements ResponseInterface
+class ItemProductResponse
 {
     /**
      * The details of the requested item.
      * @var GenericEntityWithRecipes
      */
-    protected $item;
+    public GenericEntityWithRecipes $item;
 
-    /**
-     * Initializes the response.
-     */
     public function __construct()
     {
         $this->item = new GenericEntityWithRecipes();
-    }
-
-    /**
-     * Sets the details of the requested item.
-     * @param GenericEntityWithRecipes $item
-     * @return $this
-     */
-    public function setItem(GenericEntityWithRecipes $item): self
-    {
-        $this->item = $item;
-        return $this;
-    }
-
-    /**
-     * Returns the details of the requested item.
-     * @return GenericEntityWithRecipes
-     */
-    public function getItem(): GenericEntityWithRecipes
-    {
-        return $this->item;
     }
 }

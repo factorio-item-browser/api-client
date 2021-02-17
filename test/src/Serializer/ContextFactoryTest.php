@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\Api\Client\Serializer\ContextFactory
+ * @covers \FactorioItemBrowser\Api\Client\Serializer\ContextFactory
  */
 class ContextFactoryTest extends TestCase
 {
-    /**
-     * Tests the createSerializationContext method.
-     * @covers ::createSerializationContext
-     */
     public function testCreateSerializationContext(): void
     {
-        $factory = new ContextFactory();
-        $result = $factory->createSerializationContext();
+        $instance = new ContextFactory();
+        $result = $instance->createSerializationContext();
 
         $this->assertInstanceOf(ConstantTypeExclusionStrategy::class, $result->getExclusionStrategy());
     }

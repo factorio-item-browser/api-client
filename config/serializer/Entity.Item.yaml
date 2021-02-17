@@ -1,6 +1,0 @@
-FactorioItemBrowser\Api\Client\Entity\Item:
-  access_type: public_method
-  exclusion_policy: all
-  properties:
-    amount:
-      type: float
