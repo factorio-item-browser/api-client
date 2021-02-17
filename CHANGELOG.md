@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0 - 2020-02-17
+## 4.0.0 - 2021-02-17
 
 ### Added
 
@@ -11,6 +11,10 @@
 - **[BC Break]** Removed AuthRequest, refactored all requests to expect the combinationId.
 - **[BC Break]** All objects now use public properties instead of getter/setter methods.
 - **[BC Break]** Refactored client to return the Guzzle Promise object instead of managing it internal, for more flexibility on how to wait on multiple requests.
+
+### Removed
+
+- **[BC Break]** All `/combination` requests, as they are now part of the new Combination API.
 
 ## 3.2.0 - 2020-11-01
 
