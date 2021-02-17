@@ -9,7 +9,7 @@
 
 This library implements a PHP client to the data API of the Factorio Item Browser to access its data.
 
-The documentation of the API can be found at https://www.factorio-item-browser.com/api/docs
+The documentation of the API can be found at https://docs.factorio-item-browser.com/api
 
 ## Usage
 
