@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.0.0 - 2020-02-17
+
+### Added
+
+- Support for PHP 8.
+
+### Changed
+
+- **[BC Break]** Removed AuthRequest, refactored all requests to expect the combinationId.
+- **[BC Break]** All objects now use public properties instead of getter/setter methods.
+- **[BC Break]** Refactored client to return the Guzzle Promise object instead of managing it internal, for more flexibility on how to wait on multiple requests.
+
 ## 3.2.0 - 2020-11-01
 
 ### Added
