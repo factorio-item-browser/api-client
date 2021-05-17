@@ -15,20 +15,18 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class RecipeListRequestTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $object = new RecipeListRequest();
         $object->numberOfResults = 42;
         $object->indexOfFirstResult = 21;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'numberOfResults' => 42,
             'indexOfFirstResult' => 21,
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

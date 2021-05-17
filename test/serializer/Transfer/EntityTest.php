@@ -15,20 +15,18 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class EntityTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $object = new Entity();
         $object->type = 'abc';
         $object->name = 'def';
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'type' => 'abc',
             'name' => 'def',
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

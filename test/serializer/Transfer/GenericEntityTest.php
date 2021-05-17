@@ -15,7 +15,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class GenericEntityTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $object = new GenericEntity();
         $object->type = 'abc';
@@ -23,16 +23,14 @@ class GenericEntityTest extends SerializerTestCase
         $object->label = 'ghi';
         $object->description = 'jkl';
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'type' => 'abc',
             'name' => 'def',
             'label' => 'ghi',
             'description' => 'jkl',
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

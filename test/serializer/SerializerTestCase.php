@@ -44,43 +44,11 @@ abstract class SerializerTestCase extends TestCase
         $this->serializer = $builder->build();
     }
 
-    public function testSerialize(): void
-    {
-        $object = $this->getObject();
-        $expectedData = $this->getData();
-
-        $result = $this->serializer->serialize($object, 'json');
-
-        $this->assertEquals($expectedData, json_decode($result, true));
-    }
-
-    public function testDeserialize(): void
-    {
-        $data = $this->getData();
-        $expectedObject = $this->getObject();
-
-        $result = $this->serializer->deserialize((string) json_encode($data), get_class($expectedObject), 'json');
-
-        $this->assertEquals($expectedObject, $result);
-    }
-
-    /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
-     */
-    abstract protected function getObject(): object;
-
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
-    abstract protected function getData(): array;
-
     /**
      * @param array<mixed> $expectedData
      * @param object $object
      */
-    public function assertSerialization(array $expectedData, object $object): void
+    protected function assertSerialization(array $expectedData, object $object): void
     {
         $actualData = json_decode($this->serializer->serialize($object, 'json'), true);
         $this->assertEquals($expectedData, $actualData);
@@ -90,7 +58,7 @@ abstract class SerializerTestCase extends TestCase
      * @param object $expectedObject
      * @param array<mixed> $data
      */
-    public function assertDeserialization(object $expectedObject, array $data): void
+    protected function assertDeserialization(object $expectedObject, array $data): void
     {
         $actualObject = $this->serializer->deserialize((string) json_encode($data), get_class($expectedObject), 'json');
         $this->assertEquals($expectedObject, $actualObject);

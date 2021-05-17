@@ -17,7 +17,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class RecipeWithExpensiveVersionTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $ingredient1 = new Item();
         $ingredient1->type = 'abc';
@@ -66,12 +66,7 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
         $object->craftingTime = 73.31;
         $object->expensiveVersion = $expensiveRecipe;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'name' => 'ijk',
             'label' => 'lmn',
             'description' => 'opq',
@@ -121,5 +116,8 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
                 'craftingTime' => 13.37,
             ],
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

@@ -16,7 +16,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class GenericDetailsResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $entity1 = new GenericEntity();
         $entity1->type = 'abc';
@@ -33,12 +33,7 @@ class GenericDetailsResponseTest extends SerializerTestCase
         $object = new GenericDetailsResponse();
         $object->entities = [$entity1, $entity2];
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'entities' => [
                 [
                     'type' => 'abc',
@@ -54,5 +49,8 @@ class GenericDetailsResponseTest extends SerializerTestCase
                 ],
             ],
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

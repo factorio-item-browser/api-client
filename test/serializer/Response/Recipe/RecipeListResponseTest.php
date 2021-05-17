@@ -16,7 +16,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class RecipeListResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $recipe1 = new RecipeWithExpensiveVersion();
         $recipe1->name = 'abc';
@@ -36,12 +36,7 @@ class RecipeListResponseTest extends SerializerTestCase
         $object->recipes = [$recipe1, $recipe2];
         $object->totalNumberOfResults = 42;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'recipes' => [
                 [
                     'name' => 'abc',
@@ -64,5 +59,8 @@ class RecipeListResponseTest extends SerializerTestCase
             ],
             'totalNumberOfResults' => 42,
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

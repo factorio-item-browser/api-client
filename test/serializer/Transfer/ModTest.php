@@ -15,7 +15,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ModTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $object = new Mod();
         $object->name = 'abc';
@@ -24,17 +24,15 @@ class ModTest extends SerializerTestCase
         $object->author = 'jkl';
         $object->version = '1.2.3';
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'name' => 'abc',
             'label' => 'def',
             'description' => 'ghi',
             'author' => 'jkl',
             'version' => '1.2.3',
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }
