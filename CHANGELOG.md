@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.0.1 - 2021-05-18
+
+### Added
+
+- Support for Guzzle client 7.x.
+
+### Fixed
+
+- Issue with serializing the reduced variant of the item list response under PHP 8.
+
 ## 4.0.0 - 2021-02-17
 
 ### Added
