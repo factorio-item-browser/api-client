@@ -37,6 +37,7 @@ return [
 
             Serializer\ContextFactory::class => InvokableFactory::class,
             Serializer\Handler\Base64Handler::class => InvokableFactory::class,
+            Serializer\Listener\ReducedEntityListener::class => InvokableFactory::class,
 
             // 3rd party dependencies
             IdenticalPropertyNamingStrategy::class => InvokableFactory::class,

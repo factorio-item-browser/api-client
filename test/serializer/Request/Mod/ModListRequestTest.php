@@ -15,14 +15,14 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ModListRequestTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
-        return new ModListRequest();
-    }
+        $object = new ModListRequest();
 
-    protected function getData(): array
-    {
-        return [
+        $data = [
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

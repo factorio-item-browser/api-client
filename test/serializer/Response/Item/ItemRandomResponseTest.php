@@ -16,7 +16,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ItemRandomResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $entity1 = new GenericEntityWithRecipes();
         $entity1->type = 'abc';
@@ -35,12 +35,7 @@ class ItemRandomResponseTest extends SerializerTestCase
         $object = new ItemRandomResponse();
         $object->items = [$entity1, $entity2];
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'items' => [
                 [
                     'type' => 'abc',
@@ -60,5 +55,8 @@ class ItemRandomResponseTest extends SerializerTestCase
                 ],
             ],
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

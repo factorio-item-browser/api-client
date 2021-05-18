@@ -16,7 +16,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class GenericIconResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $icon1 = new Icon();
         $icon1->content = 'abc';
@@ -29,12 +29,7 @@ class GenericIconResponseTest extends SerializerTestCase
         $object = new GenericIconResponse();
         $object->icons = [$icon1, $icon2];
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'icons' => [
                 [
                     'entities' => [],
@@ -48,5 +43,8 @@ class GenericIconResponseTest extends SerializerTestCase
                 ],
             ],
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

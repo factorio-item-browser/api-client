@@ -40,6 +40,10 @@ return [
             JmsConfigKey::HANDLERS => [
                 Serializer\Handler\Base64Handler::class,
             ],
+            JmsConfigKey::ADD_DEFAULT_LISTENERS => true,
+            JmsConfigKey::LISTENERS => [
+                Serializer\Listener\ReducedEntityListener::class,
+            ],
         ],
     ],
 ];

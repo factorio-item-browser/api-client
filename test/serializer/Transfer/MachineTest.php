@@ -15,7 +15,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class MachineTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $object = new Machine();
         $object->name = 'abc';
@@ -29,12 +29,7 @@ class MachineTest extends SerializerTestCase
         $object->energyUsage = 4.2;
         $object->energyUsageUnit = 'jkl';
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'name' => 'abc',
             'label' => 'def',
             'description' => 'ghi',
@@ -46,5 +41,8 @@ class MachineTest extends SerializerTestCase
             'energyUsage' => 4.2,
             'energyUsageUnit' => 'jkl',
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

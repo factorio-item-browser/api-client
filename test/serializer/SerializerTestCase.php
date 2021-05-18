@@ -6,6 +6,8 @@ namespace FactorioItemBrowserTestSerializer\Api\Client;
 
 use FactorioItemBrowser\Api\Client\Serializer\ContextFactory;
 use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;
+use FactorioItemBrowser\Api\Client\Serializer\Listener\ReducedEntityListener;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
@@ -33,40 +35,32 @@ abstract class SerializerTestCase extends TestCase
                 ->addDefaultHandlers()
                 ->configureHandlers(function (HandlerRegistry $registry): void {
                     $registry->registerSubscribingHandler(new Base64Handler());
+                })
+                ->addDefaultListeners()
+                ->configureListeners(function (EventDispatcher $dispatcher): void {
+                    $dispatcher->addSubscriber(new ReducedEntityListener());
                 });
 
         $this->serializer = $builder->build();
     }
 
-    public function testSerialize(): void
+    /**
+     * @param array<mixed> $expectedData
+     * @param object $object
+     */
+    protected function assertSerialization(array $expectedData, object $object): void
     {
-        $object = $this->getObject();
-        $expectedData = $this->getData();
-
-        $result = $this->serializer->serialize($object, 'json');
-
-        $this->assertEquals($expectedData, json_decode($result, true));
-    }
-
-    public function testDeserialize(): void
-    {
-        $data = $this->getData();
-        $expectedObject = $this->getObject();
-
-        $result = $this->serializer->deserialize((string) json_encode($data), get_class($expectedObject), 'json');
-
-        $this->assertEquals($expectedObject, $result);
+        $actualData = json_decode($this->serializer->serialize($object, 'json'), true);
+        $this->assertEquals($expectedData, $actualData);
     }
 
     /**
-     * Returns the object to be serialized or deserialized.
-     * @return object
+     * @param object $expectedObject
+     * @param array<mixed> $data
      */
-    abstract protected function getObject(): object;
-
-    /**
-     * Returns the serialized data.
-     * @return array<mixed>
-     */
-    abstract protected function getData(): array;
+    protected function assertDeserialization(object $expectedObject, array $data): void
+    {
+        $actualObject = $this->serializer->deserialize((string) json_encode($data), get_class($expectedObject), 'json');
+        $this->assertEquals($expectedObject, $actualObject);
+    }
 }

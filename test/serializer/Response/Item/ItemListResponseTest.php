@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Item;
 
+use FactorioItemBrowser\Api\Client\Transfer\GenericEntity;
 use FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemListResponse;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
@@ -17,7 +18,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ItemListResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $entity1 = new GenericEntityWithRecipes();
         $entity1->type = 'abc';
@@ -37,12 +38,7 @@ class ItemListResponseTest extends SerializerTestCase
         $object->items = [$entity1, $entity2];
         $object->totalNumberOfResults = 1337;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'items' => [
                 [
                     'type' => 'abc',
@@ -63,5 +59,51 @@ class ItemListResponseTest extends SerializerTestCase
             ],
             'totalNumberOfResults' => 1337,
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
+    }
+
+    /**
+     * Tests the special case of the reduced response without recipes and totalNumberOfRecipes keys for the items.
+     */
+    public function testReducedVariant(): void
+    {
+        $entity1 = new GenericEntity();
+        $entity1->type = 'abc';
+        $entity1->name = 'def';
+        $entity1->label = 'ghi';
+        $entity1->description = 'jkl';
+
+        $entity2 = new GenericEntity();
+        $entity2->type = 'mno';
+        $entity2->name = 'pqr';
+        $entity2->label = 'stu';
+        $entity2->description = 'vwx';
+
+        $object = new ItemListResponse();
+        // @phpstan-ignore-next-line
+        $object->items = [$entity1, $entity2];
+        $object->totalNumberOfResults = 1337;
+
+        $data = [
+            'items' => [
+                [
+                    'type' => 'abc',
+                    'name' => 'def',
+                    'label' => 'ghi',
+                    'description' => 'jkl',
+                ],
+                [
+                    'type' => 'mno',
+                    'name' => 'pqr',
+                    'label' => 'stu',
+                    'description' => 'vwx',
+                ],
+            ],
+            'totalNumberOfResults' => 1337,
+        ];
+
+        $this->assertSerialization($data, $object);
     }
 }

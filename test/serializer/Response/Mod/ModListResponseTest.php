@@ -17,7 +17,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class ModListResponseTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $mod1 = new Mod();
         $mod1->name = 'abc';
@@ -36,12 +36,7 @@ class ModListResponseTest extends SerializerTestCase
         $object = new ModListResponse();
         $object->mods = [$mod1, $mod2];
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'mods' => [
                 [
                     'name' => 'abc',
@@ -57,7 +52,10 @@ class ModListResponseTest extends SerializerTestCase
                     'author' => 'vwx',
                     'version' => '4.5.6',
                 ],
-            ]
+            ],
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

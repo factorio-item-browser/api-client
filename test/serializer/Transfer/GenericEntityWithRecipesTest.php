@@ -18,7 +18,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class GenericEntityWithRecipesTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $ingredient1 = new Item();
         $ingredient1->type = 'abc';
@@ -75,12 +75,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
         $object->recipes = [$recipe];
         $object->totalNumberOfRecipes = 42;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'type' => 'uvw',
             'name' => 'xyz',
             'label' => 'cba',
@@ -139,5 +134,8 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
             ],
             'totalNumberOfRecipes' => 42,
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }

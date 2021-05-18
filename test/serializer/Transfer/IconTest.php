@@ -16,7 +16,7 @@ use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
  */
 class IconTest extends SerializerTestCase
 {
-    protected function getObject(): object
+    public function test(): void
     {
         $entity1 = new Entity();
         $entity1->type = 'abc';
@@ -31,12 +31,7 @@ class IconTest extends SerializerTestCase
         $object->content = 'mno';
         $object->size = 42;
 
-        return $object;
-    }
-
-    protected function getData(): array
-    {
-        return [
+        $data = [
             'entities' => [
                 [
                     'type' => 'abc',
@@ -50,5 +45,8 @@ class IconTest extends SerializerTestCase
             'content' => 'bW5v',
             'size' => 42,
         ];
+
+        $this->assertSerialization($data, $object);
+        $this->assertDeserialization($object, $data);
     }
 }
