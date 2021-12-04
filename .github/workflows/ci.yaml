@@ -18,4 +18,4 @@ jobs:
     uses: factorio-item-browser/github-workflows/.github/workflows/ci-php-tests.yaml@v1
     with:
       extensions: json
-      php-versions: "8.0 7.4"
+      php-versions: "8.1 8.0 7.4"
