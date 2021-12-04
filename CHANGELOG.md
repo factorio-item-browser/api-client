@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0 - 2021-12-04
+
+### Added
+
+- New status request providing meta-level data for the combination.
+
 ## 4.0.1 - 2021-05-18
 
 ### Added

@@ -1,0 +1,2 @@
+FactorioItemBrowser\Api\Client\Request\Meta\StatusRequest:
+  exclusion_policy: all
