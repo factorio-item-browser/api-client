@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response\Item;
 
 use FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The response of the item random request.
@@ -18,5 +19,6 @@ class ItemRandomResponse
      * The random items.
      * @var array<GenericEntityWithRecipes>
      */
+    #[Type('array<' . GenericEntityWithRecipes::class . '>')]
     public array $items = [];
 }

@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest:
-  exclusion_policy: all
-  properties:
-    names:
-      type: array<string>

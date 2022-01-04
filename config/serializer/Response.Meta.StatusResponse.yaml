@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Meta\StatusResponse:
-  exclusion_policy: all
-  properties:
-    dataVersion:
-      type: integer
-    importTime:
-      type: DateTimeInterface<'Y-m-d\TH:i:sP'>

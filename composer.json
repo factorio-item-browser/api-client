@@ -18,8 +18,7 @@
     "factorio-item-browser/common": "^1.0",
     "guzzlehttp/guzzle": "^7.0",
     "jms/serializer": "^3.2",
-    "laminas/laminas-servicemanager": "^3.0",
-    "symfony/yaml": "^5.0"
+    "laminas/laminas-servicemanager": "^3.0"
   },
   "require-dev": {
     "bluepsyduck/test-helper": "^2.0",

@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse:
-  exclusion_policy: all
-  properties:
-    machines:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\Machine>
-    totalNumberOfResults:
-      type: integer

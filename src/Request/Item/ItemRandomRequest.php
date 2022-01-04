@@ -16,13 +16,11 @@ class ItemRandomRequest extends AbstractRequest
 {
     /**
      * The number of results to return.
-     * @var int
      */
     public int $numberOfResults = 10;
 
     /**
      * The number of recipes to return for each result.
-     * @var int
      */
     public int $numberOfRecipesPerResult = 3;
 }

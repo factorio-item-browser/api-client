@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response\Meta;
 
 use DateTimeInterface;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The response of the status request.
@@ -16,13 +17,12 @@ class StatusResponse
 {
     /**
      * The version of the data available in the API.
-     * @var int
      */
     public int $dataVersion = 0;
 
     /**
      * The time when the data of the combination was imported into the database.
-     * @var DateTimeInterface
      */
+    #[Type('DateTimeInterface<"Y-m-d\TH:i:sP">')]
     public DateTimeInterface $importTime;
 }

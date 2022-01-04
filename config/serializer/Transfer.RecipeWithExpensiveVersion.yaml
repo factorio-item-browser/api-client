@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion:
-  exclusion_policy: all
-  properties:
-    expensiveVersion:
-      type: FactorioItemBrowser\Api\Client\Transfer\Recipe

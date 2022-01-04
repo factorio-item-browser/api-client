@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Api\Client\Request\Generic;
 
 use FactorioItemBrowser\Api\Client\Request\AbstractRequest;
 use FactorioItemBrowser\Api\Client\Transfer\Entity;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The request of icons for entities.
@@ -19,5 +20,6 @@ class GenericIconRequest extends AbstractRequest
      * The entities to request the icon for.
      * @var array<Entity>
      */
+    #[Type('array<' . Entity::class . '>')]
     public array $entities = [];
 }

@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Transfer\Item:
-  exclusion_policy: all
-  properties:
-    amount:
-      type: float

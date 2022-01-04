@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Transfer;
 
+use JMS\Serializer\Annotation\Type;
+
 /**
  * The class representing a generic entity containing recipes.
  *
@@ -16,11 +18,11 @@ class GenericEntityWithRecipes extends GenericEntity
      * The recipes of the entity.
      * @var array<RecipeWithExpensiveVersion>
      */
+    #[Type('array<' . RecipeWithExpensiveVersion::class . '>')]
     public array $recipes = [];
 
     /**
      * The total number of recipes available for this entity.
-     * @var int
      */
     public int $totalNumberOfRecipes = 0;
 }

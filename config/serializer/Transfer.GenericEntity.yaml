@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Transfer\GenericEntity:
-  exclusion_policy: all
-  properties:
-    label:
-      type: string
-    description:
-      type: string

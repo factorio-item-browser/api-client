@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse:
-  exclusion_policy: all
-  properties:
-    items:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes>

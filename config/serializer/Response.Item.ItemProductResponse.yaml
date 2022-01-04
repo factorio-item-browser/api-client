@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse:
-  exclusion_policy: all
-  properties:
-    item:
-      type: FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes

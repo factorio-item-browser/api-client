@@ -16,25 +16,21 @@ class ItemProductRequest extends AbstractRequest
 {
     /**
      * The type of the item.
-     * @var string
      */
     public string $type = '';
 
     /**
      * The name of the item.
-     * @var string
      */
     public string $name = '';
 
     /**
      * The number of results to return.
-     * @var int
      */
     public int $numberOfResults = 10;
 
     /**
      * The 0-based index of the first result to return.
-     * @var int
      */
     public int $indexOfFirstResult = 0;
 }

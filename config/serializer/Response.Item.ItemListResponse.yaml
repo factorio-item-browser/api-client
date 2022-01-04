@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Item\ItemListResponse:
-  exclusion_policy: all
-  properties:
-    items:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes>
-    totalNumberOfResults:
-      type: integer

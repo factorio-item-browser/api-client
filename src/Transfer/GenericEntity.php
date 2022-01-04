@@ -14,13 +14,11 @@ class GenericEntity extends Entity
 {
     /**
      * The translated label of the entity.
-     * @var string
      */
     public string $label = '';
 
     /**
      * The translated description of the entity.
-     * @var string
      */
     public string $description = '';
 }

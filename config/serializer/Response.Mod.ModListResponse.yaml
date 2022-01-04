@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse:
-  exclusion_policy: all
-  properties:
-    mods:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\Mod>

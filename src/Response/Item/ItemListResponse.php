@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Response\Item;
 
 use FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The response of the item list request.
@@ -18,11 +19,11 @@ class ItemListResponse
      * The items.
      * @var array<GenericEntityWithRecipes>
      */
+    #[Type('array<' . GenericEntityWithRecipes::class . '>')]
     public array $items = [];
 
     /**
      * The total number of available results.
-     * @var int
      */
     public int $totalNumberOfResults = 0;
 }

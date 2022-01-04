@@ -14,7 +14,6 @@ class RecipeWithExpensiveVersion extends Recipe
 {
     /**
      * The expensive version of the recipe, if available.
-     * @var Recipe|null
      */
     public ?Recipe $expensiveVersion = null;
 }

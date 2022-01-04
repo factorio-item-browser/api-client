@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Transfer;
 
+use JMS\Serializer\Annotation\Type;
+
 /**
  * The entity representing an icon file.
  *
@@ -16,17 +18,17 @@ class Icon
      * The entities using the icons.
      * @var array<Entity>
      */
+    #[Type('array<' . Entity::class . '>')]
     public array $entities = [];
 
     /**
      * The contents of the icon file.
-     * @var string
      */
+    #[Type('base64')]
     public string $content = '';
 
     /**
      * The size of the icon.
-     * @var int
      */
     public int $size = 0;
 }

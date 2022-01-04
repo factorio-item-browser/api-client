@@ -14,7 +14,6 @@ class Item extends GenericEntity
 {
     /**
      * The amount of the item as ingredient or product.
-     * @var float
      */
     public float $amount = 0.;
 }

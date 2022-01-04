@@ -19,43 +19,36 @@ class Machine extends GenericEntity
 
     /**
      * The crafting speed of the machine.
-     * @var float
      */
     public float $craftingSpeed = 0.;
 
     /**
      * The number of item slots available in the machine.
-     * @var int
      */
     public int $numberOfItemSlots = 0;
 
     /**
      * The number of fluid input slots available in the machine.
-     * @var int
      */
     public int $numberOfFluidInputSlots = 0;
 
     /**
      * The number of fluid output slots available in the machine.
-     * @var int
      */
     public int $numberOfFluidOutputSlots = 0;
 
     /**
      * The number of module slots available in the machine.
-     * @var int
      */
     public int $numberOfModuleSlots = 0;
 
     /**
      * The energy usage of the machine.
-     * @var float
      */
     public float $energyUsage = 0.;
 
     /**
      * The unit of the energy usage.
-     * @var string
      */
     public string $energyUsageUnit = EnergyUsageUnit::WATT;
 }

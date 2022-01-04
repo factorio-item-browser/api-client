@@ -16,25 +16,21 @@ class SearchQueryRequest extends AbstractRequest
 {
     /**
      * The query to search for.
-     * @var string
      */
     public string $query = '';
 
     /**
      * The number of results to return.
-     * @var int
      */
     public int $numberOfResults = 10;
 
     /**
      * The 0-based index of the first result to return.
-     * @var int
      */
     public int $indexOfFirstResult = 0;
 
     /**
      * The number of recipes to return for each result.
-     * @var int
      */
     public int $numberOfRecipesPerResult = 3;
 }

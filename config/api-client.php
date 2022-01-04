@@ -32,9 +32,6 @@ return [
             Endpoint\Search\SearchQueryEndpoint::class,
         ],
         ConfigKey::SERIALIZER => [
-            JmsConfigKey::METADATA_DIRS => [
-                __NAMESPACE__ => 'vendor/factorio-item-browser/api-client/config/serializer',
-            ],
             JmsConfigKey::PROPERTY_NAMING_STRATEGY => IdenticalPropertyNamingStrategy::class,
             JmsConfigKey::SERIALIZATION_CONTEXT_FACTORY => Serializer\ContextFactory::class,
             JmsConfigKey::ADD_DEFAULT_HANDLERS => true,

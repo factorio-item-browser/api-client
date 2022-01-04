@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Transfer\Mod:
-  exclusion_policy: all
-  properties:
-    author:
-      type: string
-    version:
-      type: string

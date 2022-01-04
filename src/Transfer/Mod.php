@@ -18,13 +18,11 @@ class Mod extends GenericEntity
 
     /**
      * The author of the mod.
-     * @var string
      */
     public string $author = '';
 
     /**
      * The version of the mod.
-     * @var string
      */
     public string $version = '';
 }

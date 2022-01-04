@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client\Transfer;
 
 use FactorioItemBrowser\Common\Constant\EntityType;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The entity representing a recipe.
@@ -18,7 +19,6 @@ class Recipe extends GenericEntity
 
     /**
      * The mode of the recipe.
-     * @var string
      */
     public string $mode = '';
 
@@ -26,17 +26,18 @@ class Recipe extends GenericEntity
      * The ingredients of the recipe.
      * @var array<Item>
      */
+    #[Type('array<' . Item::class . '>')]
     public array $ingredients = [];
 
     /**
      * The products of the recipe.
      * @var array<Item>
      */
+    #[Type('array<' . Item::class . '>')]
     public array $products = [];
 
     /**
      * The crafting time of the recipe.
-     * @var float
      */
     public float $craftingTime = 0.;
 }

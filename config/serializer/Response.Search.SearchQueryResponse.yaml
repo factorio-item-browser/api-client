@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse:
-  exclusion_policy: all
-  properties:
-    results:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes>
-    totalNumberOfResults:
-      type: integer

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client;
 
+use BluePsyduck\JmsSerializerFactory\JmsSerializerFactory;
+use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
 use FactorioItemBrowser\Api\Client\Serializer\ContextFactory;
 use FactorioItemBrowser\Api\Client\Serializer\Handler\Base64Handler;
 use FactorioItemBrowser\Api\Client\Serializer\Listener\ReducedEntityListener;
-use JMS\Serializer\EventDispatcher\EventDispatcher;
-use JMS\Serializer\Handler\HandlerRegistry;
+use Interop\Container\ContainerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
-use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 /**
  * The test case for the serializing and deserializing of objects.
@@ -24,24 +25,26 @@ abstract class SerializerTestCase extends TestCase
 {
     private SerializerInterface $serializer;
 
+    /**
+     * @throws ContainerExceptionInterface
+     */
     protected function setUp(): void
     {
-        $builder = new SerializerBuilder();
-        $builder->setMetadataDirs([
-                    'FactorioItemBrowser\Api\Client' => __DIR__ . '/../../config/serializer',
-                ])
-                ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
-                ->setSerializationContextFactory(new ContextFactory())
-                ->addDefaultHandlers()
-                ->configureHandlers(function (HandlerRegistry $registry): void {
-                    $registry->registerSubscribingHandler(new Base64Handler());
-                })
-                ->addDefaultListeners()
-                ->configureListeners(function (EventDispatcher $dispatcher): void {
-                    $dispatcher->addSubscriber(new ReducedEntityListener());
-                });
+        $config = require(__DIR__ . '/../../config/api-client.php');
 
-        $this->serializer = $builder->build();
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->any())
+                  ->method('get')
+                  ->willReturnMap([
+                      ['config', $config],
+                      [Base64Handler::class, new Base64Handler()],
+                      [ContextFactory::class, new ContextFactory()],
+                      [IdenticalPropertyNamingStrategy::class, new IdenticalPropertyNamingStrategy()],
+                      [ReducedEntityListener::class, new ReducedEntityListener()],
+                  ]);
+
+        $serializerFactory = new JmsSerializerFactory(ConfigKey::MAIN, ConfigKey::SERIALIZER);
+        $this->serializer = $serializerFactory($container, SerializerInterface::class);
     }
 
     /**

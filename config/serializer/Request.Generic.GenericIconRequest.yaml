@@ -1,5 +1,0 @@
-FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest:
-  exclusion_policy: all
-  properties:
-    entities:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\Entity>

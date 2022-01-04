@@ -1,7 +1,0 @@
-FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes:
-  exclusion_policy: all
-  properties:
-    recipes:
-      type: array<FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion>
-    totalNumberOfRecipes:
-      type: int

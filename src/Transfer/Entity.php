@@ -14,13 +14,11 @@ class Entity
 {
     /**
      * The type of the entity.
-     * @var string
      */
     public string $type = '';
 
     /**
      * The name of the entity.
-     * @var string
      */
     public string $name = '';
 }

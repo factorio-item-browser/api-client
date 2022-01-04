@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client\Request;
 
+use JMS\Serializer\Annotation\Exclude;
+
 /**
  * The abstract class of all requests.
  *
@@ -14,13 +16,13 @@ abstract class AbstractRequest
 {
     /**
      * The ID of the combination to use for the request.
-     * @var string
      */
+    #[Exclude]
     public string $combinationId = '';
 
     /**
      * The language code to use for translating labels and descriptions.
-     * @var string
      */
+    #[Exclude]
     public string $locale = '';
 }

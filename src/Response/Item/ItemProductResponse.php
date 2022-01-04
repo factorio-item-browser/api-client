@@ -16,7 +16,6 @@ class ItemProductResponse
 {
     /**
      * The details of the requested item.
-     * @var GenericEntityWithRecipes
      */
     public GenericEntityWithRecipes $item;
 

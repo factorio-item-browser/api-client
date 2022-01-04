@@ -1,9 +1,0 @@
-FactorioItemBrowser\Api\Client\Request\Item\ItemListRequest:
-  exclusion_policy: all
-  properties:
-    numberOfResults:
-      type: integer
-    indexOfFirstResult:
-      type: integer
-    numberOfRecipesPerResult:
-      type: integer
