@@ -33,7 +33,8 @@ class ReducedEntityListener implements EventSubscriberInterface
 
     public function onPreSerialize(PreSerializeEvent $event): void
     {
-        if (get_class($event->getObject()) === GenericEntity::class) {
+        $object = $event->getObject();
+        if (is_object($object) && get_class($object) === GenericEntity::class) {
             $event->setType(GenericEntity::class);
         }
     }

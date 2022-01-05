@@ -13,7 +13,9 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Client;
 
 use BluePsyduck\JmsSerializerFactory\JmsSerializerFactory;
+use BluePsyduck\LaminasAutoWireFactory\AutoWireFactory;
 use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
+use FactorioItemBrowser\Api\Client\Constant\ServiceName;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -21,7 +23,7 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'dependencies' => [
         'factories'  => [
-            ClientInterface::class => ClientFactory::class,
+            ClientInterface::class => AutoWireFactory::class,
 
             Endpoint\Generic\GenericDetailsEndpoint::class => InvokableFactory::class,
             Endpoint\Generic\GenericIconEndpoint::class => InvokableFactory::class,
@@ -38,6 +40,9 @@ return [
             Serializer\ContextFactory::class => InvokableFactory::class,
             Serializer\Handler\Base64Handler::class => InvokableFactory::class,
             Serializer\Listener\ReducedEntityListener::class => InvokableFactory::class,
+
+            ServiceName::GUZZLE_CLIENT => GuzzleClientFactory::class,
+            ServiceName::SERIALIZER => new JmsSerializerFactory(ConfigKey::MAIN, ConfigKey::SERIALIZER),
 
             // 3rd party dependencies
             IdenticalPropertyNamingStrategy::class => InvokableFactory::class,

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Api\Client;
 
+use BluePsyduck\LaminasAutoWireFactory\Attribute\Alias;
+use BluePsyduck\LaminasAutoWireFactory\Attribute\InjectAliasArray;
 use Exception;
+use FactorioItemBrowser\Api\Client\Constant\ConfigKey;
+use FactorioItemBrowser\Api\Client\Constant\ServiceName;
 use FactorioItemBrowser\Api\Client\Endpoint\EndpointInterface;
 use FactorioItemBrowser\Api\Client\Exception\ClientException;
 use FactorioItemBrowser\Api\Client\Exception\ConnectionException;
@@ -33,9 +37,6 @@ use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
  */
 class Client implements ClientInterface
 {
-    private GuzzleClientInterface $guzzleClient;
-    private SerializerInterface $serializer;
-
     /** @var array<string, EndpointInterface<AbstractRequest, object>> */
     private array $endpoints = [];
 
@@ -47,11 +48,14 @@ class Client implements ClientInterface
      * @param SerializerInterface $serializer
      * @param array<EndpointInterface<AbstractRequest, object>> $endpoints
      */
-    public function __construct(GuzzleClientInterface $guzzleClient, SerializerInterface $serializer, array $endpoints)
-    {
-        $this->guzzleClient = $guzzleClient;
-        $this->serializer = $serializer;
-
+    public function __construct(
+        #[Alias(ServiceName::GUZZLE_CLIENT)]
+        private readonly GuzzleClientInterface $guzzleClient,
+        #[Alias(ServiceName::SERIALIZER)]
+        private readonly SerializerInterface $serializer,
+        #[InjectAliasArray(ConfigKey::MAIN, ConfigKey::ENDPOINTS)]
+        array $endpoints
+    ) {
         foreach ($endpoints as $endpoint) {
             $this->endpoints[$endpoint->getHandledRequestClass()] = $endpoint;
         }
@@ -118,6 +122,7 @@ class Client implements ClientInterface
         ResponseInterface $clientResponse
     ): object {
         try {
+            // @phpstan-ignore-next-line
             return $this->serializer->deserialize(
                 $clientResponse->getBody()->getContents(),
                 $endpoint->getResponseClass(),
@@ -173,7 +178,7 @@ class Client implements ClientInterface
     {
         try {
             $data = json_decode($responseContent, true, 512, JSON_THROW_ON_ERROR);
-            return $data['error']['message'] ?? $exception->getMessage();
+            return $data['error']['message'] ?? $exception->getMessage(); // @phpstan-ignore-line
         } catch (Exception $e) {
             return $exception->getMessage();
         }
