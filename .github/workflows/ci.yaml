@@ -13,3 +13,5 @@ jobs:
   call-workflow-ci-php-tests:
     name: Tests
     uses: factorio-item-browser/github-workflows/.github/workflows/ci-php-tests.yaml@v1
+    with:
+      php-versions: "8.1 8.0"

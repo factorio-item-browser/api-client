@@ -50,9 +50,9 @@ class Client implements ClientInterface
      */
     public function __construct(
         #[Alias(ServiceName::GUZZLE_CLIENT)]
-        private readonly GuzzleClientInterface $guzzleClient,
+        private GuzzleClientInterface $guzzleClient,
         #[Alias(ServiceName::SERIALIZER)]
-        private readonly SerializerInterface $serializer,
+        private SerializerInterface $serializer,
         #[InjectAliasArray(ConfigKey::MAIN, ConfigKey::ENDPOINTS)]
         array $endpoints
     ) {
