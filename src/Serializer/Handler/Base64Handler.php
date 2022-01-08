@@ -18,7 +18,6 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 class Base64Handler implements SubscribingHandlerInterface
 {
     /**
-     * Returns the methods to subscribe to.
      * @return array<mixed>
      */
     public static function getSubscribingMethods(): array
@@ -40,25 +39,17 @@ class Base64Handler implements SubscribingHandlerInterface
     }
 
     /**
-     * Serializes the data to base64.
-     * @param SerializationVisitorInterface $visitor
-     * @param string $data
      * @param array<mixed> $type
-     * @return mixed
      */
-    public function serializeBase64(SerializationVisitorInterface $visitor, string $data, array $type)
+    public function serializeBase64(SerializationVisitorInterface $visitor, string $data, array $type): mixed
     {
         return $visitor->visitString(base64_encode($data), $type);
     }
 
     /**
-     * Deserializes the base64 string.
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed $base64
      * @param array<mixed> $type
-     * @return string
      */
-    public function deserializeBase64(DeserializationVisitorInterface $visitor, $base64, array $type): string
+    public function deserializeBase64(DeserializationVisitorInterface $visitor, mixed $base64, array $type): string
     {
         return (string) base64_decode($visitor->visitString($base64, $type), true);
     }

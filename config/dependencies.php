@@ -46,8 +46,6 @@ return [
 
             // 3rd party dependencies
             IdenticalPropertyNamingStrategy::class => InvokableFactory::class,
-
-            SerializerInterface::class . ' $apiClientSerializer' => new JmsSerializerFactory(ConfigKey::MAIN, ConfigKey::SERIALIZER),
         ],
     ],
 ];

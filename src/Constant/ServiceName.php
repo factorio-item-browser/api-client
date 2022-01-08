@@ -12,6 +12,6 @@ namespace FactorioItemBrowser\Api\Client\Constant;
  */
 interface ServiceName
 {
-    public const GUZZLE_CLIENT = 'combination-api-client.guzzle-client';
-    public const SERIALIZER = 'combination-api-client.serializer';
+    public const GUZZLE_CLIENT = 'api-client.guzzle-client';
+    public const SERIALIZER = 'api-client.serializer';
 }
