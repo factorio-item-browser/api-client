@@ -25,4 +25,29 @@ class StatusResponse
      */
     #[Type('DateTimeInterface<"Y-m-d\TH:i:sP">')]
     public DateTimeInterface $importTime;
+
+    /**
+     * The number of mods available in the combination.
+     */
+    public int $numberOfMods = 0;
+
+    /**
+     * The number of items available in the combination.
+     */
+    public int $numberOfItems = 0;
+
+    /**
+     * The number of machines available in the combination.
+     */
+    public int $numberOfMachines = 0;
+
+    /**
+     * The number of recipes available in the combination.
+     */
+    public int $numberOfRecipes = 0;
+
+    /**
+     * The number of technologies available in the combination.
+     */
+    public int $numberOfTechnologies = 0;
 }
