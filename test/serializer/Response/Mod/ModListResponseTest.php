@@ -35,6 +35,7 @@ class ModListResponseTest extends SerializerTestCase
 
         $object = new ModListResponse();
         $object->mods = [$mod1, $mod2];
+        $object->totalNumberOfResults = 42;
 
         $data = [
             'mods' => [
@@ -53,6 +54,7 @@ class ModListResponseTest extends SerializerTestCase
                     'version' => '4.5.6',
                 ],
             ],
+            'totalNumberOfResults' => 42,
         ];
 
         $this->assertSerialization($data, $object);

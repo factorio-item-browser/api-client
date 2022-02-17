@@ -21,4 +21,9 @@ class ModListResponse
      */
     #[Type('array<' . Mod::class . '>')]
     public array $mods = [];
+
+    /**
+     * The total number of available results.
+     */
+    public int $totalNumberOfResults = 0;
 }
