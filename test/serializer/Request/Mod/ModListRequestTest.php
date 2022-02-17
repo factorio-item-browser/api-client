@@ -18,8 +18,12 @@ class ModListRequestTest extends SerializerTestCase
     public function test(): void
     {
         $object = new ModListRequest();
+        $object->indexOfFirstResult = 42;
+        $object->numberOfResults = 1337;
 
         $data = [
+            'indexOfFirstResult' => 42,
+            'numberOfResults' => 1337,
         ];
 
         $this->assertSerialization($data, $object);

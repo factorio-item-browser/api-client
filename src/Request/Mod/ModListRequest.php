@@ -14,4 +14,13 @@ use FactorioItemBrowser\Api\Client\Request\AbstractRequest;
  */
 class ModListRequest extends AbstractRequest
 {
+    /**
+     * The number of results to return.
+     */
+    public int $numberOfResults = 10;
+
+    /**
+     * The 0-based index of the first result to return.
+     */
+    public int $indexOfFirstResult = 0;
 }
