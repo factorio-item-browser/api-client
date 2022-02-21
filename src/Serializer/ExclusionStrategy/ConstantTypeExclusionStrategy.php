@@ -24,8 +24,6 @@ class ConstantTypeExclusionStrategy implements ExclusionStrategyInterface
     private const EXCLUDED_ENTITIES = [
         Machine::class,
         Mod::class,
-        Recipe::class,
-        RecipeWithExpensiveVersion::class,
     ];
 
     private bool $isCurrentlyExcluded = false;

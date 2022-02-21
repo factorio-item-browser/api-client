@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Response\Recipe;
 
+use FactorioItemBrowser\Api\Client\Transfer\Category;
 use FactorioItemBrowser\Api\Client\Transfer\Machine;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
@@ -18,11 +19,16 @@ class RecipeMachinesResponseTest extends SerializerTestCase
 {
     public function test(): void
     {
+        $category = new Category();
+        $category->type = 'yza';
+        $category->name = 'bcd';
+
         $machine1 = new Machine();
         $machine1->name = 'abc';
         $machine1->label = 'def';
         $machine1->description = 'ghi';
-        $machine1->craftingSpeed = 13.37;
+        $machine1->categories = [$category];
+        $machine1->speed = 13.37;
         $machine1->numberOfItemSlots = 12;
         $machine1->numberOfFluidInputSlots = 23;
         $machine1->numberOfFluidOutputSlots = 34;
@@ -34,7 +40,7 @@ class RecipeMachinesResponseTest extends SerializerTestCase
         $machine2->name = 'mno';
         $machine2->label = 'pqr';
         $machine2->description = 'stu';
-        $machine2->craftingSpeed = 73.31;
+        $machine2->speed = 73.31;
         $machine2->numberOfItemSlots = 56;
         $machine2->numberOfFluidInputSlots = 67;
         $machine2->numberOfFluidOutputSlots = 78;
@@ -52,7 +58,10 @@ class RecipeMachinesResponseTest extends SerializerTestCase
                     'name' => 'abc',
                     'label' => 'def',
                     'description' => 'ghi',
-                    'craftingSpeed' => 13.37,
+                    'categories' => [
+                        ['type' => 'yza', 'name' => 'bcd'],
+                    ],
+                    'speed' => 13.37,
                     'numberOfItemSlots' => 12,
                     'numberOfFluidInputSlots' => 23,
                     'numberOfFluidOutputSlots' => 34,
@@ -64,7 +73,8 @@ class RecipeMachinesResponseTest extends SerializerTestCase
                     'name' => 'mno',
                     'label' => 'pqr',
                     'description' => 'stu',
-                    'craftingSpeed' => 73.31,
+                    'categories' => [],
+                    'speed' => 73.31,
                     'numberOfItemSlots' => 56,
                     'numberOfFluidInputSlots' => 67,
                     'numberOfFluidOutputSlots' => 78,

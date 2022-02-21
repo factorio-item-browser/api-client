@@ -15,12 +15,15 @@ use JMS\Serializer\Annotation\Type;
  */
 class Recipe extends GenericEntity
 {
-    public string $type = EntityType::RECIPE;
-
     /**
      * The mode of the recipe.
      */
     public string $mode = '';
+
+    /**
+     * The category of the recipe.
+     */
+    public ?Category $category = null;
 
     /**
      * The ingredients of the recipe.
@@ -37,7 +40,7 @@ class Recipe extends GenericEntity
     public array $products = [];
 
     /**
-     * The crafting time of the recipe.
+     * The crafting or mining time of the recipe.
      */
-    public float $craftingTime = 0.;
+    public float $time = 0.;
 }

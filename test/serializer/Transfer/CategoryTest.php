@@ -2,32 +2,28 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowserTestSerializer\Api\Client\Request\Recipe;
+namespace FactorioItemBrowserTestSerializer\Api\Client\Transfer;
 
-use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest;
+use FactorioItemBrowser\Api\Client\Transfer\Category;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
 
 /**
- * The serializer test of the RecipeMachinesRequest class.
+ * The serializer test of the Category class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RecipeMachinesRequestTest extends SerializerTestCase
+class CategoryTest extends SerializerTestCase
 {
     public function test(): void
     {
-        $object = new RecipeMachinesRequest();
+        $object = new Category();
         $object->type = 'abc';
         $object->name = 'def';
-        $object->numberOfResults = 42;
-        $object->indexOfFirstResult = 21;
 
         $data = [
             'type' => 'abc',
             'name' => 'def',
-            'numberOfResults' => 42,
-            'indexOfFirstResult' => 21,
         ];
 
         $this->assertSerialization($data, $object);

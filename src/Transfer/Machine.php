@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Api\Client\Transfer;
 
 use FactorioItemBrowser\Common\Constant\EnergyUsageUnit;
 use FactorioItemBrowser\Common\Constant\EntityType;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The entity representing a machine crafting recipes.
@@ -18,9 +19,16 @@ class Machine extends GenericEntity
     public string $type = EntityType::MACHINE;
 
     /**
-     * The crafting speed of the machine.
+     * The crafting and resource categories supported by the machine.
+     * @var array<Category>
      */
-    public float $craftingSpeed = 0.;
+    #[Type('array<' . Category::class . '>')]
+    public array $categories = [];
+
+    /**
+     * The crafting or mining speed of the machine.
+     */
+    public float $speed = 0.;
 
     /**
      * The number of item slots available in the machine.

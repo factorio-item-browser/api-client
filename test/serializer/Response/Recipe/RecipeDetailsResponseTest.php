@@ -19,18 +19,20 @@ class RecipeDetailsResponseTest extends SerializerTestCase
     public function test(): void
     {
         $recipe1 = new RecipeWithExpensiveVersion();
+        $recipe1->type = 'yza';
         $recipe1->name = 'abc';
         $recipe1->label = 'def';
         $recipe1->description = 'ghi';
         $recipe1->mode = 'jkl';
-        $recipe1->craftingTime = 13.37;
+        $recipe1->time = 13.37;
 
         $recipe2 = new RecipeWithExpensiveVersion();
+        $recipe2->type = 'bcd';
         $recipe2->name = 'mno';
         $recipe2->label = 'pqr';
         $recipe2->description = 'stu';
         $recipe2->mode = 'vwx';
-        $recipe2->craftingTime = 4.2;
+        $recipe2->time = 4.2;
 
         $object = new RecipeDetailsResponse();
         $object->recipes = [$recipe1, $recipe2];
@@ -38,22 +40,24 @@ class RecipeDetailsResponseTest extends SerializerTestCase
         $data = [
             'recipes' => [
                 [
+                    'type' => 'yza',
                     'name' => 'abc',
                     'label' => 'def',
                     'description' => 'ghi',
                     'mode' => 'jkl',
                     'ingredients' => [],
                     'products' => [],
-                    'craftingTime' => 13.37,
+                    'time' => 13.37,
                 ],
                 [
+                    'type' => 'bcd',
                     'name' => 'mno',
                     'label' => 'pqr',
                     'description' => 'stu',
                     'mode' => 'vwx',
                     'ingredients' => [],
                     'products' => [],
-                    'craftingTime' => 4.2,
+                    'time' => 4.2,
                 ],
             ],
         ];

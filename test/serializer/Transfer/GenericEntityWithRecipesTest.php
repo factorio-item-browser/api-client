@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Transfer;
 
+use FactorioItemBrowser\Api\Client\Transfer\Category;
 use FactorioItemBrowser\Api\Client\Transfer\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Transfer\Item;
 use FactorioItemBrowser\Api\Client\Transfer\Recipe;
@@ -20,6 +21,10 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
 {
     public function test(): void
     {
+        $category = new Category();
+        $category->type = 'ihg';
+        $category->name = 'lkj';
+
         $ingredient1 = new Item();
         $ingredient1->type = 'abc';
         $ingredient1->name = 'def';
@@ -49,22 +54,26 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
         $product2->amount = 4.5;
 
         $expensiveRecipe = new Recipe();
+        $expensiveRecipe->type = 'ihg';
         $expensiveRecipe->name = 'wxy';
         $expensiveRecipe->label = 'zab';
         $expensiveRecipe->description = 'cde';
         $expensiveRecipe->mode = 'fgh';
+        $expensiveRecipe->category = $category;
         $expensiveRecipe->ingredients = [$ingredient1];
         $expensiveRecipe->products = [$product1];
-        $expensiveRecipe->craftingTime = 13.37;
+        $expensiveRecipe->time = 13.37;
 
         $recipe = new RecipeWithExpensiveVersion();
+        $recipe->type = 'lkj';
         $recipe->name = 'ijk';
         $recipe->label = 'lmn';
         $recipe->description = 'opq';
         $recipe->mode = 'rst';
+        $recipe->category = $category;
         $recipe->ingredients = [$ingredient2];
         $recipe->products = [$product2];
-        $recipe->craftingTime = 73.31;
+        $recipe->time = 73.31;
         $recipe->expensiveVersion = $expensiveRecipe;
 
         $object = new GenericEntityWithRecipes();
@@ -82,10 +91,15 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
             'description' => 'fed',
             'recipes' => [
                 [
+                    'type' => 'lkj',
                     'name' => 'ijk',
                     'label' => 'lmn',
                     'description' => 'opq',
                     'mode' => 'rst',
+                    'category' => [
+                        'type' => 'ihg',
+                        'name' => 'lkj',
+                    ],
                     'ingredients' => [
                         [
                             'type' => 'mno',
@@ -104,12 +118,17 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                             'amount' => 4.5,
                         ],
                     ],
-                    'craftingTime' => 73.31,
+                    'time' => 73.31,
                     'expensiveVersion' => [
+                        'type' => 'ihg',
                         'name' => 'wxy',
                         'label' => 'zab',
                         'description' => 'cde',
                         'mode' => 'fgh',
+                        'category' => [
+                            'type' => 'ihg',
+                            'name' => 'lkj',
+                        ],
                         'ingredients' => [
                             [
                                 'type' => 'abc',
@@ -128,7 +147,7 @@ class GenericEntityWithRecipesTest extends SerializerTestCase
                                 'amount' => 3.4,
                             ],
                         ],
-                        'craftingTime' => 13.37,
+                        'time' => 13.37,
                     ],
                 ],
             ],

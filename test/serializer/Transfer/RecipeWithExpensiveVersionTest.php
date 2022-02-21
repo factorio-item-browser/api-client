@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Transfer;
 
+use FactorioItemBrowser\Api\Client\Transfer\Category;
 use FactorioItemBrowser\Api\Client\Transfer\Item;
 use FactorioItemBrowser\Api\Client\Transfer\Recipe;
 use FactorioItemBrowser\Api\Client\Transfer\RecipeWithExpensiveVersion;
@@ -19,6 +20,10 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
 {
     public function test(): void
     {
+        $category = new Category();
+        $category->type = 'uvw';
+        $category->name = 'xyz';
+
         $ingredient1 = new Item();
         $ingredient1->type = 'abc';
         $ingredient1->name = 'def';
@@ -48,29 +53,38 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
         $product2->amount = 4.5;
 
         $expensiveRecipe = new Recipe();
+        $expensiveRecipe->type = 'uvw';
         $expensiveRecipe->name = 'wxy';
         $expensiveRecipe->label = 'zab';
         $expensiveRecipe->description = 'cde';
         $expensiveRecipe->mode = 'fgh';
+        $expensiveRecipe->category = $category;
         $expensiveRecipe->ingredients = [$ingredient1];
         $expensiveRecipe->products = [$product1];
-        $expensiveRecipe->craftingTime = 13.37;
+        $expensiveRecipe->time = 13.37;
 
         $object = new RecipeWithExpensiveVersion();
+        $object->type = 'xyz';
         $object->name = 'ijk';
         $object->label = 'lmn';
         $object->description = 'opq';
         $object->mode = 'rst';
+        $object->category = $category;
         $object->ingredients = [$ingredient2];
         $object->products = [$product2];
-        $object->craftingTime = 73.31;
+        $object->time = 73.31;
         $object->expensiveVersion = $expensiveRecipe;
 
         $data = [
+            'type' => 'xyz',
             'name' => 'ijk',
             'label' => 'lmn',
             'description' => 'opq',
             'mode' => 'rst',
+            'category' => [
+                'type' => 'uvw',
+                'name' => 'xyz',
+            ],
             'ingredients' => [
                 [
                     'type' => 'mno',
@@ -89,12 +103,17 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
                     'amount' => 4.5,
                 ],
             ],
-            'craftingTime' => 73.31,
+            'time' => 73.31,
             'expensiveVersion' => [
+                'type' => 'uvw',
                 'name' => 'wxy',
                 'label' => 'zab',
                 'description' => 'cde',
                 'mode' => 'fgh',
+                'category' => [
+                    'type' => 'uvw',
+                    'name' => 'xyz',
+                ],
                 'ingredients' => [
                     [
                         'type' => 'abc',
@@ -113,7 +132,7 @@ class RecipeWithExpensiveVersionTest extends SerializerTestCase
                         'amount' => 3.4,
                     ],
                 ],
-                'craftingTime' => 13.37,
+                'time' => 13.37,
             ],
         ];
 

@@ -39,10 +39,6 @@ class ConstantTypeExclusionStrategyTest extends TestCase
             [Item::class, 'type', false],
             [Machine::class, 'name', false],
             [Machine::class, 'type', true],
-            [Recipe::class, 'name', false],
-            [Recipe::class, 'type', true],
-            [RecipeWithExpensiveVersion::class, 'name', false],
-            [RecipeWithExpensiveVersion::class, 'type', true],
         ];
     }
 

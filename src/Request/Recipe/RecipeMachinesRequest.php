@@ -15,6 +15,12 @@ use FactorioItemBrowser\Api\Client\Request\AbstractRequest;
 class RecipeMachinesRequest extends AbstractRequest
 {
     /**
+     * The type of the recipe.
+     * @var string
+     */
+    public string $type = '';
+
+    /**
      * The name of the recipe.
      */
     public string $name = '';

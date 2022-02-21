@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowserTestSerializer\Api\Client\Transfer;
 
+use FactorioItemBrowser\Api\Client\Transfer\Category;
 use FactorioItemBrowser\Api\Client\Transfer\Item;
 use FactorioItemBrowser\Api\Client\Transfer\Recipe;
 use FactorioItemBrowserTestSerializer\Api\Client\SerializerTestCase;
@@ -18,6 +19,10 @@ class RecipeTest extends SerializerTestCase
 {
     public function test(): void
     {
+        $category = new Category();
+        $category->type = 'ijk';
+        $category->name = 'lmn';
+
         $ingredient1 = new Item();
         $ingredient1->type = 'abc';
         $ingredient1->name = 'def';
@@ -47,19 +52,26 @@ class RecipeTest extends SerializerTestCase
         $product2->amount = 4.5;
 
         $object = new Recipe();
+        $object->type = 'ijk';
         $object->name = 'wxy';
         $object->label = 'zab';
         $object->description = 'cde';
         $object->mode = 'fgh';
+        $object->category = $category;
         $object->ingredients = [$ingredient1, $ingredient2];
         $object->products = [$product1, $product2];
-        $object->craftingTime = 13.37;
+        $object->time = 13.37;
 
         $data = [
+            'type' => 'ijk',
             'name' => 'wxy',
             'label' => 'zab',
             'description' => 'cde',
             'mode' => 'fgh',
+            'category' => [
+                'type' => 'ijk',
+                'name' => 'lmn',
+            ],
             'ingredients' => [
                 [
                     'type' => 'abc',
@@ -92,7 +104,7 @@ class RecipeTest extends SerializerTestCase
                     'amount' => 4.5,
                 ],
             ],
-            'craftingTime' => 13.37,
+            'time' => 13.37,
         ];
 
         $this->assertSerialization($data, $object);
